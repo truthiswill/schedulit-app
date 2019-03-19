@@ -6,23 +6,23 @@ const {
   participation
 } = require('./controllers.js');
 
-// router
-// 	.get('/login', login)
+router
+	.get('/login', login)
+	
+	.get('/user/:id', userGet)
+	.post('/user/:id', userPost)
+	.put('/user/:id', userPut)
+	.put('/event/:id', eventPut)
 
-// 	.get('/user/:id', userGet)
-// 	.post('/user/:id', userPost)
-// 	.put('/user/:id', userPut)
-// 	.put('/event/:id', eventPut)
+	.get('/event/:id', eventGet)
+	.post('/event/:id', eventPost)
+	.put('/event/:id', eventPut)
+	.delete('/event/:id', eventDelete)
 
-// 	.get('/event/:id', eventGet)
-// 	.post('/event/:id', eventPost)
-// 	.put('/event/:id', eventPut)
-// 	.delete('/event/:id', eventDelete)
-
-// 	.get('/participation/:id', participationGet)
-// 	.post('/participation/:id', participationPost)
-// 	.put('/participation/:id', participationPut)
-// 	.delete('/participation/:id', participationDelete)
+	.get('/participation/:id', participationGet)
+	.post('/participation/:id', participationPost)
+	.put('/participation/:id', participationPut)
+	.delete('/participation/:id', participationDelete)
 	
 
 module.exports = router;
