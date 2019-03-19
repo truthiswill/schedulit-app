@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Events from './Events.jsx';
+import Create from './Create.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'default',
+      view: true,
       events: ['event1', 'event2', 'event3']
     };
+    this.changeView = this.changeView.bind(this);
   }
 
   changeView() {
@@ -15,11 +17,11 @@ class App extends Component {
   }
 
   render() {
-    let { events } = this.state;
+    let { events, view } = this.state;
     return (
       <div>
-        <button />
-        <Events events={events} />
+        <button onClick={this.changeView}>+</button>
+        <div>{view ? <Events events={events} /> : <Create />}</div>
       </div>
     );
   }

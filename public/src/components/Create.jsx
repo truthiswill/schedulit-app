@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 class Create extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: ''
-    };
+    this.state = { value: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,7 +22,7 @@ class Create extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          Name:
+          Event Name:
           <input
             type="text"
             value={this.state.value}
