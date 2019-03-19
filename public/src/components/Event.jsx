@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Event = ({ event }) => {
-  return <div>{event}</div>;
+const Event = props => {
+  return <div onClick={props.changeDetailView}>{props.event}</div>;
 };
 
 export default Event;

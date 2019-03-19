@@ -2,37 +2,63 @@ import React, { Component } from 'react';
 import Events from './Events.jsx';
 import Create from './Create.jsx';
 import Navigation from './Navigation.jsx';
+import EventDetail from './EventDetail.jsx';
+
+import styles from '../styles/App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       view: 'home',
-      events: ['event1', 'event2', 'event3']
+      currentEvent: '',
+      events: ['event 1', 'event 2', 'event 3']
     };
     this.changeHomeView = this.changeHomeView.bind(this);
     this.changeCreateView = this.changeCreateView.bind(this);
+    this.changeDetailView = this.changeDetailView.bind(this);
   }
 
   changeHomeView() {
-    console.log('Clicked home');
-    this.setState({ view: 'home' });
+    this.setState({ view: 'home' }, () => {
+      console.log('Clicked home');
+    });
   }
 
   changeCreateView() {
-    console.log('Clicked create');
-    this.setState({ view: 'create' });
+    this.setState({ view: 'create' }, () => {
+      console.log('Clicked create');
+    });
+  }
+
+  changeDetailView() {
+    this.setState({ view: this.state.currentEvent }, () => {
+      console.log('Clicked an event');
+    });
   }
 
   render() {
     let { events, view } = this.state;
+    let page;
+
+    if (view === 'home') {
+      page = (
+        <Events events={events} changeDetailView={this.changeDetailView} />
+      );
+    } else if (view === 'create') {
+      page = <Create />;
+    } else {
+      page = <EventDetail />;
+    }
+
     return (
       <div>
+        <div className={styles.title}>Schedulit</div>
         <Navigation
           changeHomeView={this.changeHomeView}
           changeCreateView={this.changeCreateView}
         />
-        <div>{view === 'home' ? <Events events={events} /> : <Create />}</div>
+        <div>{page}</div>
       </div>
     );
   }
