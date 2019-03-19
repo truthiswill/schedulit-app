@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/schedulit/schedulit-app/issues"
   },
-  "homepage": "https://github.com/schedulit/schedulit-app#readme"
+  "homepage": "https://github.com/schedulit/schedulit-app#readme",
+  "dependencies": {
+    "mongoose": "^5.4.19"
+  }
 }
