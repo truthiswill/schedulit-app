@@ -21,10 +21,12 @@
   "homepage": "https://github.com/schedulit/schedulit-app#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "css-loader": "^2.1.1",
     "express": "^4.16.4",
     "nodemon": "^1.18.10",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "style-loader": "^0.23.1"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
