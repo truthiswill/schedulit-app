@@ -5,14 +5,17 @@ module.exports = (passport) => {
     });
     passport.deserializeUser((user, done) => {
         done(null, user);
-		});
-		console.log('c1', process.env.GOOGLE_ID)
+    });
+    console.log('c1', process.env.GOOGLE_ID)
     passport.use(new GoogleStrategy({
-            clientID: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET,
-            callbackURL: '/auth/google/callback'
-        },
+        clientID: process.env.GOOGLE_ID,
+        clientSecret: process.env.GOOGLE_SECRET,
+        callbackURL: '/auth/google/callback'
+    },
         (token, refreshToken, profile, done) => {
+            console.log(profile);
+            console.log(token);
+
             return done(null, {
                 profile: profile,
                 token: token

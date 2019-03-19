@@ -16,8 +16,6 @@ const app = express();
 
 module.exports.initializeApp = async () => {
 	// await dbInitialize();
-	passportConfig(passport)
-	app.use(passport.initialize());
 	app.use(cookieSession({
 		name: 'session',
 		keys: ['thiccmilcc']
@@ -28,47 +26,25 @@ module.exports.initializeApp = async () => {
 	app.use(parser.urlencoded({
 		extended: true
 	}));
-	// if (JSON.parse(process.env.SERVE_STATIC)) {
-	//   app.use(express.static(path.resolve(__dirname, '../client/dist')));
-	// }
-	// app.use('/api', router);
-	app.get('/x', (req, res) => {
-		res.send('x');
-	})
 
-	app.get('/y', (req, res) => {
-		if (req.session.token) {
-			res.cookie('token', req.session.token);
-			res.json({
-				status: 'session cookie set'
-			});
-		} else {
-			res.cookie('token', '')
-			res.json({
-				status: 'session cookie not set'
-			});
-		}
-	});
+	passportConfig(passport)
+	app.use(passport.initialize());
+	app.use(passport.session());
 
 	function ensureAuthenticated(req, res, next) {
-		if (req.session.token) {
-			res.cookie('token', req.session.token);
-			next();
-		} else {
-			res.redirect('/auth/google')
-			
+		if (req.isAuthenticated()) {
+			return next();
 		}
-	
-		// denied. redirect to login
-	
+		res.redirect('/auth/google')
 	}
-	
-	app.get('/protected', ensureAuthenticated, function(req, res) {
+
+
+	app.get('/protected', ensureAuthenticated, function (req, res) {
 		res.send("access granted. secure stuff happens here");
 	});
 
 
-	app.get('/', (req, res) => {
+	app.get('/', ensureAuthenticated, (req, res) => {
 		if (req.session.token) {
 			res.cookie('token', req.session.token);
 			res.json({
@@ -82,7 +58,7 @@ module.exports.initializeApp = async () => {
 		}
 	});
 	app.get('/auth/google', passport.authenticate('google', {
-	    scope: ['https://www.googleapis.com/auth/userinfo.profile']
+		scope: ['https://www.googleapis.com/auth/userinfo.profile']
 	}));
 	app.get('/auth/google/callback',
 		passport.authenticate('google', {
