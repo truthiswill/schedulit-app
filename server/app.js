@@ -9,13 +9,13 @@ const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const passportConfig = require('./passportConfig');
 
-// const { dbInitialize } = require('../postgresdb/index');
+const { initializeDB } = require('../database/index');
 
 const router = require('./routes');
 const app = express();
 
 module.exports.initializeApp = async () => {
-	// await dbInitialize();
+	await initializeDB();
 	app.use(cookieSession({
 		name: 'session',
 		keys: ['thiccmilcc']
@@ -38,6 +38,7 @@ module.exports.initializeApp = async () => {
 		res.redirect('/auth/google')
 	}
 
+	app.use('/api', router);
 
 	app.get('/protected', ensureAuthenticated, function (req, res) {
 		res.send("access granted. secure stuff happens here");

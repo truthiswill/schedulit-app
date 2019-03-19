@@ -1,24 +1,25 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+const { User } = require('../database/models');
+
 module.exports = (passport) => {
     passport.serializeUser((user, done) => {
-        done(null, user);
+        done(null, user.id);
     });
-    passport.deserializeUser((user, done) => {
-        done(null, user);
+    passport.deserializeUser((id, done) => {
+        User.findOne({ id })
+            .then(user => done(null, user));
     });
-    console.log('c1', process.env.GOOGLE_ID)
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_ID,
         clientSecret: process.env.GOOGLE_SECRET,
         callbackURL: '/auth/google/callback'
     },
         (token, refreshToken, profile, done) => {
-            console.log(profile);
-            console.log(token);
-
-            return done(null, {
-                profile: profile,
-                token: token
-            });
+            User.findOneAndUpdate({ id: profile.id }, { id: profile.id, googleProfile: profile._json }, { upsert: true })
+                .then((userDocument) => {
+                    userDocument.token = token;
+                    return done(null, userDocument);
+                })
         }));
 };

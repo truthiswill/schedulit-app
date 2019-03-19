@@ -1,4 +1,5 @@
 const { mongoose } = require('./index');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 let timeSlotSchema = mongoose.Schema({
   startTime: Date,
   endTime: Date,
@@ -6,16 +7,17 @@ let timeSlotSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-  id: { type: ObjectId, unique: true },
-  firstName: String,
-  lastName: String,
-  email: { type: String, unique: true },
-  eventsCreated: [ObjectId],
-  eventsJoined: [ObjectId]
+  id: { type: String, unique: true },
+  googleProfile: {
+    type: Map,
+    of: String
+  },
+  eventsCreated: { type: [ObjectId], default: [] },
+  eventsJoined: { type: [ObjectId], default: [] }
 });
 
 let participationSchema = mongoose.Schema({
-  id: ObjectId,
+  id: { type: ObjectId, unique: true, auto: true },
   userId: ObjectId,
   eventId: ObjectId,
   timeAvailable: [timeSlotSchema],
@@ -26,18 +28,20 @@ let participationSchema = mongoose.Schema({
 });
 
 let eventSchema = mongoose.Schema({
-  id: { type: ObjectId, unique: true },
-  creatorId: ObjectId,
+  id: { type: ObjectId, unique: true, auto: true },
+  creatorId: String,
   title: String,
   description: String,
   availableSlots: [timeSlotSchema],
-  participants: [ObjectId],
+  participants: [String],
   allowedPreferences: [String]
 });
+
+
 module.exports = {
-  timeSlot: mongoose.model('TimeSlot', timeSlotSchema),
-  user: mongoose.model('User', userSchema),
-  participation: mongoose.model('Participation', participationSchema),
-  event: mongoose.model('Event', eventSchema)
+  TimeSlot: mongoose.model('TimeSlot', timeSlotSchema),
+  User: mongoose.model('User', userSchema),
+  Participation: mongoose.model('Participation', participationSchema),
+  Event: mongoose.model('Event', eventSchema)
 };
 
