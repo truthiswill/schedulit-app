@@ -3,19 +3,20 @@ import React, { Component } from 'react';
 class Create extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
-
+    this.state = {
+      event: ''
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
+  handleSubmit(e) {
+    console.log(this.state.event);
+    e.preventDefault();
   }
 
   render() {
@@ -23,11 +24,7 @@ class Create extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Event Name:
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
+          <input name="event" onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
