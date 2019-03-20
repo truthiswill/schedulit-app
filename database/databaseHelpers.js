@@ -10,6 +10,8 @@ module.exports = {
   createEvent: (event) => {
     const newEvent = new Event(event);
     return newEvent.save();
+  },
+  createParticipation: (participation) => {
+    return Participation.findOneAndUpdate({ userId: participation.userId, eventId: participation.eventId }, participation, { upsert: true });
   }
-
-}
+};

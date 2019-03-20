@@ -18,7 +18,7 @@ let userSchema = mongoose.Schema({
 
 let participationSchema = mongoose.Schema({
   id: { type: ObjectId, unique: true, auto: true },
-  userId: ObjectId,
+  userId: String,
   eventId: ObjectId,
   timeAvailable: [timeSlotSchema],
   preferences: {
@@ -33,6 +33,7 @@ let eventSchema = mongoose.Schema({
   title: String,
   description: String,
   availableSlots: [timeSlotSchema],
+  participations: [ObjectId],
   participants: [String],
   allowedPreferences: [String]
 });
