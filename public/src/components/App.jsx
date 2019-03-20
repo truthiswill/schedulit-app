@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Events from './Events.jsx';
 import Create from './Create.jsx';
 import Navigation from './Navigation.jsx';
-import EventDetail from './EventDetail.jsx';
 
 import styles from '../styles/App.css';
 
@@ -11,30 +10,18 @@ class App extends Component {
     super(props);
     this.state = {
       view: 'create',
-      currentEvent: '',
       events: ['event 1', 'event 2', 'event 3']
     };
     this.changeHomeView = this.changeHomeView.bind(this);
     this.changeCreateView = this.changeCreateView.bind(this);
-    this.changeDetailView = this.changeDetailView.bind(this);
   }
 
   changeHomeView() {
-    this.setState({ view: 'home' }, () => {
-      console.log('Clicked home');
-    });
+    this.setState({ view: 'home' });
   }
 
   changeCreateView() {
-    this.setState({ view: 'create' }, () => {
-      console.log('Clicked create');
-    });
-  }
-
-  changeDetailView() {
-    this.setState({ view: this.state.currentEvent }, () => {
-      console.log('Clicked an event');
-    });
+    this.setState({ view: 'create' });
   }
 
   render() {
@@ -42,13 +29,9 @@ class App extends Component {
     let page;
 
     if (view === 'home') {
-      page = (
-        <Events events={events} changeDetailView={this.changeDetailView} />
-      );
+      page = <Events events={events} />;
     } else if (view === 'create') {
       page = <Create />;
-    } else {
-      page = <EventDetail />;
     }
 
     return (

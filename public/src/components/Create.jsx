@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TimeSlots from './TimeSlots.jsx';
 import styles from '../styles/Create.css';
 
 class Create extends Component {
@@ -31,7 +30,6 @@ class Create extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        <TimeSlots />
       </div>
     );
   }

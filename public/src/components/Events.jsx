@@ -5,11 +5,7 @@ const Events = props => {
   return (
     <div>
       {props.events.map((event, index) => (
-        <Event
-          event={event}
-          key={index}
-          changeDetailView={props.changeDetailView}
-        />
+        <Event event={event} key={index} />
       ))}
     </div>
   );
