@@ -1,12 +1,8 @@
-const express = require('express');
-const path = require('path');
-const parser = require('body-parser');
+require('dotenv').config();
+const { app, initializeApp } = require('./app');
 
-const port = 3000;
-const app = express();
-
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public/dist')));
-
-app.listen(port, () => console.log(`Listening on http://localhost:${port}`));
+initializeApp().then(() =>
+  app.listen(process.env.PORT || 3000, () =>
+    console.log('Listening on PORT', process.env.PORT || 3000)
+  )
+);
