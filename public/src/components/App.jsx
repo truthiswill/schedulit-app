@@ -3,14 +3,14 @@ import Events from './Events.jsx';
 import Create from './Create.jsx';
 import Navigation from './Navigation.jsx';
 import EventDetail from './EventDetail.jsx';
-
+import LoginPage from './LoginPage.jsx';
 import styles from '../styles/App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'home',
+      view: 'login',
       currentEvent: '',
       events: ['event 1', 'event 2', 'event 3']
     };
@@ -24,6 +24,7 @@ class App extends Component {
       console.log('Clicked home');
     });
   }
+
 
   changeCreateView() {
     this.setState({ view: 'create' }, () => {
@@ -41,7 +42,9 @@ class App extends Component {
     let { events, view } = this.state;
     let page;
 
-    if (view === 'home') {
+    if (view === 'login') {
+      page = <LoginPage />
+    } else if (view === 'home') {
       page = (
         <Events events={events} changeDetailView={this.changeDetailView} />
       );

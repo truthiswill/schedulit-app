@@ -38,7 +38,7 @@ module.exports.initializeApp = async () => {
 		res.redirect('/auth/google')
 	}
 
-	app.use('/api', router);
+	app.use('/api', ensureAuthenticated, router);
 
 	app.get('/protected', ensureAuthenticated, function (req, res) {
 		res.send("access granted. secure stuff happens here");
@@ -70,6 +70,9 @@ module.exports.initializeApp = async () => {
 			res.redirect('/');
 		}
 	);
+	app.get('/', (req, res) => {
+		res.sendFile(path.resolve(__dirname, '../public/dist/index.html'));
+	})
 	app.use(express.static(path.resolve(__dirname, '../public/dist')))
 };
 
