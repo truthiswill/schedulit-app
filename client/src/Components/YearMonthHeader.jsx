@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import styles from '../../dist/styles/calendar.css';
+import styles from '../styles/calendar.css';
 import {format, startOfWeek, addDays, startOfMonth, endOfMonth, endOfWeek, isSameMonth, isSameDay, parse, subMonths, addMonths} from 'date-fns';
 
 const renderDays = () => {

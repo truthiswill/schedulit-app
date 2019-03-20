@@ -1,12 +1,12 @@
 import React from 'react';
 import { format, startOfWeek, addDays, startOfMonth, endOfMonth, endOfWeek, isSameMonth, isSameDay, parse, subMonths, addMonths } from 'date-fns';
-import styles from '../../dist/styles/calendar.css';
+import styles from '../styles/calendar.css';
 import classnames from 'classnames';
 import Day from './Day.jsx';
 
 import YearMonthHeader from './YearMonthHeader';
 
-class Calendar extends React.Component {
+class DayPicker extends React.Component {
   constructor(props) {
     super(props);
     this.renderDays = this.renderDays.bind(this);
@@ -22,7 +22,7 @@ class Calendar extends React.Component {
           key={date}
           date={date}
           addDayToSet={this.props.addDayToSet}
-          set={this.state.setOfDay[date]}
+          set={this.props.setOfDay[date]}
         />
       );
     }
@@ -44,4 +44,4 @@ class Calendar extends React.Component {
   };
 }
 
-export default Calendar;
+export default DayPicker;

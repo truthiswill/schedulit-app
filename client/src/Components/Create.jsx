@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../../dist/styles/create.css';
+import styles from '../styles/create.css';
 import DayPicker from './DayPicker.jsx'
 import { getDaysInMonth, getMonth, getYear } from 'date-fns';
 
@@ -16,6 +16,9 @@ class Create extends Component {
     this.state.setOfDay = this.createSetOfDay();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addDayToSet = this.addDayToSet.bind(this);
+    this.nextMonth = this.nextMonth.bind(this);
+    this.prevMonth = this.prevMonth.bind(this);
   }
 
   nextMonth() {
@@ -97,6 +100,7 @@ class Create extends Component {
           addDayToSet={this.addDayToSet}
           prevMonth={this.prevMonth}
           nextMonth={this.nextMonth}
+          setOfDay={this.state.setOfDay}
         />
       </div >
     );
