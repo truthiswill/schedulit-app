@@ -194,7 +194,7 @@ header {
   pointer-events: none;
 }
 
-.calendar .body .cell .bg {
+/* .calendar .body .cell .bg {
   font-weight: 700;
   line-height: 1;
   color: #1a8fff;
@@ -205,9 +205,9 @@ header {
   right: -.05em;
   transition: .25s ease-out;
   letter-spacing: -.07em;
-}
+} */
 
-.calendar .body .cell:hover .bg, .calendar .body .selected .bg  {
+/* .calendar .body .cell:hover .bg, .calendar .body .selected .bg  {
   opacity: 0.05;
   transition: .5s ease-in;
-}
+} */
