@@ -20,6 +20,7 @@ let participationSchema = mongoose.Schema({
   id: { type: ObjectId, unique: true, auto: true },
   userId: String,
   eventId: ObjectId,
+  unavailable: { type: Boolean, default: false },
   timeAvailable: [timeSlotSchema],
   preferences: {
     type: Map,
@@ -33,9 +34,9 @@ let eventSchema = mongoose.Schema({
   title: String,
   description: String,
   availableSlots: [timeSlotSchema],
-  participations: [ObjectId],
+  participations: { type: [ObjectId], default: [] },
   participants: [String],
-  allowedPreferences: [String]
+  allowedPreferences: { type: [String], default: [] },
 });
 
 

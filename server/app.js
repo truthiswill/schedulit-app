@@ -45,7 +45,7 @@ module.exports.initializeApp = async () => {
 	});
 
 
-	app.get('/', ensureAuthenticated, (req, res) => {
+	app.get('/ee', ensureAuthenticated, (req, res) => {
 		if (req.session.token) {
 			res.cookie('token', req.session.token);
 			res.json({
@@ -70,6 +70,7 @@ module.exports.initializeApp = async () => {
 			res.redirect('/');
 		}
 	);
+	app.use(express.static(path.resolve(__dirname, '../public/dist')))
 };
 
 module.exports.app = app;

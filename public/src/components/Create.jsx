@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      event: ''
+      //   title: '',
+      //   description: '',
+      //   availableSlots: '',
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,14 +21,21 @@ class Create extends Component {
   handleSubmit(e) {
     console.log(this.state.event);
     e.preventDefault();
+    axios.post('/api/event', this.state);
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          Event Name:
-          <input name="event" onChange={this.handleChange} />
+          Event Title:
+          <input name="title" onChange={this.handleChange} />
+          Event Description:
+          <input name="description" onChange={this.handleChange} />
+          Event Available Slots:
+          <input name="availableSlots" onChange={this.handleChange} />
+          Event Allowed Preferences:
+          <input name="allowedPreferences" onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
