@@ -1,34 +1,65 @@
 import React, { Component } from 'react';
 import Events from './Events.jsx';
 import Create from './Create.jsx';
-import { getMonth, getDate, setMonth, getDay } from 'date-fns';
+import Navigation from './Navigation.jsx';
+// import { getMonth, getDate, setMonth, getDay } from 'date-fns';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: true,
-      events: ['event1', 'event2', 'event3']
+      view: 'home',
+      events: [
+        //dummy data
+        {
+          id: 1,
+          creatorId: 1,
+          title: "Scott's BBQ",
+          description: 'Fun times',
+          availableSlots: [],
+          participations: [1, 2, 3],
+          allowedPreferences: ''
+        },
+        {
+          id: 2,
+          creatorId: 1,
+          title: 'Meet up',
+          description: 'Come Learn',
+          availableSlots: [],
+          participations: [1],
+          allowedPreferences: ''
+        }
+      ]
     };
-    this.changeView = this.changeView.bind(this);
+    this.changeHomeView = this.changeHomeView.bind(this);
+    this.changeCreateView = this.changeCreateView.bind(this);
   }
 
-  componentDidMount () {
-    let today = Date();
-    console.log (today)
-    console.log (getDate(today), 'day in the week')
+  changeHomeView() {
+    this.setState({ view: 'home' });
   }
 
-  changeView() {
-    this.setState({ view: !this.state.view });
+  changeCreateView() {
+    this.setState({ view: 'create' });
   }
 
   render() {
     let { events, view } = this.state;
+    let page;
+
+    if (view === 'home') {
+      page = <Events events={events} />;
+    } else if (view === 'create') {
+      page = <Create />;
+    }
+
     return (
       <div>
-        <button onClick={this.changeView}>+</button>
-        <div>{view ? <Events events={events} /> : <Create />}</div>
+        <Navigation
+          changeCreateView={this.changeCreateView}
+          changeHomeView={this.changeHomeView}
+        />
+        {page}
       </div>
     );
   }

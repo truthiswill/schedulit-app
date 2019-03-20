@@ -4,9 +4,9 @@ import Event from './Event.jsx';
 const Events = ({ events }) => {
   return (
     <div>
-      {events.map((event, index) => (
-        <Event event={event} key={index} />
-      ))}
+      {events.map((event, index) => {
+        return <Event event={event} key={index} />;
+      })}
     </div>
   );
 };

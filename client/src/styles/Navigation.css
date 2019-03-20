@@ -1,0 +1,21 @@
+.title {
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.home:hover {
+  cursor: pointer;
+}
+
+.create:hover {
+  cursor: pointer;
+}
+
+.title:hover {
+  cursor: pointer;
+}

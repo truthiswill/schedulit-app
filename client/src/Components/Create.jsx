@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import styles from '../../dist/styles/create.css';
-import Calendar from './Calendar.jsx'
+import Calendar from './Calendar.jsx';
 import { getDaysInMonth, getMonth, getYear } from 'date-fns';
 
 class Create extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { 
+    this.state = {
       value: '',
       // today: new Date(),
       // year: getYear(this.state.today),
       // month: getMonth(this.state.today),
-      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      months: [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,16 +50,12 @@ class Create extends Component {
     event.preventDefault();
   }
 
-  previousMonth() {
+  previousMonth() {}
 
-  }
+  nextMonth() {}
 
-  nextMonth () {
-
-  }
-
-  renderMonth (month, year) {
-    let firstDay = new Date(this.state.year, this.state.month)
+  renderMonth(month, year) {
+    let firstDay = new Date(this.state.year, this.state.month);
   }
 
   render() {
@@ -65,7 +73,7 @@ class Create extends Component {
           <input type="submit" value="Submit" />
         </form>
 
-        <Calendar currentDate={new Date()}/>
+        <Calendar currentDate={new Date()} />
       </div>
     );
   }
@@ -73,8 +81,8 @@ class Create extends Component {
 
 export default Create;
 
-
-{/* <div className={styles.calendarContainer}>
+{
+  /* <div className={styles.calendarContainer}>
           <div className={styles.calendar}>
           <h3 className={styles.calendarHeader}></h3>
           <table className={styles.calendarBorder}>
@@ -99,4 +107,5 @@ export default Create;
           </div>
           <br/>
           </div> 
-        </div> */}
+        </div> */
+}
