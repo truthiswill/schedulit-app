@@ -64,7 +64,8 @@ class Create extends Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        <Calendar/>
+
+        <Calendar currentDate={new Date()}/>
       </div>
     );
   }
