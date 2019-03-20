@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import styles from '../styles/create.css';
 import DayPicker from './DayPicker.jsx'
-import { getDaysInMonth, getMonth, getYear } from 'date-fns';
+import ChooseHours from './ChooseHours';
 
 class Create extends Component {
   constructor(props) {
@@ -11,7 +10,7 @@ class Create extends Component {
       setCounter: 1,
       currentMonth: currentDate.getMonth(),
       currentYear: currentDate.getYear(),
-
+      setTimes: {}
     };
     this.state.setOfDay = this.createSetOfDay();
     this.handleChange = this.handleChange.bind(this);
@@ -19,7 +18,15 @@ class Create extends Component {
     this.addDayToSet = this.addDayToSet.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
     this.prevMonth = this.prevMonth.bind(this);
+    this.finalizeSet = this.finalizeSet.bind(this);
   }
+
+  addTimesToSet(times) {
+    let newSetTimes = this.state.setTimes;
+    newSetTimes[setCounter] = times;
+    this.setState({ setTimes: newSetTimes })
+  }
+
 
   nextMonth() {
     if (this.state.currentMonth === 11) {
@@ -46,7 +53,7 @@ class Create extends Component {
   };
 
   finalizeSet() {
-    // choose times
+
     this.setState({ setCounter: setCounter + 1 });
   }
 
@@ -102,6 +109,12 @@ class Create extends Component {
           nextMonth={this.nextMonth}
           setOfDay={this.state.setOfDay}
         />
+        <ChooseHours
+          setCounter={this.state.setCounter}
+          setOfDay={this.state.setOfDay}
+          finalizeSet={this.finalizeSet}
+          addTimesToSet={this.addTimesToSet}
+        />
       </div >
     );
   }
@@ -109,30 +122,3 @@ class Create extends Component {
 
 export default Create;
 
-
-{/* <div className={styles.calendarContainer}>
-          <div className={styles.calendar}>
-          <h3 className={styles.calendarHeader}></h3>
-          <table className={styles.calendarBorder}>
-            <thead>
-            <tr>
-              <th>Sun</th>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
-            </tr>
-            </thead>
-            <tbody className={styles.calendarBody}>
-            </tbody>
-          </table>
-
-          <div className={styles.calendarButtons}>
-            <button className={styles.previousMonth} onClick={this.previousMonth()}>Previous</button>
-            <button className={styles.nextMonth} onClick={this.nextMonth()}>Next</button>
-          </div>
-          <br/>
-          </div> 
-        </div> */}
