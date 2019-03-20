@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'home',
+      view: 'create',
       currentEvent: '',
       events: ['event 1', 'event 2', 'event 3']
     };

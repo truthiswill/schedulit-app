@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import TimeSlots from './TimeSlots.jsx';
+import styles from '../styles/Create.css';
 
 class Create extends Component {
   constructor(props) {
@@ -21,13 +23,16 @@ class Create extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Event Name:
-          <input name="event" onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div className={styles.container}>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Event Name:
+            <input name="event" onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <TimeSlots />
+      </div>
     );
   }
 }
