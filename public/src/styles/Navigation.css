@@ -1,0 +1,13 @@
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.home:hover {
+  cursor: pointer;
+}
+
+.create:hover {
+  cursor: pointer;
+}
