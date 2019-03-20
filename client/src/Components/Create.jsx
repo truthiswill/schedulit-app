@@ -18,14 +18,18 @@ class Create extends Component {
     this.addDayToSet = this.addDayToSet.bind(this);
     this.nextMonth = this.nextMonth.bind(this);
     this.prevMonth = this.prevMonth.bind(this);
-    this.finalizeSet = this.finalizeSet.bind(this);
+    this.addTimesToSet = this.addTimesToSet.bind(this);
   }
 
   addTimesToSet(times) {
     let newSetTimes = this.state.setTimes;
-    newSetTimes[setCounter] = times;
-    this.setState({ setTimes: newSetTimes })
+    newSetTimes[this.state.setCounter] = times;
+    this.setState({
+      setTimes: newSetTimes,
+      setCounter: this.state.setCounter + 1
+    });
   }
+
 
 
   nextMonth() {
@@ -52,10 +56,6 @@ class Create extends Component {
     });
   };
 
-  finalizeSet() {
-
-    this.setState({ setCounter: setCounter + 1 });
-  }
 
   createSetOfDay() {
     let setOfDay = {};
@@ -99,22 +99,22 @@ class Create extends Component {
             Event Allowed Preferences:
         <input name="allowedPreferences" onChange={this.handleChange} />
           </label>
+          <DayPicker
+            currentYear={this.state.currentYear}
+            currentMonth={this.state.currentMonth}
+            addDayToSet={this.addDayToSet}
+            prevMonth={this.prevMonth}
+            nextMonth={this.nextMonth}
+            setOfDay={this.state.setOfDay}
+          />
+          <ChooseHours
+            setCounter={this.state.setCounter}
+            setOfDay={this.state.setOfDay}
+            finalizeSet={this.finalizeSet}
+            addTimesToSet={this.addTimesToSet}
+          />
           <input type="submit" value="Submit" />
         </form>
-        <DayPicker
-          currentYear={this.state.currentYear}
-          currentMonth={this.state.currentMonth}
-          addDayToSet={this.addDayToSet}
-          prevMonth={this.prevMonth}
-          nextMonth={this.nextMonth}
-          setOfDay={this.state.setOfDay}
-        />
-        <ChooseHours
-          setCounter={this.state.setCounter}
-          setOfDay={this.state.setOfDay}
-          finalizeSet={this.finalizeSet}
-          addTimesToSet={this.addTimesToSet}
-        />
       </div >
     );
   }

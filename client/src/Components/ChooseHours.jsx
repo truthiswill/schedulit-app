@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/day.css';
-import { tsIndexSignature } from '@babel/types';
+
 
 const INCREMENT = 0.25;
 const HOURS_IN_DAY = 24;
@@ -55,15 +55,22 @@ class ChooseHours extends React.Component {
           >
             {times.filter(time => time > this.state.startTime).map((time) => <option value={time}>{this.hoursToString(time)} </option>)}
           </select>
-          <button onClick={this.addTimesToSet}>
+          <button
+            onClick={this.addTimesToSet}
+            disabled={this.state.endTime === ''}
+          >
             Set Times
         </button>
         </div >
       );
     }
     return (<div >
+      {this.props.setCounter > 1 ?
+        'Would you like to add more dates?'
+        :
+        'Pick some dates first'
 
-      Pick some dates first
+      }
 
     </div>);
   };
