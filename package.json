@@ -36,6 +36,7 @@
     "express": "^4.16.4",
     "file-loader": "^3.0.1",
     "jest": "^24.5.0",
+    "moment": "^2.24.0",
     "nodemon": "^1.18.10",
     "react": "^16.8.4",
     "react-devtools": "^3.6.1",
