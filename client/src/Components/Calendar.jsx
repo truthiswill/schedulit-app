@@ -44,6 +44,7 @@ class Calendar extends React.Component {
     let startDate = startOfWeek(this.state.currentMonth);
 
     for (let i = 0; i < 7; i++) {
+      console.log(format(addDays(startDate, i), dateFormat), 'format')
       days.push (
         <div className={classnames(styles.col, styles.colCenter)} key={i}>
           {format(addDays(startDate, i), dateFormat)}
@@ -76,8 +77,7 @@ class Calendar extends React.Component {
           // className={`col cell ${!isSameMonth(day, monthStart) ? "disabled" : isSameDay(day, selectedDate) ? "selected" : ""}`}
             key={day}
             onClick={() => this.onDateClick(parse(cloneDay))}>
-            <span className={styles.number}>{formattedDate}</span>
-            <span className={styles.bg}>{formattedDate}</span>
+            <span className={classnames(styles.number, styles.bg)}>{formattedDate}</span>
           </div>
         );
         day = addDays(day, 1);
