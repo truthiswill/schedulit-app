@@ -37,11 +37,9 @@ let eventSchema = mongoose.Schema({
   allowedPreferences: [String]
 });
 
-
 module.exports = {
   TimeSlot: mongoose.model('TimeSlot', timeSlotSchema),
   User: mongoose.model('User', userSchema),
   Participation: mongoose.model('Participation', participationSchema),
   Event: mongoose.model('Event', eventSchema)
 };
-
