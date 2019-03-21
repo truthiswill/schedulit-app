@@ -119,6 +119,12 @@ header {
   border-bottom: 1px solid #eee;
 }
 
+.calendarGridContainer {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  background-color: lightblue;
+}
+
 .calendar .header .icon {
   cursor: pointer;
   transition: .15s ease-out;
@@ -211,3 +217,21 @@ header {
   opacity: 0.05;
   transition: .5s ease-in;
 } */
+
+.set0{
+  background-color: green;
+}
+
+.set1{
+  background-color: blue;
+}
+
+.set2{
+  background-color: yellow;
+}
+
+.number {
+  padding: 10px;
+  font-size: 20px;
+  text-align: right;
+}
