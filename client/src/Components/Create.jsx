@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DayPicker from './DayPicker.jsx'
 import ChooseHours from './ChooseHours';
+import axios from 'axios';
+
 
 class Create extends Component {
   constructor(props) {
@@ -81,9 +83,27 @@ class Create extends Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state.event);
     e.preventDefault();
-    axios.post('/api/event', this.state);
+    let newEvent = {};
+    newEvent.title = this.state.title;
+    newEvent.description = this.state.description;
+    newEvent.participants = [];
+    // newEvent.allowedPreferences = this.state.allowedPreferences;
+    newEvent.allowedPreferences = ['activity', 'food'];
+    newEvent.availableSlots = [];
+    for (let day in this.state.setOfDay) {
+      let set = this.state.setOfDay[day];
+      if (set) {
+        let startAndEndHours = this.state.setTimes[set];
+        let timeSlot = {
+          startTime: new Date(startAndEndHours.startTime * 60 * 60 * 1000 + new Date(day).getTime()),
+          endTime: new Date(startAndEndHours.endTime * 60 * 60 * 1000 + new Date(day).getTime()),
+
+        }
+        newEvent.availableSlots.push(timeSlot)
+      }
+    }
+    axios.post('/api/event', newEvent);
   }
   render() {
     return (
@@ -94,10 +114,9 @@ class Create extends Component {
         <input name="title" onChange={this.handleChange} />
             Event Description:
         <input name="description" onChange={this.handleChange} />
-            Event Available Slots:
-        <input name="availableSlots" onChange={this.handleChange} />
-            Event Allowed Preferences:
-        <input name="allowedPreferences" onChange={this.handleChange} />
+
+            {/* Event Allowed Preferences:
+        <input name="allowedPreferences" onChange={this.handleChange} /> */}
           </label>
           <DayPicker
             currentYear={this.state.currentYear}

@@ -17,10 +17,7 @@ router
 	// .put('/event/:id', eventPut)
 
 	.get('/event/:id', eventGet)
-	.post('/event', (req, res, next) => {
-		req.user = { id: 104468279569069889474 };
-		next();
-	}, eventPost)
+	.post('/event', eventPost)
 // .put('/event/:id', eventPut)
 // .delete('/event/:id', eventDelete)
 
