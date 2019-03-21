@@ -10,7 +10,7 @@ class Create extends Component {
     this.state = {
       setCounter: 1,
       currentMonth: currentDate.getMonth(),
-      currentYear: currentDate.getYear(),
+      currentYear: currentDate.getFullYear(),
 
     };
     this.state.setOfDay = this.createSetOfDay();
