@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Event = ({ event }) => {
+const Event = ({ event, changeDetailView }) => {
   return (
     <div>
-      <div>{event.title}</div>
+      <div onClick={() => changeDetailView(event.id)}>{event.title}</div>
       <div>{event.participations.length} people attending</div>
     </div>
   );

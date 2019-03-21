@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/day.css';
 
 class Day extends React.Component {
   constructor(props) {
@@ -6,7 +7,10 @@ class Day extends React.Component {
   }
   render() {
     return (
-      <div onClick={() => this.onDateClick(parse(cloneDay))}>
+      <div
+        onClick={() => this.props.addDayToSet(this.props.date)}
+        className={styles['set' + this.props.set]}
+      >
         <span className={styles.number}>{this.props.date.getDate()}</span>
       </div>
     );

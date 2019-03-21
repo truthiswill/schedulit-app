@@ -1,111 +1,136 @@
-import React, { Component } from 'react';
-import Calendar from './Calendar.jsx';
-import { getDaysInMonth, getMonth, getYear } from 'date-fns';
+// import React, { Component } from 'react';
 
-class Create extends Component {
-  constructor(props) {
-    super(props);
+// import DayPicker from './DayPicker.jsx';
+// import { getDaysInMonth, getMonth, getYear } from 'date-fns';
+// import styles from '../styles/create.css';
 
-    this.state = {
-      value: '',
-      // today: new Date(),
-      // year: getYear(this.state.today),
-      // month: getMonth(this.state.today),
-      months: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ]
-    };
+// class Create extends Component {
+//   constructor(props) {
+//     super(props);
+//     let currentDate = new Date();
+//     this.state = {
+//       setCounter: 1,
+//       currentMonth: currentDate.getMonth(),
+//       currentYear: currentDate.getYear()
+//     };
+//     this.state.setOfDay = this.createSetOfDay();
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSubmit = this.handleSubmit.bind(this);
+//   }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.previousMonth = this.previousMonth.bind(this);
-    this.nextMonth = this.nextMonth.bind(this);
-    this.renderMonth = this.renderMonth(this);
-  }
+//   nextMonth() {
+//     if (this.state.currentMonth === 11) {
+//       this.setState({
+//         currentYear: this.state.currentYear + 1
+//       });
+//     }
 
-  // componentDidMount() {
-  //   console.log (this.state.today)
-  //   console.log (getDaysInMonth(this.state.today), 'days this month');
-  //   console.log (this.state.months[getMonth(this.state.today)], 'this month');
-  //   console.log (getYear(this.state.today), 'year')
-  // }
+//     this.setState({
+//       currentMonth: (this.state.currentMonth + 1) % 12
+//     });
+//   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
+//   prevMonth() {
+//     if (this.state.currentMonth === 0) {
+//       this.setState({
+//         currentYear: this.state.currentYear - 1
+//       });
+//     }
+//     this.setState({
+//       currentMonth: (this.state.currentMonth + 11) % 12
+//     });
+//   }
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
+//   finalizeSet() {
+//     // choose times
+//     this.setState({ setCounter: setCounter + 1 });
+//   }
 
-  previousMonth() {}
+//   createSetOfDay() {
+//     let setOfDay = {};
+//     let { currentYear, currentMonth } = this.state;
+//     let daysInCurrentMonth = new Date(
+//       currentYear,
+//       currentMonth + 1,
+//       0
+//     ).getDate();
+//     for (let i = 1; i <= daysInCurrentMonth; i++) {
+//       let date = new Date(currentYear, currentMonth, i);
+//       setOfDay[date] = 0;
+//     }
+//     return setOfDay;
+//   }
 
-  nextMonth() {}
+//   addDayToSet(date) {
+//     let newSetOfDay = this.state.setOfDay;
+//     newSetOfDay[date] = this.state.setCounter;
+//     this.setState({ setOfDay: newSetOfDay });
+//   }
 
-  renderMonth(month, year) {
-    let firstDay = new Date(this.state.year, this.state.month);
-  }
+//   handleChange(e) {
+//     this.setState({ [e.target.name]: e.target.value });
+//   }
 
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Event Name:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
+//   handleSubmit(e) {
+//     console.log(this.state.event);
+//     e.preventDefault();
+//     axios.post('/api/event', this.state);
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <form onSubmit={this.handleSubmit}>
+//           <label>
+//             Event Title:
+//             <input name="title" onChange={this.handleChange} />
+//             Event Description:
+//             <input name="description" onChange={this.handleChange} />
+//             Event Available Slots:
+//             <input name="availableSlots" onChange={this.handleChange} />
+//             Event Allowed Preferences:
+//             <input name="allowedPreferences" onChange={this.handleChange} />
+//           </label>
+//           <input type="submit" value="Submit" />
+//         </form>
+//         <DayPicker
+//           currentYear={this.state.currentYear}
+//           currentMonth={this.state.currentMonth}
+//           addDayToSet={this.addDayToSet}
+//           prevMonth={this.prevMonth}
+//           nextMonth={this.nextMonth}
+//         />
+//       </div>
+//     );
+//   }
+// }
 
-        <Calendar currentDate={new Date()} />
-      </div>
-    );
-  }
-}
+// export default Create;
 
-export default Create;
+// {
+//   /* <div className={styles.calendarContainer}>
+//           <div className={styles.calendar}>
+//           <h3 className={styles.calendarHeader}></h3>
+//           <table className={styles.calendarBorder}>
+//             <thead>
+//             <tr>
+//               <th>Sun</th>
+//               <th>Mon</th>
+//               <th>Tue</th>
+//               <th>Wed</th>
+//               <th>Thu</th>
+//               <th>Fri</th>
+//               <th>Sat</th>
+//             </tr>
+//             </thead>
+//             <tbody className={styles.calendarBody}>
+//             </tbody>
+//           </table>
 
-{
-  /* <div className={styles.calendarContainer}>
-          <div className={styles.calendar}>
-          <h3 className={styles.calendarHeader}></h3>
-          <table className={styles.calendarBorder}>
-            <thead>
-            <tr>
-              <th>Sun</th>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
-            </tr>
-            </thead>
-            <tbody className={styles.calendarBody}>
-            </tbody>
-          </table>
-
-          <div className={styles.calendarButtons}>
-            <button className={styles.previousMonth} onClick={this.previousMonth()}>Previous</button>
-            <button className={styles.nextMonth} onClick={this.nextMonth()}>Next</button>
-          </div>
-          <br/>
-          </div> 
-        </div> */
-}
+//           <div className={styles.calendarButtons}>
+//             <button className={styles.previousMonth} onClick={this.previousMonth()}>Previous</button>
+//             <button className={styles.nextMonth} onClick={this.nextMonth()}>Next</button>
+//           </div>
+//           <br/>
+//           </div>
+//         </div> */
+// }

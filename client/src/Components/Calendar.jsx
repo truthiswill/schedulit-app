@@ -12,10 +12,12 @@ import {
   subMonths,
   addMonths
 } from 'date-fns';
+
 import classnames from 'classnames';
 import Day from './Day.jsx';
-
 import CalendarHeader from './CalendarHeader';
+
+import styles from '../styles/calendar.css';
 
 class Calendar extends React.Component {
   constructor(props) {
