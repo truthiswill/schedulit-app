@@ -1,4 +1,4 @@
-const { createEvent, fetchEvent } = require('../database/databaseHelpers');
+const { createEvent, fetchEvent, fetchUser } = require('../database/databaseHelpers');
 
 const isValidEvent = (event) => {
   if (typeof event.creatorId !== 'string'
@@ -20,10 +20,13 @@ module.exports = {
   // login: (req, res) => {
   //   res.status(200).send("hi");
   // },
-  // userGet: (req, res) => {
-  //   let userID = Number(req.params.id);
-  //   res.status(200).send("hi2");
-  // },
+  userGet: (req, res) => {
+    let userId = req.params.id;
+    fetchUser(userId)
+      .then((user) => {
+        res.status(200).json(user);
+      })
+  },
   // userPost: (req, res) => {
   //   let userID = Number(req.params.id);
   //   res.status(200).send("hi2");

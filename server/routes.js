@@ -6,13 +6,14 @@ const {
 	participation,
 	eventPost,
 	eventGet,
+	userGet,
 	joinGet
 } = require('./controllers.js');
 
 router
 	// .get('/login', login)
 
-	// .get('/user/:id', userGet)
+	.get('/user/:id', userGet)
 	// .post('/user/:id', userPost)
 	// .put('/user/:id', userPut)
 	// .put('/event/:id', eventPut)
