@@ -18,11 +18,11 @@ class DayPicker extends React.Component {
     let daysInLastMonth = (new Date(currentYear, currentMonth, 0)).getDate();
     let daysInCurrentMonth = (new Date(currentYear, currentMonth + 1, 0)).getDate();
     let findDay = new Date(currentYear, currentMonth, 1).getDay() - 1
+    let findLastDay = new Date (currentYear, currentMonth + 1, 0).getDay()
     
     for (let o = daysInLastMonth - findDay; o <= daysInLastMonth; o++) {
       if (currentMonth === 0) {
         let date = new Date (currentYear - 1, 11, o)
-        console.log(date, 'date')
         dayComponents.push(
           <Day
           key={date}
@@ -33,7 +33,6 @@ class DayPicker extends React.Component {
         );
       }else {
         let date = new Date(currentYear, currentMonth - 1, o)
-        console.log (date, 'date')
         dayComponents.push(
           <Day
           key={date}
@@ -56,6 +55,22 @@ class DayPicker extends React.Component {
         />
       );
     }
+
+    if (findLastDay < 6) {
+      for (let n = 1; n <= (6 - findLastDay); n++) {
+        let date = new Date(currentYear, currentMonth + 1, n);
+        console.log (date, 'date at end')
+        dayComponents.push(
+          <Day
+          key={date}
+          date={date}
+          addDayToSet={this.props.addDayToSet}
+          set={this.props.setOfDay[date]}
+        />
+        );
+      }
+    }
+
     return dayComponents;
   };
 
