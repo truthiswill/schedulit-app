@@ -16,14 +16,10 @@ class TimeSlot extends React.Component {
 
   initializeSlotStatus() {
     let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
-    console.log(numberOfSlots);
     let slotStatus = {}; //keys are timestamps; val is true/false for selectable, null for unselectable
-
     let stub = new Date(this.props.timeSlot.startTime.getFullYear(), this.props.timeSlot.startTime.getMonth(), this.props.timeSlot.startTime.getDate()).getTime();
-
     for (let i = 0; i < numberOfSlots; i++) {
       let currentTimeStamp = new Date(stub + (this.props.earliestMinutesInDay + (i * 15)) * 60 * 1000);
-      console.log(currentTimeStamp)
       if (currentTimeStamp >= this.props.timeSlot.startTime && currentTimeStamp <= this.props.timeSlot.endTime) {
         slotStatus[currentTimeStamp] = false;
       } else {
@@ -90,7 +86,7 @@ class TimeSlot extends React.Component {
         {individualSlots}
       </div >
     );
-  };
+  }
 }
 
 export default TimeSlot;

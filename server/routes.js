@@ -27,5 +27,4 @@ router
 // .put('/participation/:id', participationPut)
 // .delete('/participation/:id', participationDelete)
 
-
 module.exports = router;

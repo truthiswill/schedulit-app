@@ -5,8 +5,6 @@ import Day from './Day.jsx';
 
 import YearMonthHeader from './YearMonthHeader';
 
-
-
 class DayPicker extends React.Component {
   constructor(props) {
     super(props);
@@ -60,7 +58,7 @@ class DayPicker extends React.Component {
     }
 
     return dayComponents;
-  };
+  }
 
   render() {
     return (
@@ -76,7 +74,7 @@ class DayPicker extends React.Component {
         </div>
       </div>
     );
-  };
+  }
 }
 
 export default DayPicker;

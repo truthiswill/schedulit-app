@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from '../styles/calendar.css';
 
-
 class Day extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
   render() {
     return (
@@ -15,7 +14,7 @@ class Day extends React.Component {
         <span className={styles.number}>{this.props.date.getDate()}</span>
       </div>
     );
-  };
+  }
 }
 
 export default Day;

@@ -8,14 +8,14 @@ class JoinEvent extends React.Component {
     super(props);
     this.state = {
       timeAvailable: []
-    }
+    };
     this.addToTimeAvailable = this.addToTimeAvailable.bind(this);
   }
 
   addToTimeAvailable(timeSlot) {
     this.setState({
       timeAvailable: this.state.timeAvailable.concat(timeSlot)
-    })
+    });
   }
 
   render() {
@@ -34,16 +34,18 @@ class JoinEvent extends React.Component {
     return (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {this.props.eventData.availableSlots.map(timeSlot => {
-          return <TimeSlot
-            earliestMinutesInDay={earliestMinutesInDay}
-            latestMinutesInDay={latestMinutesInDay}
-            timeSlot={timeSlot}
-            addToTimeAvailable={this.addToTimeAvailable}
-          />
+          return (
+            <TimeSlot
+              earliestMinutesInDay={earliestMinutesInDay}
+              latestMinutesInDay={latestMinutesInDay}
+              timeSlot={timeSlot}
+              addToTimeAvailable={this.addToTimeAvailable}
+            />
+          );
         })}
       </div>
     );
-  };
+  }
 }
 
 export default JoinEvent;
