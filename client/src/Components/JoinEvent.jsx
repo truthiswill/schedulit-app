@@ -2,12 +2,22 @@ import React from 'react';
 import styles from '../styles/day.css';
 
 import TimeSlot from './TimeSlot';
-import { DH_UNABLE_TO_CHECK_GENERATOR } from 'constants';
 
 class JoinEvent extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      timeAvailable: []
+    }
+    this.addToTimeAvailable = this.addToTimeAvailable.bind(this);
   }
+
+  addToTimeAvailable(timeSlot) {
+    this.setState({
+      timeAvailable: this.state.timeAvailable.concat(timeSlot)
+    })
+  }
+
   render() {
     let slots = this.props.eventData.availableSlots;
     let earliestMinutesInDay = 24 * 60;
@@ -28,6 +38,7 @@ class JoinEvent extends React.Component {
             earliestMinutesInDay={earliestMinutesInDay}
             latestMinutesInDay={latestMinutesInDay}
             timeSlot={timeSlot}
+            addToTimeAvailable={this.addToTimeAvailable}
           />
         })}
       </div>
