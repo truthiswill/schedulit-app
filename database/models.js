@@ -17,14 +17,14 @@ let userSchema = mongoose.Schema({
 });
 
 let participationSchema = mongoose.Schema({
-  id: { type: ObjectId, unique: true, auto: true },
   userId: String,
   eventId: ObjectId,
   unavailable: { type: Boolean, default: false },
-  timeAvailable: [timeSlotSchema],
+  timeAvailable: { type: [timeSlotSchema], default: [] },
   preferences: {
     type: Map,
-    of: String
+    of: String,
+    default: {}
   }
 });
 

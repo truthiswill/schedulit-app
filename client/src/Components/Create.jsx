@@ -95,7 +95,7 @@ class Create extends Component {
         let timeSlot = {
           startTime: new Date(
             startAndEndHours.startTime * 60 * 60 * 1000 +
-              new Date(day).getTime()
+            new Date(day).getTime()
           ),
           endTime: new Date(
             startAndEndHours.endTime * 60 * 60 * 1000 + new Date(day).getTime()
@@ -113,8 +113,7 @@ class Create extends Component {
     if (this.state.eventId) {
       return (
         <div>
-          This is your link: http://localhost:3000/api/event/
-          {this.state.eventId}
+          This is your link: <a href={'/join/' + this.state.eventId}>http://localhost:3000/join/{this.state.eventId} </a>
         </div>
       );
     }

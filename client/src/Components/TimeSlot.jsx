@@ -42,7 +42,7 @@ class TimeSlot extends React.Component {
 
   goToHere(slotStartTime) {
     let newTimeSlot = {};
-    newTimeSlot.startTime = slotStartTime
+    newTimeSlot.startTime = new Date(slotStartTime);
     newTimeSlot.endTime = new Date(new Date(slotStartTime).getTime() + (15 * 60 * 1000));
     newTimeSlot.preferenceLevel = 1;
     this.props.addToTimeAvailable(newTimeSlot);
