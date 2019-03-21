@@ -1,65 +1,93 @@
 import React from 'react';
-import styles from '../styles/day.css';
-
+import IndividualSlot from './IndividualSlot'
 
 class TimeSlot extends React.Component {
   constructor(props) {
     super(props);
-    let currStart = this.props.timeSlot.startTime;
-
-    console.log('cs', currStart);
-    console.log('cs -y', currStart.getFullYear());
-    console.log('cs-m', currStart.getMonth());
-    console.log('cs-d', currStart.getDate());
-    console.log('stub', new Date(currStart.getFullYear(), currStart.getMonth(), currStart.getDate()));
     this.state = {
-      stub: new Date(currStart.getFullYear(), currStart.getMonth(), currStart.getDate()).getTime(),
-      startTime: null
+      startTime: null,
+      mouseDown: false,
+      slotStatus: this.initializeSlotStatus()
     }
     this.startFromHere = this.startFromHere.bind(this);
     this.goToHere = this.goToHere.bind(this);
+    this.includeHere = this.includeHere.bind(this);
   }
-  startFromHere(currMinutes) {
+
+  initializeSlotStatus() {
+    let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
+    console.log(numberOfSlots);
+    let slotStatus = {}; //keys are timestamps; val is true/false for selectable, null for unselectable
+
+    let stub = new Date(this.props.timeSlot.startTime.getFullYear(), this.props.timeSlot.startTime.getMonth(), this.props.timeSlot.startTime.getDate()).getTime();
+
+    for (let i = 0; i < numberOfSlots; i++) {
+      let currentTimeStamp = new Date(stub + (this.props.earliestMinutesInDay + (i * 15)) * 60 * 1000);
+      console.log(currentTimeStamp)
+      if (currentTimeStamp >= this.props.timeSlot.startTime && currentTimeStamp <= this.props.timeSlot.endTime) {
+        slotStatus[currentTimeStamp] = false;
+      } else {
+        slotStatus[currentTimeStamp] = null;
+      }
+
+    }
+    return slotStatus;
+
+  }
+
+  startFromHere(slotStartTime) {
+    this.state.slotStatus[slotStartTime] = true
     this.setState({
-      startTime: currMinutes
+      startTime: slotStartTime,
+      mouseDown: true,
+      slotStatus: this.state.slotStatus
     });
   }
 
-  goToHere(currMinutes) {
+  goToHere(slotStartTime) {
     let newTimeSlot = {};
-    console.log('state startTime', this.state.startTime);
-    newTimeSlot.startTime = new Date(this.state.stub + this.state.startTime * 60 * 1000);
-    newTimeSlot.endTime = new Date(this.state.stub + (currMinutes + 15) * 60 * 1000);
+    newTimeSlot.startTime = slotStartTime
+    newTimeSlot.endTime = new Date(new Date(slotStartTime).getTime() + (15 * 60 * 1000));
     newTimeSlot.preferenceLevel = 1;
-    console.log('newTimeSlot', newTimeSlot);
-
     this.props.addToTimeAvailable(newTimeSlot);
+    this.setState({ mouseDown: false });
+  }
+
+  includeHere(slotStartTime) {
+    if (this.state.mouseDown) {
+      for (let timestamp in this.state.slotStatus) {
+        //in case of skipped elements when drag is fast
+        if (new Date(timestamp) < new Date(slotStartTime)
+          && new Date(timestamp) > new Date(this.state.startTime)) {
+          this.state.slotStatus[timestamp] = true;
+        }
+      }
+      this.state.slotStatus[slotStartTime] = true
+      this.setState({ slotStatus: this.state.slotStatus });
+    }
   }
 
 
   render() {
-
-    // let currentInterval = this.props.timeSlot.endTime - this.props.timeSlot.startTime;
-    let maxInterval = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
-    let blocks = [];
-    let todayStart = this.props.timeSlot.startTime.getHours() * 60 + this.props.timeSlot.startTime.getMinutes();
-    let todayEnd = this.props.timeSlot.endTime.getHours() * 60 + this.props.timeSlot.endTime.getMinutes();
-    for (let i = 0; i < maxInterval; i++) {
-      let currMinutes = this.props.earliestMinutesInDay + (i * 15);
-      if (currMinutes >= todayStart && currMinutes <= todayEnd) {
-        blocks.push(<div
-          onMouseDown={() => this.startFromHere(currMinutes)}
-          onMouseUp={() => this.goToHere(currMinutes)}
-
-          style={{ backgroundColor: 'grey' }}>{'Selectable'}</div>)
-      } else {
-        blocks.push(<div>{'Not Selectable'}</div>)
-      }
+    let individualSlots = [];
+    console.log(this.state.slotStatus)
+    for (let timeStamp in this.state.slotStatus) {
+      individualSlots.push(<IndividualSlot
+        selected={this.state.slotStatus[timeStamp]}
+        slotStartTime={timeStamp}
+        startFromHere={this.startFromHere}
+        goToHere={this.goToHere}
+        includeHere={this.includeHere}
+      />)
     }
+
+
+
+
     return (
       <div>
         {this.props.timeSlot.startTime.getDate()}
-        {blocks}
+        {individualSlots}
       </div >
     );
   };

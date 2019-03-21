@@ -1,0 +1,18 @@
+.selected{
+  width: 5em;
+  height: 1em;
+  background-color: chartreuse;
+}
+.unselectable{
+  width: 5em;
+  height: 1em;
+  background-color: grey;
+}
+.selectable{
+  /* background-color: blue; */
+  border-width: 3px;
+  border-style: solid;
+  border-color: orange;
+  width: 5em;
+  height: 1em;
+}
