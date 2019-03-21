@@ -16,6 +16,7 @@ const app = express();
 
 module.exports.initializeApp = async () => {
   await initializeDB();
+  app.disable('etag');
   app.use(
     cookieSession({
       name: 'session',
@@ -40,7 +41,7 @@ module.exports.initializeApp = async () => {
 
   app.use('/api', ensureAuthenticated, router);
 
-  app.get('/protected', ensureAuthenticated, function(req, res) {
+  app.get('/protected', ensureAuthenticated, function (req, res) {
     res.send('access granted. secure stuff happens here');
   });
 

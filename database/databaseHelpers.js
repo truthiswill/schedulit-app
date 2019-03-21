@@ -17,7 +17,10 @@ module.exports = {
           });
       });
   },
-  createParticipation: (participation) => {
-    return Participation.findOneAndUpdate({ userId: participation.userId, eventId: participation.eventId }, participation, { upsert: true });
+  updateParticipation: (userId, eventId, participation) => {
+    return Participation.findOneAndUpdate({ userId, eventId }, participation, { upsert: true });
+  },
+  createParticipation: (userId, eventId) => {
+    return Participation.findOneAndUpdate({ userId: userId, eventId: eventId }, { userId: userId, eventId: eventId }, { upsert: true }).catch((e) => console.log(e));
   }
 };

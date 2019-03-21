@@ -16,7 +16,6 @@ class IndividualSlot extends React.Component {
         className={`${this.props.selected ? styles.selected : ''} ${this.props.selected === null ? styles.unselectable : styles.selectable}`} >
       </ div>
     )
-
   }
 }
 export default IndividualSlot;

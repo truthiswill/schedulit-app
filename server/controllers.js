@@ -1,4 +1,4 @@
-const { createEvent, fetchEvent, fetchUser } = require('../database/databaseHelpers');
+const { createEvent, fetchEvent, fetchUser, createParticipation, updateParticipation } = require('../database/databaseHelpers');
 
 const isValidEvent = (event) => {
   if (typeof event.creatorId !== 'string'
@@ -25,7 +25,7 @@ module.exports = {
     fetchUser(userId)
       .then((user) => {
         res.status(200).json(user);
-      })
+      }).catch(() => res.status(404).end());
   },
   // userPost: (req, res) => {
   //   let userID = Number(req.params.id);
@@ -41,15 +41,18 @@ module.exports = {
   // },
   joinGet: (req, res) => {
     let eventId = req.params.id;
-    res.cookie("eventId", eventId);
-    res.redirect('/');
+    let userId = req.user.id;
+    createParticipation(userId, eventId).then(() => {
+      res.cookie("eventId", eventId);
+      res.redirect('/');
+    }).catch(() => res.status(404).end());
   },
   eventGet: (req, res) => {
-    let eventID = req.params.id;
-    fetchEvent(eventID)
+    let eventId = req.params.id;
+    fetchEvent(eventId)
       .then((event) => {
         res.status(200).json(event);
-      })
+      }).catch(() => res.status(404).end());
   },
   eventPost: (req, res) => {
     let newEvent = req.body;
@@ -64,21 +67,26 @@ module.exports = {
       })
   },
   // eventPut: (req, res) => {
-  //   let eventID = Number(req.params.id);
+  //   let eventId = Number(req.params.id);
   //   res.status(200).send("hi3");
   // },
   // eventDelete: (req, res) => {
-  //   let eventID = Number(req.params.id);
+  //   let eventId = Number(req.params.id);
   //   res.status(200).send("hi3");
   // },
   // participationGet: (req, res) => {
   //   let participationID = Number(req.params.id);
   //   res.status(200).send("hi4");
   // },
-  // participationPost: (req, res) => {
-  //   let participationID = Number(req.params.id);
-  //   res.status(200).send("hi4");
-  // },
+  participationPut: (req, res) => {
+    let eventId = req.params.eventId;
+    let userId = req.user.id;
+    let participation = req.body;
+    updateParticipation(userId, eventId, participation)
+      .then(() => {
+        res.status(201).send("participation successfully recorded");
+      }).catch(() => res.status(404).end());
+  }
   // participationPut: (req, res) => {
   //   let participationID = Number(req.params.id);
   //   res.status(200).send("hi4");

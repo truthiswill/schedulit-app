@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Events from './Events.jsx';
 import Create from './Create.jsx';
 import Navigation from './Navigation.jsx';
-import { getMonth, getDate, setMonth, getDay } from 'date-fns';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import JoinEvent from './JoinEvent';
@@ -20,7 +19,6 @@ class App extends Component {
 
     this.homeView = this.homeView.bind(this);
     this.createView = this.createView.bind(this);
-    // let eventId = document.cookie.slice(document.cookie.indexOf('eventId=');
   }
 
   joinEventIfExists(eventId) {
@@ -29,8 +27,6 @@ class App extends Component {
         .get('/api/event/' + eventId)
         .then(({ data }) => {
           Cookies.remove('eventId');
-          console.log(Cookies.get('eventId'));
-          console.log(data);
           data.availableSlots = data.availableSlots.map(timeSlot => {
             return {
               startTime: new Date(timeSlot.startTime),
@@ -40,14 +36,8 @@ class App extends Component {
           });
           this.setState({ eventData: data });
         })
-        .catch(() => console.log('i guess it was an error'));
+        .catch(() => console.log('event does not exist'));
     }
-  }
-
-  componentDidMount() {
-    let today = Date();
-    console.log(today);
-    console.log(getDate(today), 'day in the week');
   }
 
   homeView() {
@@ -81,3 +71,6 @@ class App extends Component {
 }
 
 export default App;
+
+
+
