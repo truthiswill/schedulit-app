@@ -5,8 +5,6 @@ import Day from './Day.jsx';
 
 import YearMonthHeader from './YearMonthHeader';
 
-
-
 class DayPicker extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +13,11 @@ class DayPicker extends React.Component {
   renderDays() {
     let dayComponents = [];
     let { currentYear, currentMonth } = this.props;
-    let daysInCurrentMonth = (new Date(currentYear, currentMonth + 1, 0)).getDate();
+    let daysInCurrentMonth = new Date(
+      currentYear,
+      currentMonth + 1,
+      0
+    ).getDate();
     for (let i = 1; i <= daysInCurrentMonth; i++) {
       let date = new Date(currentYear, currentMonth, i);
       dayComponents.push(
@@ -28,7 +30,7 @@ class DayPicker extends React.Component {
       );
     }
     return dayComponents;
-  };
+  }
 
   render() {
     return (
@@ -42,7 +44,7 @@ class DayPicker extends React.Component {
         {this.renderDays()}
       </div>
     );
-  };
+  }
 }
 
 export default DayPicker;
