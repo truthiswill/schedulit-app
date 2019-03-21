@@ -14,19 +14,25 @@ class App extends Component {
       view: true,
       events: ['event1', 'event2', 'event3']
     };
-    this.joinEventIfExists();
+    let eventId = Cookies.get('eventId');
+    this.joinEventIfExists(eventId);
     this.changeView = this.changeView.bind(this);
     // let eventId = document.cookie.slice(document.cookie.indexOf('eventId=');
-
   }
 
-  joinEventIfExists() {
-    let eventId = Cookies.get('eventId');
+  joinEventIfExists(eventId) {
     if (eventId) {
       axios.get('/api/event/' + eventId).then(({ data }) => {
         Cookies.remove('eventId');
         console.log(Cookies.get('eventId'));
         console.log(data);
+        data.availableSlots = data.availableSlots.map(timeSlot => {
+          return {
+            startTime: new Date(timeSlot.startTime),
+            endTime: new Date(timeSlot.endTime)
+            // not including preference level as not meaningful
+          };
+        });
         this.setState(
           { eventData: data }
         )
