@@ -5,9 +5,6 @@ class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //   title: '',
-      //   description: '',
-      //   availableSlots: '',
 
     };
     this.handleChange = this.handleChange.bind(this);

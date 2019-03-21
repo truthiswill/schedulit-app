@@ -1,17 +1,19 @@
 import React from 'react';
-import styles from '../../dist/styles/calendar.css';
+import styles from '../styles/day.css';
 
 
 class Day extends React.Component {
-  constructor (props) {
-    super (props)
+  constructor(props) {
+    super(props)
   }
-  render () {
+  render() {
     return (
-			<div 
-				onClick={() => this.onDateClick(parse(cloneDay))}>
-				<span className={styles.number}>{this.props.date.getDate()}</span> 
-			</div>
+      <div
+        onClick={() => this.props.addDayToSet(this.props.date)}
+        className={styles['set' + this.props.set]}
+      >
+        <span className={styles.number}>{this.props.date.getDate()}</span>
+      </div>
     );
   };
 }

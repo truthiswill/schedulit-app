@@ -3,7 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 let timeSlotSchema = mongoose.Schema({
   startTime: Date,
   endTime: Date,
-  preferenceLevel: Number
+  preferenceLevel: { type: Number, default: 1 },
 });
 
 let userSchema = mongoose.Schema({
