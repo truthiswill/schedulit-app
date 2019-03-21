@@ -33,6 +33,10 @@ class ChooseHours extends React.Component {
 
   addTimesToSet() {
     this.props.addTimesToSet({ startTime: this.state.startTime, endTime: this.state.endTime })
+    this.setState({
+      startTime: '',
+      endTime: ''
+    });
   }
 
   areDatesSelected() {
