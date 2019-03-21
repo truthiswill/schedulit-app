@@ -1,28 +1,30 @@
 const router = require('express').Router();
 const {
-	login,
-	user,
-	event,
-	participation,
-	eventPost,
-	eventGet,
-	userGet,
-	participationPut
+  login,
+  user,
+  event,
+  participation,
+  eventPost,
+  eventGet,
+  userGet,
+  joinGet,
+  myUserGet
 } = require('./controllers.js');
 
 router
-	// .get('/login', login)
+  // .get('/login', login)
+  .get('/user', myUserGet)
+  .get('/user/:id', userGet)
+  // .post('/user/:id', userPost)
+  // .put('/user/:id', userPut)
+  // .put('/event/:id', eventPut)
+  .get('/event/:id', eventGet)
+  .post('/event', eventPost);
+// .put('/event/:id', eventPut)
+// .delete('/event/:id', eventDelete)
 
-	.get('/user/:id', userGet)
-	// .post('/user/:id', userPost)
-	// .put('/user/:id', userPut)
-	// .put('/event/:id', eventPut)
-	.get('/event/:id', eventGet)
-	.post('/event', eventPost)
-	// .put('/event/:id', eventPut)
-	// .delete('/event/:id', eventDelete)
-	// .get('/participation/:id', participationGet)
-	.put('/participation/:eventId', participationPut);
+// .get('/participation/:id', participationGet)
+// .post('/participation/:id', participationPost)
 // .put('/participation/:id', participationPut)
 // .delete('/participation/:id', participationDelete)
 

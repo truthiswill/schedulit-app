@@ -1,25 +1,39 @@
+<<<<<<< HEAD
 const { createEvent, fetchEvent, fetchUser, createParticipation, updateParticipation } = require('../database/databaseHelpers');
+=======
+const {
+  createEvent,
+  fetchEvent,
+  fetchUser
+} = require('../database/databaseHelpers');
+>>>>>>> Displays participating users for an event
 
-const isValidEvent = (event) => {
-  if (typeof event.creatorId !== 'string'
-    || typeof event.title !== 'string'
-    || event.title.length === 0
-    || typeof event.description !== 'string'
-    || event.description.length === 0
-    || !Array.isArray(event.availableSlots)
-    || !Array.isArray(event.participants)
-    //client must send participants array 
+const isValidEvent = event => {
+  if (
+    typeof event.creatorId !== 'string' ||
+    typeof event.title !== 'string' ||
+    event.title.length === 0 ||
+    typeof event.description !== 'string' ||
+    event.description.length === 0 ||
+    !Array.isArray(event.availableSlots) ||
+    !Array.isArray(event.participants)
+    //client must send participants array
   ) {
     return false;
   }
   return true;
 };
 
-
 module.exports = {
   // login: (req, res) => {
   //   res.status(200).send("hi");
   // },
+  myUserGet: (req, res) => {
+    let userId = req.user.id;
+    fetchUser(userId).then(user => {
+      res.status(200).json(user);
+    });
+  },
   userGet: (req, res) => {
     let userId = req.params.id;
     fetchUser(userId)
@@ -57,14 +71,16 @@ module.exports = {
   eventPost: (req, res) => {
     let newEvent = req.body;
     newEvent.creatorId = req.user.id;
-    if (!isValidEvent(newEvent)) return res.status(404).send('invalid event object');
+    if (!isValidEvent(newEvent))
+      return res.status(404).send('invalid event object');
     newEvent.participants.push(req.user.id);
     createEvent(newEvent)
-      .then((newEvent) => {
+      .then(newEvent => {
         res.status(200).json(newEvent);
-      }).catch(() => {
-        res.status(404).send('event post unsuccessful');
       })
+      .catch(() => {
+        res.status(404).send('event post unsuccessful');
+      });
   },
   // eventPut: (req, res) => {
   //   let eventId = Number(req.params.id);

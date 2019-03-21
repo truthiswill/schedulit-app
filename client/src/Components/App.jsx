@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Events from './Events.jsx';
 import Create from './Create.jsx';
 import Navigation from './Navigation.jsx';
+import JoinEvent from './JoinEvent';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import JoinEvent from './JoinEvent';
 
 class App extends Component {
   constructor(props) {
@@ -12,8 +12,9 @@ class App extends Component {
 
     this.state = {
       view: 'home',
-      events: ['event1', 'event2', 'event3']
+      events: []
     };
+
     let eventId = Cookies.get('eventId');
     this.joinEventIfExists(eventId);
 
@@ -40,6 +41,26 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.fetchEvents();
+  }
+
+  fetchEvents() {
+    axios
+      .get('/api/user')
+      .then(({ data }) => {
+        let events = data.eventsCreated;
+        Promise.all(
+          events.map(event => {
+            return axios.get('/api/event/' + event).then(({ data }) => data);
+          })
+        ).then(eventsArr => {
+          this.setState({ events: eventsArr });
+        });
+      })
+      .catch(error => console.error(error));
+  }
+
   homeView() {
     this.setState({ view: 'home' });
   }
@@ -51,6 +72,7 @@ class App extends Component {
   render() {
     let { events, view, eventData } = this.state;
     let page;
+
     if (eventData !== undefined) {
       return <JoinEvent eventData={eventData} />;
     }
@@ -59,6 +81,8 @@ class App extends Component {
       page = <Events events={events} />;
     } else if (view === 'create') {
       page = <Create />;
+    } else {
+      // page = full details of event
     }
 
     return (

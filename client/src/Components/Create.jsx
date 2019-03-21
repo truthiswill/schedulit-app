@@ -105,7 +105,7 @@ class Create extends Component {
       }
     }
     axios.post('/api/event', newEvent).then(({ data }) => {
-      console.log(data);
+      console.log('data:', data);
       this.setState({ eventId: data.id });
     });
   }
