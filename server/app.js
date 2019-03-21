@@ -10,7 +10,7 @@ const cookieSession = require('cookie-session');
 const passportConfig = require('./passportConfig');
 
 const { initializeDB } = require('../database/index');
-
+const { joinGet } = require('./controllers');
 const router = require('./routes');
 const app = express();
 
@@ -45,19 +45,8 @@ module.exports.initializeApp = async () => {
 	});
 
 
-	app.get('/ee', ensureAuthenticated, (req, res) => {
-		if (req.session.token) {
-			res.cookie('token', req.session.token);
-			res.json({
-				status: 'session cookie set'
-			});
-		} else {
-			res.cookie('token', '')
-			res.json({
-				status: 'session cookie not set'
-			});
-		}
-	});
+	app.get('/join/:id', ensureAuthenticated, joinGet);
+
 	app.get('/auth/google', passport.authenticate('google', {
 		scope: ['https://www.googleapis.com/auth/userinfo.profile']
 	}));

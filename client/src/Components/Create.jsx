@@ -103,9 +103,22 @@ class Create extends Component {
         newEvent.availableSlots.push(timeSlot)
       }
     }
-    axios.post('/api/event', newEvent);
+    axios.post('/api/event', newEvent)
+      .then(({ data }) => {
+        console.log(data);
+        this.setState({ eventId: data.id })
+      });
   }
   render() {
+    if (this.state.eventId) {
+      return (
+        <div>
+          This is your link: http://localhost:3000/api/event/
+          {this.state.eventId}
+        </div>
+      );
+    }
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>

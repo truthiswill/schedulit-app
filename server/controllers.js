@@ -36,6 +36,11 @@ module.exports = {
   //   let userID = Number(req.params.id);
   //   res.status(200).send("hi2");
   // },
+  joinGet: (req, res) => {
+    let eventId = req.params.id;
+    res.cookie("eventId", eventId);
+    res.redirect('/');
+  },
   eventGet: (req, res) => {
     let eventID = req.params.id;
     fetchEvent(eventID)
@@ -49,8 +54,8 @@ module.exports = {
     if (!isValidEvent(newEvent)) return res.status(404).send('invalid event object');
     newEvent.participants.push(req.user.id);
     createEvent(newEvent)
-      .then(() => {
-        res.status(200).send('event creation successful');
+      .then((newEvent) => {
+        res.status(200).json(newEvent);
       }).catch(() => {
         res.status(404).send('event post unsuccessful');
       })
