@@ -3,7 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 let timeSlotSchema = mongoose.Schema({
   startTime: Date,
   endTime: Date,
-  preferenceLevel: { type: Number, default: 1 },
+  preferenceLevel: { type: Number, default: 1 }
 });
 
 let userSchema = mongoose.Schema({
@@ -36,9 +36,8 @@ let eventSchema = mongoose.Schema({
   availableSlots: [timeSlotSchema],
   participations: { type: [ObjectId], default: [] },
   participants: [String],
-  allowedPreferences: { type: [String], default: [] },
+  allowedPreferences: { type: [String], default: [] }
 });
-
 
 module.exports = {
   TimeSlot: mongoose.model('TimeSlot', timeSlotSchema),
@@ -46,4 +45,3 @@ module.exports = {
   Participation: mongoose.model('Participation', participationSchema),
   Event: mongoose.model('Event', eventSchema)
 };
-
