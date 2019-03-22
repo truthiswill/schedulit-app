@@ -1,5 +1,4 @@
 import React from 'react';
-import update from 'immutability-helper';
 import GroupPreview from './GroupPreview'
 import IndividualPreview from './IndividualPreview'
 import axios from 'axios';
