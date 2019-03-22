@@ -27,24 +27,6 @@
   box-sizing: border-box;
 }
 
-body {
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    line-height: 1.5;
-    color: #777;
-    background: #f9f9f9;
-    position: relative;
-}
-
-header {
-  display: block;
-  width: 100%;
-  padding: 1.75em 0;
-  border-bottom: 1px solid #eee;
-  background: #fff;
-}
-
 /* YearMonthHeader */
 
 .row {
@@ -77,17 +59,27 @@ header {
   text-align: right;
 }
 
-.calendar .header .icon:hover {
-  transform: scale(1.75);
+.calendar .monthHeader .icon:hover {
+  transform: scale(2.00);
   transition: .25s ease-out;
-  color: #1a8fff;
+  cursor: pointer;
+  transition: .15s ease-out;
 }
 
-.calendar .header .icon:first-of-type {
+.monthHeader {
+  color: white;
+  font-size: 150%; 
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1.5em 0;
+  border-bottom: 1px solid lightgray;
+}
+
+.calendar .monthHeader .icon:first-of-type {
   margin-left: 1em;
 }
 
-.calendar .header .icon:last-of-type {
+.calendar .monthHeader .icon:last-of-type {
   margin-right: 1em;
 }
 
@@ -96,27 +88,14 @@ header {
 .calendarGridContainer {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto;
-  background-color: lightblue;
-}
-
-.calendar .header {
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 115%;
-  padding: 1.5em 0;
-  border-bottom: 1px solid #eee;
-}
-
-.calendar .header .icon {
-  cursor: pointer;
-  transition: .15s ease-out;
+  background-color:#778899;
 }
 
 .calendar .days {
   text-transform: uppercase;
-  font-weight: 400;
-  color: #ccc;
-  font-size: 70%;
+  font-weight: 600;
+  color: whitesmoke;
+  font-size: 95%;
   padding: .75em 0;
   border-bottom: 1px solid #eee;
 }
@@ -128,11 +107,15 @@ header {
   padding: 30px; 
 }
 
-
 .set1{
+<<<<<<< HEAD
   background-color: blue;
   border-radius: 50%;
  
+=======
+  background-color: #2f82a4;
+  
+>>>>>>> add styling to the calendar
 }
 
 .set2{
@@ -144,12 +127,26 @@ header {
 }
 
 .number {
-  font-size: 15px;
+  font-size: 20px;
+  font-weight: 600;
   text-align: left;
+  color: white;
   /* border: 10px solid blue;
   border-radius: 50%; */
 }
 
+.number:hover {
+  cursor: pointer;
+}
+
+
+/* .calendar .header {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 140%;
+  padding: 1.5em 0;
+  border-bottom: 1px solid lightgray;
+} */
 
 /* GRID */
 

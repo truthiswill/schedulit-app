@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import DayPicker from './DayPicker.jsx';
-import ChooseHours from './ChooseHours';
-import axios from 'axios';
+import React, { Component } from "react";
+import DayPicker from "./DayPicker.jsx";
+import ChooseHours from "./ChooseHours";
+import axios from "axios";
+import styles from "../styles/create.css";
 
 class Create extends Component {
   constructor(props) {
@@ -86,7 +87,7 @@ class Create extends Component {
     newEvent.description = this.state.description;
     newEvent.participants = [];
     // newEvent.allowedPreferences = this.state.allowedPreferences;
-    newEvent.allowedPreferences = ['activity', 'food'];
+    newEvent.allowedPreferences = ["activity", "food"];
     newEvent.availableSlots = [];
     for (let day in this.state.setOfDay) {
       let set = this.state.setOfDay[day];
@@ -95,7 +96,7 @@ class Create extends Component {
         let timeSlot = {
           startTime: new Date(
             startAndEndHours.startTime * 60 * 60 * 1000 +
-            new Date(day).getTime()
+              new Date(day).getTime()
           ),
           endTime: new Date(
             startAndEndHours.endTime * 60 * 60 * 1000 + new Date(day).getTime()
@@ -104,8 +105,8 @@ class Create extends Component {
         newEvent.availableSlots.push(timeSlot);
       }
     }
-    axios.post('/api/event', newEvent).then(({ data }) => {
-      console.log('data:', data);
+    axios.post("/api/event", newEvent).then(({ data }) => {
+      console.log("data:", data);
       this.setState({ eventId: data.id });
     });
   }
@@ -113,38 +114,55 @@ class Create extends Component {
     if (this.state.eventId) {
       return (
         <div>
-          This is your link: <a href={'/join/' + this.state.eventId}>http://localhost:3000/join/{this.state.eventId} </a>
+          This is your link:{" "}
+          <a href={"/join/" + this.state.eventId}>
+            http://localhost:3000/join/{this.state.eventId}{" "}
+          </a>
         </div>
       );
     }
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Event Title:
-            <input name="title" onChange={this.handleChange} />
-            Event Description:
-            <input name="description" onChange={this.handleChange} />
-            {/* Event Allowed Preferences:
-        <input name="allowedPreferences" onChange={this.handleChange} /> */}
-          </label>
-          <DayPicker
-            currentYear={this.state.currentYear}
-            currentMonth={this.state.currentMonth}
-            addDayToSet={this.addDayToSet}
-            prevMonth={this.prevMonth}
-            nextMonth={this.nextMonth}
-            setOfDay={this.state.setOfDay}
-          />
-          <ChooseHours
-            setCounter={this.state.setCounter}
-            setOfDay={this.state.setOfDay}
-            finalizeSet={this.finalizeSet}
-            addTimesToSet={this.addTimesToSet}
-          />
-          <input type="submit" value="Submit" />
-        </form>
+        <hr className={styles.hr} />
+        <div className={styles.topForm}>
+          <form onSubmit={this.handleSubmit}>
+            <label className={styles.eventForm}>
+              <input
+                name="title"
+                placeholder="Event Title"
+                onChange={this.handleChange}
+                className={styles.input}
+              />
+              <input
+                name="description"
+                placeholder="Event Description"
+                onChange={this.handleChange}
+                className={styles.input}
+              />
+              {/* Event Allowed Preferences:
+          <input name="allowedPreferences" onChange={this.handleChange} /> */}
+            </label>
+          </form>
+        </div>
+
+        <hr className={styles.hr} />
+
+        <DayPicker
+          currentYear={this.state.currentYear}
+          currentMonth={this.state.currentMonth}
+          addDayToSet={this.addDayToSet}
+          prevMonth={this.prevMonth}
+          nextMonth={this.nextMonth}
+          setOfDay={this.state.setOfDay}
+        />
+        <ChooseHours
+          setCounter={this.state.setCounter}
+          setOfDay={this.state.setOfDay}
+          finalizeSet={this.finalizeSet}
+          addTimesToSet={this.addTimesToSet}
+        />
+        <input type="submit" value="Submit" />
       </div>
     );
   }

@@ -1,6 +1,18 @@
-/* .calendarContainer {
-  /* col-sm: 4;
-  col-md: 7; 
-  col-lg: 4;
-  mt: 5 
-} */
+.topForm {
+  padding-bottom: 20px;
+  padding-top: 10px; 
+}
+
+.eventForm {
+  color: white;
+}
+
+.input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

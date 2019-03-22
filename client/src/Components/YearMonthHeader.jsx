@@ -21,7 +21,7 @@ export default (props) => {
   const MonthNames = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
   return (
     <>
-      <div className={classnames(styles.header, styles.row)}>
+      <div className={classnames(styles.monthHeader, styles.row)}>
         <div className={classnames(styles.col, styles.colStart)}>
           <div className={styles.icon} onClick={props.prevMonth}>
             chevron_left
