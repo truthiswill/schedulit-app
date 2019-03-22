@@ -9,9 +9,9 @@ class Day extends React.Component {
   render() {
     return (
       <div onClick={() => this.props.addDayToSet(this.props.date)}
-        className={classnames(styles['set' + this.props.set], styles.calBox, styles.number)}
+        className={classnames(styles.calBox, styles.number)}
         > 
-        <div>
+        <div className={classnames(styles['set' + this.props.set])}>
         {this.props.date.getDate()}
         </div>
       </div>
