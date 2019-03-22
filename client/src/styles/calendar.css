@@ -123,22 +123,31 @@ header {
 
 /* Day */
 
-.set0{
-  background-color: green;
+.calBox {
+  border: .5px solid lightgray;
+  padding: 30px; 
 }
+
 
 .set1{
   background-color: blue;
+  border-radius: 50%;
+ 
 }
 
 .set2{
   background-color: yellow;
 }
 
+.set3{
+  background-color: green;
+}
+
 .number {
-  padding: 10px;
-  font-size: 20px;
-  text-align: right;
+  font-size: 15px;
+  text-align: left;
+  /* border: 10px solid blue;
+  border-radius: 50%; */
 }
 
 

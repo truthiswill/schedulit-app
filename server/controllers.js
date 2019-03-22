@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 const { createEvent, fetchEvent, fetchUser, createParticipation, updateParticipation } = require('../database/databaseHelpers');
-=======
-const {
-  createEvent,
-  fetchEvent,
-  fetchUser
-} = require('../database/databaseHelpers');
->>>>>>> Displays participating users for an event
 
 const isValidEvent = event => {
   if (
