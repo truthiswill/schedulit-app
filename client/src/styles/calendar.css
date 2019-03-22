@@ -123,6 +123,7 @@ header {
 
 /* Day */
 
+<<<<<<< HEAD
 .calBox {
   border: .5px solid lightgray;
   padding: 30px; 
@@ -133,12 +134,21 @@ header {
   background-color: blue;
   border-radius: 50%;
  
+=======
+.set0{
+  background-color: green;
+}
+
+.set1{
+  background-color: blue;
+>>>>>>> 5e6526cd082f906b7ab14011fb6e1f0c2bd5e984
 }
 
 .set2{
   background-color: yellow;
 }
 
+<<<<<<< HEAD
 .set3{
   background-color: green;
 }
@@ -148,6 +158,12 @@ header {
   text-align: left;
   /* border: 10px solid blue;
   border-radius: 50%; */
+=======
+.number {
+  padding: 10px;
+  font-size: 20px;
+  text-align: right;
+>>>>>>> 5e6526cd082f906b7ab14011fb6e1f0c2bd5e984
 }
 
 
