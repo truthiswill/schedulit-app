@@ -16,7 +16,6 @@ const app = express();
 
 module.exports.initializeApp = async () => {
   await initializeDB();
-  app.disable('etag');
   app.use(
     cookieSession({
       name: 'session',
@@ -45,7 +44,7 @@ module.exports.initializeApp = async () => {
     res.send('access granted. secure stuff happens here');
   });
 
-  app.get('/join/:id', ensureAuthenticated, joinGet);
+  app.get('/join/:eventId', ensureAuthenticated, joinGet);
 
   app.get(
     '/auth/google',

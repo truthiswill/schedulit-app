@@ -3,10 +3,11 @@ const {
   login,
   user,
   event,
-  participation,
+  joinPut,
   eventPost,
   eventGet,
   userGet,
+  participationGet,
   joinGet,
   myUserGet
 } = require('./controllers.js');
@@ -19,13 +20,15 @@ router
   // .put('/user/:id', userPut)
   // .put('/event/:id', eventPut)
   .get('/event/:id', eventGet)
-  .post('/event', eventPost);
-// .put('/event/:id', eventPut)
-// .delete('/event/:id', eventDelete)
+  .post('/event', eventPost)
+  // .put('/event/:id', eventPut)
+  // .delete('/event/:id', eventDelete)
 
-// .get('/participation/:id', participationGet)
-// .post('/participation/:id', participationPost)
-// .put('/participation/:id', participationPut)
+  .get('/participation/:id', participationGet)
+  // .post('/participation/:id', participationPost)
+
+
+  .put('/join/:eventId', joinPut)
 // .delete('/participation/:id', participationDelete)
 
 module.exports = router;

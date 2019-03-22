@@ -1,12 +1,11 @@
-<<<<<<< HEAD
-const { createEvent, fetchEvent, fetchUser, createParticipation, updateParticipation } = require('../database/databaseHelpers');
-=======
 const {
   createEvent,
   fetchEvent,
-  fetchUser
+  fetchUser,
+  createParticipation,
+  fetchParticipation,
+  updateParticipation
 } = require('../database/databaseHelpers');
->>>>>>> Displays participating users for an event
 
 const isValidEvent = event => {
   if (
@@ -54,12 +53,16 @@ module.exports = {
   //   res.status(200).send("hi2");
   // },
   joinGet: (req, res) => {
-    let eventId = req.params.id;
+    let eventId = req.params.eventId;
     let userId = req.user.id;
-    createParticipation(userId, eventId).then(() => {
-      res.cookie("eventId", eventId);
-      res.redirect('/');
-    }).catch(() => res.status(404).end());
+    createParticipation(userId, eventId)
+      .then(() => {
+        console.log('create Participation successful', eventId);
+        res.cookie("eventId", eventId);
+      })
+      .finally(() => {
+        res.redirect('/');
+      });
   },
   eventGet: (req, res) => {
     let eventId = req.params.id;
@@ -90,20 +93,26 @@ module.exports = {
   //   let eventId = Number(req.params.id);
   //   res.status(200).send("hi3");
   // },
-  // participationGet: (req, res) => {
-  //   let participationID = Number(req.params.id);
-  //   res.status(200).send("hi4");
-  // },
-  participationPut: (req, res) => {
+  participationGet: (req, res) => {
+    let id = req.params.id;
+    fetchParticipation(id)
+      .then((participation) => {
+        res.status(200).json(participation);
+      })
+      .catch(() => res.status(404).end());
+  },
+  joinPut: (req, res) => {
     let eventId = req.params.eventId;
     let userId = req.user.id;
     let participation = req.body;
     updateParticipation(userId, eventId, participation)
       .then(() => {
-        res.status(201).send("participation successfully recorded");
-      }).catch(() => res.status(404).end());
+        res.status(201).send("participation successfully updated");
+      }).catch((e) => {
+        res.status(404).send(e)
+      });
   }
-  // participationPut: (req, res) => {
+  // joinPut: (req, res) => {
   //   let participationID = Number(req.params.id);
   //   res.status(200).send("hi4");
   // },
