@@ -4,12 +4,26 @@
   justify-content: space-between;
 }
 
+.schedulIt {
+  color: white;
+  font-size: 36px;
+  font-weight: 700;
+}
+
 .buttons {
   display: flex;
   flex-direction: row;
+  color: white;
+  font-size: 24px;  
+}
+
+.buttons:hover {
+  cursor: pointer;
 }
 
 .myEvents {
   white-space: nowrap;
   padding-right: 50px;
+  color: white; 
+  font-size: 24px; 
 }

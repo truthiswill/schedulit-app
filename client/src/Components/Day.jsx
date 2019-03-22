@@ -8,16 +8,14 @@ class Day extends React.Component {
   }
   render() {
     return (
-      <div
-        className={classnames(styles['set' + this.props.set], styles.calBox)}
-        >
-        <span
-        className={styles.number}> {this.props.date.getDate()} </span>
-        
+      <div onClick={() => this.props.addDayToSet(this.props.date)}
+        className={classnames(styles['set' + this.props.set], styles.calBox, styles.number)}
+        > 
+        {this.props.date.getDate()}
       </div>
     );
   }
 }
 
 export default Day;
-// onClick={() => this.props.addDayToSet(this.props.date)}
+//

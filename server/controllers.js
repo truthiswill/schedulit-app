@@ -1,5 +1,6 @@
 const { createEvent, fetchEvent, fetchUser, createParticipation, updateParticipation } = require('../database/databaseHelpers');
 
+
 const isValidEvent = event => {
   if (
     typeof event.creatorId !== 'string' ||
