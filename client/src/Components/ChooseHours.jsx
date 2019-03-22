@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/day.css';
-import bootstrap from 'bootstrap';
+
 
 const INCREMENT = 0.25;
 const HOURS_IN_DAY = 24;
