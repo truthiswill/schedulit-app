@@ -11,7 +11,9 @@ class Day extends React.Component {
       <div onClick={() => this.props.addDayToSet(this.props.date)}
         className={classnames(styles['set' + this.props.set], styles.calBox, styles.number)}
         > 
+        <div>
         {this.props.date.getDate()}
+        </div>
       </div>
     );
   }

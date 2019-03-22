@@ -123,46 +123,55 @@ class Create extends Component {
     }
 
     return (
-      <div>
+      <div className={styles.createPage}>
         <hr className={styles.hr} />
-        <div className={styles.topForm}>
-          <form onSubmit={this.handleSubmit}>
-            <label className={styles.eventForm}>
-              <input
-                name="title"
-                placeholder="Event Title"
-                onChange={this.handleChange}
-                className={styles.input}
-              />
-              <input
-                name="description"
-                placeholder="Event Description"
-                onChange={this.handleChange}
-                className={styles.input}
-              />
-              {/* Event Allowed Preferences:
-          <input name="allowedPreferences" onChange={this.handleChange} /> */}
-            </label>
-          </form>
+        <div className={styles.eventInvitation}>
+          Get the Ball Rolling: Enter the Options. 
         </div>
-
         <hr className={styles.hr} />
-
-        <DayPicker
-          currentYear={this.state.currentYear}
-          currentMonth={this.state.currentMonth}
-          addDayToSet={this.addDayToSet}
-          prevMonth={this.prevMonth}
-          nextMonth={this.nextMonth}
-          setOfDay={this.state.setOfDay}
-        />
-        <ChooseHours
-          setCounter={this.state.setCounter}
-          setOfDay={this.state.setOfDay}
-          finalizeSet={this.finalizeSet}
-          addTimesToSet={this.addTimesToSet}
-        />
-        <input type="submit" value="Submit" />
+        <div className={styles.createContainer}>
+          <div className={styles.detailsContainer}>
+            <div className={styles.inputFormContainer}>
+              <form onSubmit={this.handleSubmit}>
+                <label className={styles.eventForm}>
+                  <input
+                    name="title"
+                    type="text"
+                    placeholder="Event Title"
+                    onChange={this.handleChange}
+                    className={styles.input}
+                  />
+                  <input
+                    name="description"
+                    type="text"
+                    placeholder="Event Description"
+                    onChange={this.handleChange}
+                    className={styles.input}
+                  />
+                  {/* Event Allowed Preferences:
+              <input name="allowedPreferences" onChange={this.handleChange} /> */}
+                </label>
+              </form>
+            </div>
+            <div className={styles.hoursContainer}>
+              <ChooseHours
+                setCounter={this.state.setCounter}
+                setOfDay={this.state.setOfDay}
+                finalizeSet={this.finalizeSet}
+                addTimesToSet={this.addTimesToSet}
+              />
+              <input type="submit" value="Submit" />
+            </div>
+          </div>
+          <DayPicker
+            currentYear={this.state.currentYear}
+            currentMonth={this.state.currentMonth}
+            addDayToSet={this.addDayToSet}
+            prevMonth={this.prevMonth}
+            nextMonth={this.nextMonth}
+            setOfDay={this.state.setOfDay}
+          />
+        </div>
       </div>
     );
   }
