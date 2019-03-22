@@ -14,6 +14,10 @@ class TimeSlot extends React.Component {
     this.includeHere = this.includeHere.bind(this);
   }
 
+  timestampLiesInSlot(timestamp, timeSlot) {
+    return timestamp >= timeSlot.startTime && timestamp <= timeSlot.endTime;
+  }
+
   initializeSlotStatus() {
     let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
     let slotStatus = {}; //keys are timestamps; val is true/false for selectable, null for unselectable
@@ -21,7 +25,8 @@ class TimeSlot extends React.Component {
     for (let i = 0; i < numberOfSlots; i++) {
       let currentTimeStamp = new Date(stub + (this.props.earliestMinutesInDay + (i * 15)) * 60 * 1000);
       if (currentTimeStamp >= this.props.timeSlot.startTime && currentTimeStamp < this.props.timeSlot.endTime) {
-        slotStatus[currentTimeStamp] = false;
+        slotStatus[currentTimeStamp] = this.props.eventData.participations[0].timeAvailable.some(timeSlot => this.timestampLiesInSlot(currentTimeStamp, timeSlot));
+
       } else {
         slotStatus[currentTimeStamp] = null;
       }
@@ -59,7 +64,6 @@ class TimeSlot extends React.Component {
 
   includeHere(slotStartTime) {
     if (this.state.slotStatus[slotStartTime] !== null) {
-
       if (this.state.mouseDown) {
         for (let timestamp in this.state.slotStatus) {
           //in case of skipped elements when drag is fast
@@ -86,10 +90,6 @@ class TimeSlot extends React.Component {
         includeHere={this.includeHere}
       />)
     }
-
-
-
-
     return (
       <div>
         {this.props.timeSlot.startTime.getDate()}

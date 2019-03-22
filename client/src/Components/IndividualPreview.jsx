@@ -38,6 +38,7 @@ class IndividualPreview extends React.Component {
   }
 
   render() {
+    if (this.props.eventData === undefined) return <div />;
     return (
       <form onSubmit={this.handleSubmit}>
         <div style={this.state.unavailable ? { display: 'none' } : { display: 'flex', justifyContent: 'space-between' }}>
@@ -47,6 +48,7 @@ class IndividualPreview extends React.Component {
                 earliestMinutesInDay={this.props.earliestMinutesInDay}
                 latestMinutesInDay={this.props.latestMinutesInDay}
                 timeSlot={timeSlot}
+                eventData={this.props.eventData}
                 addToTimeAvailable={this.addToTimeAvailable}
               />
             );
