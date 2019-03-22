@@ -3,6 +3,7 @@ const {
   fetchEvent,
   fetchUser,
   createParticipation,
+  fetchParticipation,
   updateParticipation
 } = require('../database/databaseHelpers');
 
@@ -53,14 +54,16 @@ module.exports = {
   //   res.status(200).send("hi2");
   // },
   joinGet: (req, res) => {
-    let eventId = req.params.id;
+    let eventId = req.params.eventId;
     let userId = req.user.id;
     createParticipation(userId, eventId)
       .then(() => {
-        res.cookie('eventId', eventId);
-        res.redirect('/');
+        console.log('create Participation successful', eventId);
+        res.cookie("eventId", eventId);
       })
-      .catch(() => res.status(404).end());
+      .finally(() => {
+        res.redirect('/');
+      });
   },
   eventGet: (req, res) => {
     let eventId = req.params.id;
@@ -92,11 +95,15 @@ module.exports = {
   //   let eventId = Number(req.params.id);
   //   res.status(200).send("hi3");
   // },
-  // participationGet: (req, res) => {
-  //   let participationID = Number(req.params.id);
-  //   res.status(200).send("hi4");
-  // },
-  participationPut: (req, res) => {
+  participationGet: (req, res) => {
+    let id = req.params.id;
+    fetchParticipation(id)
+      .then((participation) => {
+        res.status(200).json(participation);
+      })
+      .catch(() => res.status(404).end());
+  },
+  joinPut: (req, res) => {
     let eventId = req.params.eventId;
     let userId = req.user.id;
     let participation = req.body;
@@ -106,7 +113,7 @@ module.exports = {
       })
       .catch(() => res.status(404).end());
   }
-  // participationPut: (req, res) => {
+  // joinPut: (req, res) => {
   //   let participationID = Number(req.params.id);
   //   res.status(200).send("hi4");
   // },

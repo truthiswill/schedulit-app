@@ -3,7 +3,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 let timeSlotSchema = mongoose.Schema({
   startTime: Date,
   endTime: Date,
-  preferenceLevel: { type: Number, default: 1 }
+  preferenceLevel: { type: Number, default: 1 },
 });
 
 let userSchema = mongoose.Schema({
@@ -17,14 +17,14 @@ let userSchema = mongoose.Schema({
 });
 
 let participationSchema = mongoose.Schema({
+  id: { type: ObjectId, unique: true, auto: true },
   userId: String,
   eventId: ObjectId,
   unavailable: { type: Boolean, default: false },
-  timeAvailable: { type: [timeSlotSchema], default: [] },
+  timeAvailable: [timeSlotSchema],
   preferences: {
     type: Map,
-    of: String,
-    default: {}
+    of: String
   }
 });
 
@@ -36,12 +36,15 @@ let eventSchema = mongoose.Schema({
   availableSlots: [timeSlotSchema],
   participations: { type: [ObjectId], default: [] },
   participants: [String],
-  allowedPreferences: { type: [String], default: [] }
+  allowedPreferences: { type: [String], default: [] },
 });
+
 
 module.exports = {
   TimeSlot: mongoose.model('TimeSlot', timeSlotSchema),
   User: mongoose.model('User', userSchema),
   Participation: mongoose.model('Participation', participationSchema),
-  Event: mongoose.model('Event', eventSchema)
+  Event: mongoose.model('Event', eventSchema),
+  ObjectId: mongoose.Types.ObjectId
 };
+

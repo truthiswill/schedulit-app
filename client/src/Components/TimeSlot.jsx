@@ -20,7 +20,7 @@ class TimeSlot extends React.Component {
     let stub = new Date(this.props.timeSlot.startTime.getFullYear(), this.props.timeSlot.startTime.getMonth(), this.props.timeSlot.startTime.getDate()).getTime();
     for (let i = 0; i < numberOfSlots; i++) {
       let currentTimeStamp = new Date(stub + (this.props.earliestMinutesInDay + (i * 15)) * 60 * 1000);
-      if (currentTimeStamp >= this.props.timeSlot.startTime && currentTimeStamp <= this.props.timeSlot.endTime) {
+      if (currentTimeStamp >= this.props.timeSlot.startTime && currentTimeStamp < this.props.timeSlot.endTime) {
         slotStatus[currentTimeStamp] = false;
       } else {
         slotStatus[currentTimeStamp] = null;
@@ -42,7 +42,7 @@ class TimeSlot extends React.Component {
 
   goToHere(slotStartTime) {
     let newTimeSlot = {};
-    newTimeSlot.startTime = new Date(slotStartTime);
+    newTimeSlot.startTime = new Date(this.state.startTime);
     newTimeSlot.endTime = new Date(new Date(slotStartTime).getTime() + (15 * 60 * 1000));
     newTimeSlot.preferenceLevel = 1;
     this.props.addToTimeAvailable(newTimeSlot);
@@ -66,7 +66,6 @@ class TimeSlot extends React.Component {
 
   render() {
     let individualSlots = [];
-    console.log(this.state.slotStatus)
     for (let timeStamp in this.state.slotStatus) {
       individualSlots.push(<IndividualSlot
         selected={this.state.slotStatus[timeStamp]}
