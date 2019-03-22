@@ -1,5 +1,10 @@
-const { createEvent, fetchEvent, fetchUser, createParticipation, updateParticipation } = require('../database/databaseHelpers');
-
+const {
+  createEvent,
+  fetchEvent,
+  fetchUser,
+  createParticipation,
+  updateParticipation
+} = require('../database/databaseHelpers');
 
 const isValidEvent = event => {
   if (
@@ -30,9 +35,10 @@ module.exports = {
   userGet: (req, res) => {
     let userId = req.params.id;
     fetchUser(userId)
-      .then((user) => {
+      .then(user => {
         res.status(200).json(user);
-      }).catch(() => res.status(404).end());
+      })
+      .catch(() => res.status(404).end());
   },
   // userPost: (req, res) => {
   //   let userID = Number(req.params.id);
@@ -49,17 +55,20 @@ module.exports = {
   joinGet: (req, res) => {
     let eventId = req.params.id;
     let userId = req.user.id;
-    createParticipation(userId, eventId).then(() => {
-      res.cookie("eventId", eventId);
-      res.redirect('/');
-    }).catch(() => res.status(404).end());
+    createParticipation(userId, eventId)
+      .then(() => {
+        res.cookie('eventId', eventId);
+        res.redirect('/');
+      })
+      .catch(() => res.status(404).end());
   },
   eventGet: (req, res) => {
     let eventId = req.params.id;
     fetchEvent(eventId)
-      .then((event) => {
+      .then(event => {
         res.status(200).json(event);
-      }).catch(() => res.status(404).end());
+      })
+      .catch(() => res.status(404).end());
   },
   eventPost: (req, res) => {
     let newEvent = req.body;
@@ -93,8 +102,9 @@ module.exports = {
     let participation = req.body;
     updateParticipation(userId, eventId, participation)
       .then(() => {
-        res.status(201).send("participation successfully recorded");
-      }).catch(() => res.status(404).end());
+        res.status(201).send('participation successfully recorded');
+      })
+      .catch(() => res.status(404).end());
   }
   // participationPut: (req, res) => {
   //   let participationID = Number(req.params.id);
