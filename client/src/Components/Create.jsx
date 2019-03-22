@@ -160,7 +160,7 @@ class Create extends Component {
                 finalizeSet={this.finalizeSet}
                 addTimesToSet={this.addTimesToSet}
               />
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Submit" className={styles.submitButton}/>
             </div>
           </div>
           <DayPicker
