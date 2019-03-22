@@ -10,13 +10,11 @@
 
 .createContainer {
   display: flex;
-  border: solid red;
   flex-wrap: wrap; 
   margin: 1.5em;
 }
 
 .detailsContainer {
-  border: solid pink;
   width: 50%;
   align-content: center;
 }
@@ -24,12 +22,10 @@
 .inputFormContainer {
   padding-bottom: 20px;
   padding-top: 10px;
-  border: solid orange;
   width: 100%; 
 }
 
 .hoursContainer {
-  border: solid green;
   width: 100%;
 }
 

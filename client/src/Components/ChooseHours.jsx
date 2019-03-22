@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/day.css';
+import bootstrap from 'bootstrap';
 
 const INCREMENT = 0.25;
 const HOURS_IN_DAY = 24;
@@ -71,7 +72,8 @@ class ChooseHours extends React.Component {
                 <option value={time}>{this.hoursToString(time)} </option>
               ))}
           </select>
-          <button
+          <button 
+            className={styles.hoursButton}
             onClick={this.addTimesToSet}
             disabled={this.state.endTime === ''}
           >
@@ -91,3 +93,18 @@ class ChooseHours extends React.Component {
 }
 
 export default ChooseHours;
+
+
+{/* <div className={styles.dropdownContainer}>
+  <div className={styles.sizeContainer}>
+    <div className={styles.sizeHeader} onClick={() => this.toggleSizeList()}>
+      <div className={styles.dropdownHeaderTitle}>{this.state.sizeTitle}</div>
+        {this.state.sizeListOpen ? <div className={styles.angleUp}/> : <div className={styles.angleDown}/>}
+    </div>
+      {this.state.sizeListOpen && <ul className={styles.sizeList} onClick={e => e.stopPropagation()}>
+      {this.state.sizes.map((size, i)=> (
+        <Sizes size={size} id={i} key={i} selectSize={this.selectSize}/>
+      ))}
+    </ul>}
+  </div>
+</div> */}
