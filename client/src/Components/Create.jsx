@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import DayPicker from "./DayPicker.jsx";
-import ChooseHours from "./ChooseHours";
-import axios from "axios";
-import styles from "../styles/create.css";
+import React, { Component } from 'react';
+import DayPicker from './DayPicker.jsx';
+import ChooseHours from './ChooseHours';
+import axios from 'axios';
+import styles from '../styles/create.css';
 
 class Create extends Component {
   constructor(props) {
@@ -87,7 +87,7 @@ class Create extends Component {
     newEvent.description = this.state.description;
     newEvent.participants = [];
     // newEvent.allowedPreferences = this.state.allowedPreferences;
-    newEvent.allowedPreferences = ["activity", "food"];
+    newEvent.allowedPreferences = ['activity', 'food'];
     newEvent.availableSlots = [];
     for (let day in this.state.setOfDay) {
       let set = this.state.setOfDay[day];
@@ -105,8 +105,8 @@ class Create extends Component {
         newEvent.availableSlots.push(timeSlot);
       }
     }
-    axios.post("/api/event", newEvent).then(({ data }) => {
-      console.log("data:", data);
+    axios.post('/api/event', newEvent).then(({ data }) => {
+      console.log('data:', data);
       this.setState({ eventId: data.id });
     });
   }
@@ -114,9 +114,9 @@ class Create extends Component {
     if (this.state.eventId) {
       return (
         <div>
-          This is your link:{" "}
-          <a href={"/join/" + this.state.eventId}>
-            http://localhost:3000/join/{this.state.eventId}{" "}
+          This is your link:{' '}
+          <a href={'/join/' + this.state.eventId}>
+            http://localhost:3000/join/{this.state.eventId}{' '}
           </a>
         </div>
       );
@@ -126,7 +126,7 @@ class Create extends Component {
       <div className={styles.createPage}>
         <hr className={styles.hr} />
         <div className={styles.eventInvitation}>
-          Get the Ball Rolling: Enter the Options. 
+          Get the Ball Rolling: Enter the Options.
         </div>
         <hr className={styles.hr} />
         <div className={styles.createContainer}>
@@ -160,7 +160,11 @@ class Create extends Component {
                 finalizeSet={this.finalizeSet}
                 addTimesToSet={this.addTimesToSet}
               />
-              <input type="submit" value="Submit" className={styles.submitButton}/>
+              <input
+                type="submit"
+                value="Submit"
+                className={styles.submitButton}
+              />
             </div>
           </div>
           <DayPicker
