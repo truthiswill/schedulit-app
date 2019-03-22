@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import Events from './Events.jsx';
 import Create from './Create.jsx';
 import Navigation from './Navigation.jsx';
+import Login from './Login.jsx';
 import JoinEvent from './JoinEvent';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import styles from '../styles/app.css'
+import styles from '../styles/app.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      view: 'create',
+      view: 'login',
       events: []
     };
 
@@ -21,6 +22,7 @@ class App extends Component {
 
     this.homeView = this.homeView.bind(this);
     this.createView = this.createView.bind(this);
+    this.loginUser = this.loginUser.bind(this);
   }
 
   joinEventIfExists(eventId) {
@@ -36,7 +38,9 @@ class App extends Component {
               // not including preference level as not meaningful
             };
           });
-          this.setState({ eventData: data });
+          this.setState({ eventData: data }, () => {
+            this.fetchEvents;
+          });
         })
         .catch(() => console.log('event does not exist'));
     }
@@ -70,6 +74,26 @@ class App extends Component {
     this.setState({ view: 'create' });
   }
 
+  loginUser() {
+    let popWindow = window.open(
+      '/auth/google',
+      'Login',
+      'width=700, height=700'
+    );
+
+    setInterval(() => {
+      if (
+        popWindow.location.href !=
+          'https://accounts.google.com/AddSession#identifier' ||
+        popWindow.location.href !=
+          'https://accounts.google.com/AddSession#password'
+      ) {
+        popWindow.close();
+        this.setState({ view: 'home' });
+      }
+    }, 1000);
+  }
+
   render() {
     let { events, view, eventData } = this.state;
     let page;
@@ -78,7 +102,9 @@ class App extends Component {
       return <JoinEvent eventData={eventData} />;
     }
 
-    if (view === 'home') {
+    if (view === 'login') {
+      page = <Login loginUser={this.loginUser} />;
+    } else if (view === 'home') {
       page = <Events events={events} />;
     } else if (view === 'create') {
       page = <Create />;
@@ -96,6 +122,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-
