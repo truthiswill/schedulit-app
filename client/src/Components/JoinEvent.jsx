@@ -1,5 +1,5 @@
 import React from 'react';
-
+import update from 'immutability-helper';
 import GroupPreview from './GroupPreview'
 import IndividualPreview from './IndividualPreview'
 import axios from 'axios';
@@ -15,7 +15,6 @@ class JoinEvent extends React.Component {
   }
 
   getEventParticipationData() {
-    console.log('event fkn data', this.props.eventData);
     axios.get('/api/user').then(({ data }) => {
       let userData = data;
       this.setState({ userData });
@@ -24,11 +23,21 @@ class JoinEvent extends React.Component {
       }))
         .then((participations) => {
           let eventParticipationData = this.props.eventData;
+          // place user participation first in array
           eventParticipationData.participations = participations
             .filter((participation) => participation.userId === userData.id)
             .concat(participations
               .filter((participation) => participation.userId !== userData.id));
-          console.log('eventParticipationData', eventParticipationData);
+          // convert utc store in db to user timezone
+          eventParticipationData.participations =
+            eventParticipationData.participations.map((participation => {
+              participation.timeAvailable = participation.timeAvailable.map(timeSlot => {
+                timeSlot.startTime = new Date(timeSlot.startTime);
+                timeSlot.endTime = new Date(timeSlot.endTime);
+                return timeSlot;
+              });
+              return participation;
+            }));
           this.setState({ eventParticipationData });
         })
     })

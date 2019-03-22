@@ -25,6 +25,7 @@ class IndividualPreview extends React.Component {
     let newParticipation = {};
     newParticipation.timeAvailable = this.state.timeAvailable;
     newParticipation.unavailable = this.state.unavailable;
+    console.log('newParticipation', JSON.stringify(newParticipation));
     axios.put('/api/join/' + this.props.eventData.id, newParticipation).then(({ data }) => {
       console.log(data);
     });
