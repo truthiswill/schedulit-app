@@ -23,6 +23,9 @@ module.exports = {
   },
   updateParticipation: (userId, eventId, participation) => {
     eventId = new ObjectId(eventId);
+    console.log(participation);
+    console.log(userId);
+    console.log(eventId);
     return Participation.findOneAndUpdate({ userId, eventId }, participation);
   },
   createParticipation: (userId, eventId) => {
