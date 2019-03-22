@@ -5,13 +5,14 @@ import Navigation from './Navigation.jsx';
 import JoinEvent from './JoinEvent';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import styles from '../styles/app.css'
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      view: 'home',
+      view: 'create',
       events: []
     };
 

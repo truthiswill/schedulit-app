@@ -27,44 +27,7 @@
   box-sizing: border-box;
 }
 
-body {
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    line-height: 1.5;
-    color: #777;
-    background: #f9f9f9;
-    position: relative;
-}
-
-header {
-  display: block;
-  width: 100%;
-  padding: 1.75em 0;
-  border-bottom: 1px solid #eee;
-  background: #fff;
-}
-
-/* header #logo {
-  font-size: 175%;
-  text-align: center;
-  color: #1a8fff;
-  line-height: 1;
-} */
-
-/* header #logo .icon {
-  padding-right: .25em;
-} */
-
-/* main {
-  display: block;
-  margin: 0 auto;
-  margin-top: 5em;
-  max-width: 50em;
-} */
-
-
-/* GRID */
+/* YearMonthHeader */
 
 .row {
   margin: 0;
@@ -75,19 +38,10 @@ header {
   width: 100%;
 }
 
-.middle {
-  align-items: center;
-}
-
 .col {
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%; 
-}
-
-.colStart {
-  justify-content: flex-start;
-  text-align: left;
 }
 
 .colCenter {
@@ -95,143 +49,95 @@ header {
   text-align: center;
 }
 
+.colStart {
+  justify-content: flex-start;
+  text-align: left;
+}
+
 .colEnd {
   justify-content: flex-end;
   text-align: right;
 }
 
-
-/* Calendar */
-
-.calendar {
-  display: block;
-  position: relative;
-  width: 100%;
-  background: #fff;
-  border: 1px solid #eee;
+.calendarContainer {
+  background-color: #008080;
+  border-radius: 25px;
+  width: 50%;
 }
 
-.calendar .header {
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 115%;
-  padding: 1.5em 0;
-  border-bottom: 1px solid #eee;
-}
-
-.calendarGridContainer {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto;
-  background-color: lightblue;
-}
-
-.calendar .header .icon {
+.calendar .monthHeader .icon:hover {
+  transform: scale(2.00);
+  transition: .25s ease-out;
   cursor: pointer;
   transition: .15s ease-out;
 }
 
-.calendar .header .icon:hover {
-  transform: scale(1.75);
-  transition: .25s ease-out;
-  color: #1a8fff;
+.monthHeader {
+  color: white;
+  font-size: 150%; 
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 1.5em 0;
+  border-bottom: 1px solid lightgray;
 }
 
-.calendar .header .icon:first-of-type {
+.calendar .monthHeader .icon:first-of-type {
   margin-left: 1em;
 }
 
-.calendar .header .icon:last-of-type {
+.calendar .monthHeader .icon:last-of-type {
   margin-right: 1em;
+}
+
+/* DayPicker */
+
+.calendarGridContainer {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  background-color:#778899;
+  border-radius: 0px 0px 25px 25px;
 }
 
 .calendar .days {
   text-transform: uppercase;
-  font-weight: 400;
-  color: #ccc;
-  font-size: 70%;
+  font-weight: 600;
+  color: whitesmoke;
+  font-size: 95%;
   padding: .75em 0;
   border-bottom: 1px solid #eee;
 }
 
-.calendar .body .cell {
-  position: relative;
-  height: 5em;
-  border-right: 1px solid #eee;
-  overflow: hidden;
-  cursor: pointer;
-  background: #fff;
-  transition: 0.25s ease-out;
-}
+/* Day */
 
-.calendar .body .cell:hover {
-  background: #f9f9f9;
-  transition: 0.5s ease-out;
-}
-
-.calendar .body .selected {
-  border-left: 10px solid transparent;
-  border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
-  border-image-slice: 1;
-}
-
-.calendar .body .row {
-  border-bottom: 1px solid #eee;
-}
-
-.calendar .body .row:last-child {
-  border-bottom: none;
-}
-
-.calendar .body .cell:last-child {
-  border-right: none;
-}
-
-.calendar .body .cell .number {
-  position: absolute;
-  font-size: 82.5%;
-  line-height: 1;
-  top: .75em;
-  right: .75em;
-  font-weight: 700;
-}
-
-.calendar .body .disabled {
-  color: #ccc;
-  pointer-events: none;
-}
-
-/* .calendar .body .cell .bg {
-  font-weight: 700;
-  line-height: 1;
-  color: #1a8fff;
-  opacity: 0;
-  font-size: 8em;
-  position: absolute;
-  top: -.2em;
-  right: -.05em;
-  transition: .25s ease-out;
-  letter-spacing: -.07em;
-} */
-
-/* .calendar .body .cell:hover .bg, .calendar .body .selected .bg  {
-  opacity: 0.05;
-  transition: .5s ease-in;
-} */
-
-.set0{
-  background-color: green;
+.calBox {
+  /* border: .5px solid lightgray; */
+  padding: 30px; 
 }
 
 .set1{
-  background-color: blue;
+  background-color: #2f82a4;
+  border-radius: 100%;
 }
 
 .set2{
-  background-color: yellow;
+  background-color: rgb(182, 182, 9);
+  border-radius: 100%;
+}
+
+.set3{
+  background-color: rgb(208, 55, 55);
+  border-radius: 100%;
 }
 
 .number {
-  padding: 10px;
-  font-size: 20px;
-  text-align: right;
+  font-size: 120%;
+  font-weight: 400;
+  text-align: center;
+  color: white;
+  /* border: 10px solid blue;
+  border-radius: 50%; */
+}
+
+.number:hover {
+  cursor: pointer;
 }

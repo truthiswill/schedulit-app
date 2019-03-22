@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/calendar.css';
+import classnames from 'classnames';
 
 class Day extends React.Component {
   constructor(props) {
@@ -7,14 +8,16 @@ class Day extends React.Component {
   }
   render() {
     return (
-      <div
-        onClick={() => this.props.addDayToSet(this.props.date)}
-        className={styles['set' + this.props.set]}
-      >
-        <span className={styles.number}>{this.props.date.getDate()}</span>
+      <div onClick={() => this.props.addDayToSet(this.props.date)}
+        className={classnames(styles.calBox, styles.number)}
+        > 
+        <div className={classnames(styles['set' + this.props.set])}>
+        {this.props.date.getDate()}
+        </div>
       </div>
     );
   }
 }
 
 export default Day;
+//

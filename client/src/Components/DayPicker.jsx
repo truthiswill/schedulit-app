@@ -62,15 +62,17 @@ class DayPicker extends React.Component {
 
   render() {
     return (
-      <div className={styles.calendar}>
-        <YearMonthHeader
-          currentMonth={this.props.currentMonth}
-          currentYear={this.props.currentYear}
-          nextMonth={this.props.nextMonth}
-          prevMonth={this.props.prevMonth}
-        />
-        <div className={styles.calendarGridContainer} >
-          {this.renderDays()}
+      <div className={styles.calendarContainer}>
+        <div className={styles.calendar}>
+          <YearMonthHeader
+            currentMonth={this.props.currentMonth}
+            currentYear={this.props.currentYear}
+            nextMonth={this.props.nextMonth}
+            prevMonth={this.props.prevMonth}
+          />
+          <div className={styles.calendarGridContainer} >
+            {this.renderDays()}
+          </div>
         </div>
       </div>
     );

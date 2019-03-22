@@ -1,0 +1,15 @@
+.timePickerFont {
+  font-size: 120%;
+  font-weight: 400;
+  color: slategray;
+  margin: 10px;
+  text-transform: uppercase;
+}
+
+.hoursButton {
+  font-size: 120%;
+  font-weight: 400;
+  color: slategray;
+  margin: 10px;
+  text-transform: uppercase;
+}

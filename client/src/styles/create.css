@@ -1,6 +1,54 @@
-/* .calendarContainer {
-  /* col-sm: 4;
-  col-md: 7; 
-  col-lg: 4;
-  mt: 5 
-} */
+.eventForm {
+  color: slategray;
+}
+
+.eventInvitation {
+  color:slategray;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.createContainer {
+  display: flex;
+  flex-wrap: wrap; 
+  margin: 1.5em;
+}
+
+.detailsContainer {
+  width: 50%;
+  align-content: center;
+}
+
+.inputFormContainer {
+  padding-bottom: 20px;
+  padding-top: 10px;
+  width: 100%; 
+}
+
+.hoursContainer {
+  width: 100%;
+}
+
+input[type=text] {
+  width: 95%;
+  padding: 20px 20px;
+  margin: 30px 2.5%;
+  display: inline-block;
+  border: 2px solid slategray;
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+.submitButton {
+  text-transform: uppercase;
+  font-weight: 400;
+  background-color: slategray;
+  text-align: center;
+  border: 2px solid #008080;
+  font-size: 16px; 
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  margin: 1em;
+}

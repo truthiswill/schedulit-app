@@ -4,7 +4,7 @@ import styles from '../styles/calendar.css';
 
 const renderDays = () => {
 
-  const DAYSOFWEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const DAYSOFWEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
   const days = [];
 
   for (let day of DAYSOFWEEK) {
@@ -21,11 +21,11 @@ export default (props) => {
   const MonthNames = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
   return (
     <>
-      <div className={classnames(styles.header, styles.row, styles.middle)}>
+      <div className={classnames(styles.monthHeader, styles.row)}>
         <div className={classnames(styles.col, styles.colStart)}>
           <div className={styles.icon} onClick={props.prevMonth}>
             chevron_left
-				</div>
+				  </div>
         </div>
         <div className={classnames(styles.col, styles.colCenter)}>
           <span> {MonthNames[props.currentMonth]} {props.currentYear} </span>
@@ -38,31 +38,3 @@ export default (props) => {
     </>
   );
 };
-
-// export default props => {
-//   const dateFormat = 'MMMM YYYY';
-//   return (
-//     <>
-//       <div className={classnames(styles.header, styles.row, styles.middle)}>
-//         <div className={classnames(styles.col, styles.colStart)}>
-//           <div className={styles.icon} onClick={props.prevMonth}>
-//             chevron_left
-//           </div>
-//         </div>
-//         <div className={classnames(styles.col, styles.colCenter)}>
-//           <span>
-//             {' '}
-//             {props.currentMonth} {props.currentYear}{' '}
-//           </span>
-//         </div>
-//         <div
-//           className={classnames(styles.col, styles.colEnd)}
-//           onClick={props.nextMonth}
-//         >
-//           <div className={styles.icon}>chevron_right</div>
-//         </div>
-//       </div>
-//       {renderDays()}
-//     </>
-//   );
-// };
