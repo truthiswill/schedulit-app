@@ -1,18 +1,45 @@
-.topForm {
-  padding-bottom: 20px;
-  padding-top: 10px; 
-}
-
 .eventForm {
-  color: white;
+  color: slategray;
 }
 
-.input[type=text] {
+.eventInvitation {
+  color:slategray;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.createContainer {
+  display: flex;
+  border: solid red;
+  flex-wrap: wrap; 
+  margin: 1.5em;
+}
+
+.detailsContainer {
+  border: solid pink;
+  width: 50%;
+  align-content: center;
+}
+
+.inputFormContainer {
+  padding-bottom: 20px;
+  padding-top: 10px;
+  border: solid orange;
+  width: 100%; 
+}
+
+.hoursContainer {
+  border: solid green;
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+}
+
+input[type=text] {
+  width: 95%;
+  padding: 20px 20px;
+  margin: 30px 2.5%;
   display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid slategray;
+  border-radius: 15px;
   box-sizing: border-box;
+  font-size: 100%;
 }

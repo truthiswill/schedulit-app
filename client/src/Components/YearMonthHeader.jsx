@@ -4,7 +4,7 @@ import styles from '../styles/calendar.css';
 
 const renderDays = () => {
 
-  const DAYSOFWEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const DAYSOFWEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
   const days = [];
 
   for (let day of DAYSOFWEEK) {
@@ -25,7 +25,7 @@ export default (props) => {
         <div className={classnames(styles.col, styles.colStart)}>
           <div className={styles.icon} onClick={props.prevMonth}>
             chevron_left
-				</div>
+				  </div>
         </div>
         <div className={classnames(styles.col, styles.colCenter)}>
           <span> {MonthNames[props.currentMonth]} {props.currentYear} </span>

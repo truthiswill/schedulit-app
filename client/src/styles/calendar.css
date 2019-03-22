@@ -59,6 +59,12 @@
   text-align: right;
 }
 
+.calendarContainer {
+  background-color: #008080;
+  border-radius: 25px;
+  width: 50%;
+}
+
 .calendar .monthHeader .icon:hover {
   transform: scale(2.00);
   transition: .25s ease-out;
@@ -89,6 +95,7 @@
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto;
   background-color:#778899;
+  border-radius: 0px 0px 25px 25px;
 }
 
 .calendar .days {
@@ -103,8 +110,10 @@
 /* Day */
 
 .calBox {
-  border: .5px solid lightgray;
+  /* border: .5px solid lightgray; */
   padding: 30px; 
+  border-radius: 100%;
+
 }
 
 .set1{
@@ -119,17 +128,17 @@
 }
 
 .set2{
-  background-color: yellow;
+  background-color: rgb(182, 182, 9);
 }
 
 .set3{
-  background-color: green;
+  background-color: rgb(208, 55, 55);
 }
 
 .number {
-  font-size: 20px;
-  font-weight: 600;
-  text-align: left;
+  font-size: 120%;
+  font-weight: 400;
+  text-align: center;
   color: white;
   /* border: 10px solid blue;
   border-radius: 50%; */
@@ -138,78 +147,3 @@
 .number:hover {
   cursor: pointer;
 }
-
-
-/* .calendar .header {
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 140%;
-  padding: 1.5em 0;
-  border-bottom: 1px solid lightgray;
-} */
-
-/* GRID */
-
-/* .middle {
-  align-items: center;
-} */
-
-
-/* Calendar */
-
-/* .calendar {
-  display: block;
-  position: relative;
-  width: 100%;
-  background: #fff;
-  border: 1px solid #eee;
-} */
-
-
-
-/* .calendar .body .cell {
-  position: relative;
-  height: 5em;
-  border-right: 1px solid #eee;
-  overflow: hidden;
-  cursor: pointer;
-  background: #fff;
-  transition: 0.25s ease-out;
-} */
-
-/* .calendar .body .cell:hover {
-  background: #f9f9f9;
-  transition: 0.5s ease-out;
-} */
-
-/* .calendar .body .selected {
-  border-left: 10px solid transparent;
-  border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
-  border-image-slice: 1;
-} */
-
-/* .calendar .body .row {
-  border-bottom: 1px solid #eee;
-} */
-
-/* .calendar .body .row:last-child {
-  border-bottom: none;
-}
-
-.calendar .body .cell:last-child {
-  border-right: none;
-} */
-
-/* .calendar .body .cell .number {
-  position: absolute;
-  font-size: 82.5%;
-  line-height: 1;
-  top: .75em;
-  right: .75em;
-  font-weight: 700;
-} */
-
-/* .calendar .body .disabled {
-  color: #ccc;
-  pointer-events: none;
-} */
