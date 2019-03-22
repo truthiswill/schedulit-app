@@ -16,7 +16,7 @@ class GroupTimeSlot extends React.Component {
   }
 
   initializeSlotStatus() {
-    console.log(this.props.eventData.participations);
+    console.log('participations', JSON.stringify(this.props.eventData.participations));
     let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
     let slotStatus = {}; //keys are timestamps; val is true/false for selectable, null for unselectable
     let stub = new Date(this.props.timeSlot.startTime.getFullYear(), this.props.timeSlot.startTime.getMonth(), this.props.timeSlot.startTime.getDate()).getTime();
@@ -26,7 +26,7 @@ class GroupTimeSlot extends React.Component {
       for (let participation of this.props.eventData.participations) {
         let isAvailable = false;
         participation.timeAvailable.forEach(timeSlot => {
-          isAvailable = this.timestampLiesInSlot(currentTimeStamp, timeSlot);
+          isAvailable = isAvailable ? true : this.timestampLiesInSlot(currentTimeStamp, timeSlot);
         });
         userAvailabilities.push(isAvailable);
       }

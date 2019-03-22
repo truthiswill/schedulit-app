@@ -31,35 +31,46 @@ class TimeSlot extends React.Component {
 
   }
 
+  //fix these next 3 functions
+
   startFromHere(slotStartTime) {
-    this.state.slotStatus[slotStartTime] = true
-    this.setState({
-      startTime: slotStartTime,
-      mouseDown: true,
-      slotStatus: this.state.slotStatus
-    });
+    if (this.state.slotStatus[slotStartTime] !== null) {
+      this.state.slotStatus[slotStartTime] = true
+      console.log('slotStartTime', slotStartTime);
+      this.setState({
+        startTime: slotStartTime,
+        mouseDown: true,
+        slotStatus: this.state.slotStatus
+      });
+    }
   }
 
   goToHere(slotStartTime) {
-    let newTimeSlot = {};
-    newTimeSlot.startTime = new Date(this.state.startTime);
-    newTimeSlot.endTime = new Date(new Date(slotStartTime).getTime() + (15 * 60 * 1000));
-    newTimeSlot.preferenceLevel = 1;
-    this.props.addToTimeAvailable(newTimeSlot);
-    this.setState({ mouseDown: false });
+    if (this.state.slotStatus[slotStartTime] !== null) {
+      let newTimeSlot = {};
+      newTimeSlot.startTime = new Date(this.state.startTime);
+      newTimeSlot.endTime = new Date(new Date(slotStartTime).getTime() + (15 * 60 * 1000));
+      newTimeSlot.preferenceLevel = 1;
+      console.log('newTimeSlot', newTimeSlot);
+      this.props.addToTimeAvailable(newTimeSlot);
+      this.setState({ mouseDown: false });
+    }
   }
 
   includeHere(slotStartTime) {
-    if (this.state.mouseDown) {
-      for (let timestamp in this.state.slotStatus) {
-        //in case of skipped elements when drag is fast
-        if (new Date(timestamp) < new Date(slotStartTime)
-          && new Date(timestamp) > new Date(this.state.startTime)) {
-          this.state.slotStatus[timestamp] = true;
+    if (this.state.slotStatus[slotStartTime] !== null) {
+
+      if (this.state.mouseDown) {
+        for (let timestamp in this.state.slotStatus) {
+          //in case of skipped elements when drag is fast
+          if (new Date(timestamp) < new Date(slotStartTime)
+            && new Date(timestamp) > new Date(this.state.startTime)) {
+            this.state.slotStatus[timestamp] = true;
+          }
         }
+        this.state.slotStatus[slotStartTime] = true
+        this.setState({ slotStatus: this.state.slotStatus });
       }
-      this.state.slotStatus[slotStartTime] = true
-      this.setState({ slotStatus: this.state.slotStatus });
     }
   }
 
