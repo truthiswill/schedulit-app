@@ -1,0 +1,52 @@
+.slotContainer{
+  display: flex;
+  height: 1em;
+  width: 8em;
+  justify-content: center;
+}
+
+.unselected{
+  width: 100%;
+
+}
+
+.selected0{
+  background-color: chartreuse;
+  width: 100%;
+}
+
+.selected1{
+  background-color: antiquewhite;
+  width: 100%;
+
+}
+
+.selected2{
+  background-color: cadetblue;
+  width: 100%;
+
+}
+
+.selected3{
+  background-color: chocolate;
+  width: 100%;
+
+}
+
+.selected4{
+  background-color: darkgreen;
+  width: 100%;
+
+}
+
+.selected5{
+  background-color: blanchedalmond;
+  width: 100%;
+
+}
+
+.selected6{
+  background-color: darkolivegreen;
+  width: 100%;
+
+}
