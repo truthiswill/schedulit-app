@@ -81,7 +81,7 @@ class ChooseHours extends React.Component {
       );
     }
     return (
-      <div>
+      <div className={styles.timePickerFont}>
         {this.props.setCounter > 1
           ? 'Would you like to add more dates?'
           : 'Pick some dates first'}
