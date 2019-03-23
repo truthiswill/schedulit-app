@@ -62,6 +62,7 @@ class JoinEvent extends React.Component {
   }
 
   render() {
+    if (this.state.eventParticipationData === undefined) return <div />;
     return (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <IndividualPreview
