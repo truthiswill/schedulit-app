@@ -10,7 +10,7 @@ class IndividualGroupSlot extends React.Component {
     return (
       <div
         className={styles.slotContainer} >
-        {this.props.selected.map((selection, index) => <div className={selection ? styles['selected' + index] : styles.unselected}></div>)}
+        {this.props.selected.map((selection, index) => <div key={index} className={selection ? styles['selected' + index] : styles.unselected}></div>)}
       </ div>
     )
 
