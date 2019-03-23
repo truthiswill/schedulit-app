@@ -23,13 +23,9 @@ module.exports = {
   },
   updateParticipation: (userId, eventId, participation) => {
     eventId = new ObjectId(eventId);
-    console.log(participation);
-    console.log(userId);
-    console.log(eventId);
     return Participation.findOneAndUpdate({ userId, eventId }, participation);
   },
   createParticipation: (userId, eventId) => {
-    console.log('attempting to create participation');
     eventId = new ObjectId(eventId);
     let newParticipation = {
       id: new ObjectId(),
@@ -37,9 +33,6 @@ module.exports = {
       eventId,
       unavailable: false
     };
-    console.log('after delete', newParticipation);
-    console.log('eventId', eventId);
-    console.log('userId', userId);
     return Participation.findOne({ userId, eventId })
       .then((participation) => {
         if (participation) {

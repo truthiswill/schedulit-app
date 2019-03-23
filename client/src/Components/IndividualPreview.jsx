@@ -9,9 +9,8 @@ class IndividualPreview extends React.Component {
     this.state = {
       timeAvailable: [],
       unavailable: false,
-      allTimeSlotStatuses: this.initializeAllSlotStatuses()
+      allTimeSlotStatuses: this.initializeAllSlotStatuses() //keys are timestamps; val is true/false for selectable, null for unselectable
     };
-    this.addToTimeAvailable = this.addToTimeAvailable.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTimeSlotStatus = this.updateTimeSlotStatus.bind(this);
@@ -29,87 +28,67 @@ class IndividualPreview extends React.Component {
     newParticipation.unavailable = this.state.unavailable;
     newParticipation.timeAvailable = [];
     if (!this.state.unavailable) {
-      for (let slotStatus of Object.values(this.state.allTimeSlotStatuses)) {
-        let selectedTimestamps = []
-        console.log(slotStatus);
-        for (let timestamp in slotStatus) {
-          console.log(timestamp);
-          if (slotStatus[timestamp]) {
-            selectedTimestamps.push(timestamp);
-          }
-        }
-        selectedTimestamps.sort((t1, t2) => new Date(t1) - new Date(t2));
-        let currTimeSlot = {};
-        console.log(selectedTimestamps);
-        selectedTimestamps.forEach(timestamp => {
+      for (let timestamp in this.state.allTimeSlotStatuses) {
+        if (this.state.allTimeSlotStatuses[timestamp]) {
           let timestampObject = new Date(timestamp);
-          console.log('curr timestamp', timestamp);
-          console.log('curr timeAvailable', newParticipation.timeAvailable);
-          if (currTimeSlot.startTime === undefined) {
-            currTimeSlot.startTime = timestampObject;
-            currTimeSlot.endTime = new Date(timestampObject.getTime() + 15 * 60 * 1000);
-          } else if (timestampObject.getTime() === +currTimeSlot.endTime.getTime()) {
-            currTimeSlot.endTime = new Date(timestampObject.getTime() + 15 * 60 * 1000);
-          } else {
-            newParticipation.timeAvailable.push(currTimeSlot);
-            currTimeSlot = {};
-            currTimeSlot.startTime = timestampObject;
-            currTimeSlot.endTime = new Date(timestampObject.getTime() + 15 * 60 * 1000);
-          }
-        });
-        newParticipation.timeAvailable.push(currTimeSlot);
-
+          let currTimeSlot = {};
+          currTimeSlot.startTime = timestampObject;
+          currTimeSlot.endTime = new Date(timestampObject.getTime() + 15 * 60 * 1000);
+          newParticipation.timeAvailable.push(currTimeSlot);
+        }
       }
     }
-    console.log(this.state.allTimeSlotStatuses);
-    console.log(newParticipation);
     axios.put('/api/join/' + this.props.eventData.id, newParticipation).then(({ data }) => {
-      console.log(data);
+      this.props.socket.emit('participation');
     });
   }
 
-  updateTimeSlotStatus(id, slotStatus) {
+  updateTimeSlotStatus(timestamp, value) {
     let allTimeSlotStatuses = this.state.allTimeSlotStatuses;
-    allTimeSlotStatuses[id] = slotStatus;
+    allTimeSlotStatuses[timestamp] = value;
     this.setState({ allTimeSlotStatuses });
   }
 
 
-  addToTimeAvailable(timeSlot) {
-    this.setState({
-      timeAvailable: this.state.timeAvailable.concat(timeSlot)
-    });
-  }
 
   timestampLiesInSlot(timestamp, timeSlot) {
-    return timestamp >= timeSlot.startTime && timestamp <= timeSlot.endTime;
+    timestamp = new Date(timestamp);
+    return timestamp.getTime() >= timeSlot.startTime.getTime() && timestamp.getTime() < timeSlot.endTime.getTime();
   }
 
 
-  initializeOneSlotStatus(timeSlot) {
+  initializeOneSlotStatus(timeSlot, allTimeSlotStatuses) {
     let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
-    let slotStatus = {}; //keys are timestamps; val is true/false for selectable, null for unselectable
     let stub = new Date(timeSlot.startTime.getFullYear(), timeSlot.startTime.getMonth(), timeSlot.startTime.getDate()).getTime();
     for (let i = 0; i < numberOfSlots; i++) {
       let currentTimeStamp = new Date(stub + (this.props.earliestMinutesInDay + (i * 15)) * 60 * 1000);
       if (currentTimeStamp >= timeSlot.startTime && currentTimeStamp < timeSlot.endTime) {
-        slotStatus[currentTimeStamp] =
+        allTimeSlotStatuses[currentTimeStamp] =
           this.props.eventData.participations[0]
             .timeAvailable
             .some(timeSlot => this.timestampLiesInSlot(currentTimeStamp, timeSlot));
       } else {
-        slotStatus[currentTimeStamp] = null;
+        allTimeSlotStatuses[currentTimeStamp] = null;
       }
     }
-    return slotStatus;
+    return allTimeSlotStatuses;
   }
 
   initializeAllSlotStatuses() {
     let allTimeSlotStatuses = {};
     this.props.eventData.availableSlots.map((timeSlot, index) => {
-      allTimeSlotStatuses[index] = this.initializeOneSlotStatus(timeSlot);
+      allTimeSlotStatuses = this.initializeOneSlotStatus(timeSlot, allTimeSlotStatuses);
     });
     return allTimeSlotStatuses;
+  }
+
+  getSlotStatusForTimeSlot(timeSlot) {
+    let slotStatus = {};
+    Object
+      .keys(this.state.allTimeSlotStatuses)
+      .filter(timestamp => this.timestampLiesInSlot(timestamp, timeSlot))
+      .map(timestamp => slotStatus[timestamp] = this.state.allTimeSlotStatuses[timestamp]);
+    return slotStatus;
   }
 
   render() {
@@ -118,16 +97,15 @@ class IndividualPreview extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div style={this.state.unavailable ? { display: 'none' } : { display: 'flex', justifyContent: 'space-between' }}>
           {this.props.eventData.availableSlots.map((timeSlot, index) => {
+
             return (
               <TimeSlot
                 earliestMinutesInDay={this.props.earliestMinutesInDay}
                 latestMinutesInDay={this.props.latestMinutesInDay}
                 timeSlot={timeSlot}
                 eventData={this.props.eventData}
-                id={index}
                 key={index}
-                slotStatus={this.state.allTimeSlotStatuses[index]}
-                // addToTimeAvailable={this.addToTimeAvailable}
+                slotStatus={this.getSlotStatusForTimeSlot(timeSlot)}
                 updateTimeSlotStatus={this.updateTimeSlotStatus}
               />
             );

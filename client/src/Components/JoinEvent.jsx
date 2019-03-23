@@ -5,41 +5,69 @@ import axios from 'axios';
 
 class JoinEvent extends React.Component {
   constructor(props) {
+    const socket = io();
     super(props);
     this.state = {
+      socket,
       earliestMinutesInDay: this.findEarliestMinutesInDay(this.props.eventData.availableSlots),
       latestMinutesInDay: this.findLatestMinutesInDay(this.props.eventData.availableSlots),
     }
+    this.getEventParticipationData = this.getEventParticipationData.bind(this);
     this.getEventParticipationData();
+    socket.on('participation', () => {
+      console.log('updating data socket');
+      this.getEventParticipationData();
+    });
   }
 
+  getEventData(eventId) {
+    return axios
+      .get('/api/event/' + eventId)
+      .then(({ data }) => {
+        return data;
+      })
+  }
+
+
   getEventParticipationData() {
-    axios.get('/api/user').then(({ data }) => {
-      let userData = data;
-      this.setState({ userData });
-      Promise.all(this.props.eventData.participations.map(participationId => {
-        return axios.get('/api/participation/' + participationId).then(({ data }) => data);
-      }))
-        .then((participations) => {
-          let eventParticipationData = this.props.eventData;
-          // place user participation first in array
-          eventParticipationData.participations = participations
-            .filter((participation) => participation.userId === userData.id)
-            .concat(participations
-              .filter((participation) => participation.userId !== userData.id));
-          // convert utc store in db to user timezone
-          eventParticipationData.participations =
-            eventParticipationData.participations.map((participation => {
-              participation.timeAvailable = participation.timeAvailable.map(timeSlot => {
-                timeSlot.startTime = new Date(timeSlot.startTime);
-                timeSlot.endTime = new Date(timeSlot.endTime);
-                return timeSlot;
+    this.getEventData(this.props.eventData.id)
+      .then((eventData) => {
+        console.log(eventData);
+        axios.get('/api/user').then(({ data }) => {
+          let userData = data;
+          this.setState({ userData });
+          Promise.all(eventData.participations.map(participationId => {
+            return axios.get('/api/participation/' + participationId).then(({ data }) => data);
+          }))
+            .then((participations) => {
+              let eventParticipationData = eventData;
+              // place user participation first in array
+              eventParticipationData.participations = participations
+                .filter((participation) => participation.userId === userData.id)
+                .concat(participations
+                  .filter((participation) => participation.userId !== userData.id));
+              // convert utc store in db to user timezone
+              eventParticipationData.participations =
+                eventParticipationData.participations.map((participation => {
+                  participation.timeAvailable = participation.timeAvailable.map(timeSlot => {
+                    timeSlot.startTime = new Date(timeSlot.startTime);
+                    timeSlot.endTime = new Date(timeSlot.endTime);
+                    return timeSlot;
+                  });
+                  return participation;
+                }));
+              eventParticipationData.availableSlots = eventParticipationData.availableSlots.map(timeSlot => {
+                return {
+                  startTime: new Date(timeSlot.startTime),
+                  endTime: new Date(timeSlot.endTime)
+                  // not including preference level as not meaningful
+                };
               });
-              return participation;
-            }));
-          this.setState({ eventParticipationData });
+              console.log('eventParticipationData', eventParticipationData);
+              this.setState({ eventParticipationData });
+            })
         })
-    })
+      })
   }
 
   findEarliestMinutesInDay(slots) {
@@ -63,12 +91,14 @@ class JoinEvent extends React.Component {
 
   render() {
     if (this.state.eventParticipationData === undefined) return <div />;
+    console.log(this.state.eventParticipationData);
     return (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <IndividualPreview
           eventData={this.state.eventParticipationData}
           earliestMinutesInDay={this.state.earliestMinutesInDay}
           latestMinutesInDay={this.state.latestMinutesInDay}
+          socket={this.state.socket}
         />
         <GroupPreview
           eventData={this.state.eventParticipationData}
