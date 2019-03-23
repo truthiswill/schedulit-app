@@ -84,26 +84,6 @@ class ChooseHours extends React.Component {
               ))}
           </select>
 
-          {/* <DropdownButton 
-            id="dropdown-basic-button" 
-            title="Start Time"
-            onChange={() => this.handleChange()}>
-            {times.map(time => (
-              <Dropdown.Item value={time} key={time} onChange={() => this.handleChange()}>{this.hoursToString(time)} </Dropdown.Item>
-            ))}
-          </DropdownButton>
-          <DropdownButton
-            id="dropdown-basic-button"
-            title="End Time"
-            onChange={this.handleChange}
-            disabled={this.state.startTime === ''}
-          >
-            {times
-              .filter(time => time > this.state.startTime)
-              .map(time => (
-                <Dropdown.Item value={time} key={time}>{this.hoursToString(time)} </Dropdown.Item>
-              ))}
-          </DropdownButton> */}
           <button
             className={styles.hoursButton}
             onClick={this.addTimesToSet}
@@ -126,18 +106,3 @@ class ChooseHours extends React.Component {
 
 export default ChooseHours;
 
-{
-  /* <div className={styles.dropdownContainer}>
-  <div className={styles.sizeContainer}>
-    <div className={styles.sizeHeader} onClick={() => this.toggleSizeList()}>
-      <div className={styles.dropdownHeaderTitle}>{this.state.sizeTitle}</div>
-        {this.state.sizeListOpen ? <div className={styles.angleUp}/> : <div className={styles.angleDown}/>}
-    </div>
-      {this.state.sizeListOpen && <ul className={styles.sizeList} onClick={e => e.stopPropagation()}>
-      {this.state.sizes.map((size, i)=> (
-        <Sizes size={size} id={i} key={i} selectSize={this.selectSize}/>
-      ))}
-    </ul>}
-  </div>
-</div> */
-}

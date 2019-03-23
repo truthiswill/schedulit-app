@@ -36,7 +36,10 @@ class TimeSlot extends React.Component {
   render() {
     return (
       <div>
-        {this.props.timeSlot.startTime.getDate()}
+         {new Intl.DateTimeFormat('en-US', {
+          month: 'short',
+          day: '2-digit'
+        }).format(this.props.timeSlot.startTime)}
         {Object.keys(this.props.slotStatus).map((timeStamp, index) => <IndividualSlot
           selected={this.props.slotStatus[timeStamp]}
           handleMouseDown={this.handleMouseDown}
