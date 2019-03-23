@@ -24,9 +24,6 @@ const isValidEvent = event => {
 };
 
 module.exports = {
-  // login: (req, res) => {
-  //   res.status(200).send("hi");
-  // },
   myUserGet: (req, res) => {
     let userId = req.user.id;
     fetchUser(userId).then(user => {
@@ -41,18 +38,6 @@ module.exports = {
       })
       .catch(() => res.status(404).end());
   },
-  // userPost: (req, res) => {
-  //   let userID = Number(req.params.id);
-  //   res.status(200).send("hi2");
-  // },
-  // userPut: (req, res) => {
-  //   let userID = Number(req.params.id);
-  //   res.status(200).send("hi2");
-  // },
-  // userDelete: (req, res) => {
-  //   let userID = Number(req.params.id);
-  //   res.status(200).send("hi2");
-  // },
   joinGet: (req, res) => {
     let eventId = req.params.eventId;
     let userId = req.user.id;
@@ -86,14 +71,6 @@ module.exports = {
         res.status(404).send('event post unsuccessful');
       });
   },
-  // eventPut: (req, res) => {
-  //   let eventId = Number(req.params.id);
-  //   res.status(200).send("hi3");
-  // },
-  // eventDelete: (req, res) => {
-  //   let eventId = Number(req.params.id);
-  //   res.status(200).send("hi3");
-  // },
   participationGet: (req, res) => {
     let id = req.params.id;
     fetchParticipation(id)
@@ -112,12 +89,4 @@ module.exports = {
       })
       .catch(() => res.status(404).end());
   }
-  // joinPut: (req, res) => {
-  //   let participationID = Number(req.params.id);
-  //   res.status(200).send("hi4");
-  // },
-  // participationDelete: (req, res) => {
-  //   let participationID = Number(req.params.id);
-  //   res.status(200).send("hi4");
-  // }
 };

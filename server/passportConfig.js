@@ -20,7 +20,7 @@ module.exports = passport => {
         User.findOneAndUpdate(
           { id: profile.id },
           { id: profile.id, googleProfile: profile._json },
-          { upsert: true }
+          { upsert: true, new: true }
         ).then(userDocument => {
           userDocument.token = token;
           return done(null, userDocument);
