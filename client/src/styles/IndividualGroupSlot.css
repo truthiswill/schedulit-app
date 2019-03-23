@@ -1,52 +1,45 @@
-.slotContainer{
+.slotContainer {
   display: flex;
+  width: 5em;
   height: 1em;
-  width: 8em;
   justify-content: center;
 }
 
-.unselected{
+.unselected {
   width: 100%;
-
 }
 
-.selected0{
+.selected0 {
   background-color: chartreuse;
   width: 100%;
 }
 
-.selected1{
+.selected1 {
   background-color: antiquewhite;
   width: 100%;
-
 }
 
-.selected2{
+.selected2 {
   background-color: cadetblue;
   width: 100%;
-
 }
 
-.selected3{
+.selected3 {
   background-color: chocolate;
   width: 100%;
-
 }
 
-.selected4{
+.selected4 {
   background-color: darkgreen;
   width: 100%;
-
 }
 
-.selected5{
+.selected5 {
   background-color: blanchedalmond;
   width: 100%;
-
 }
 
-.selected6{
+.selected6 {
   background-color: darkolivegreen;
   width: 100%;
-
 }

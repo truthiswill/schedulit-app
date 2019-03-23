@@ -2,37 +2,33 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: baseline;
 }
 
 .schedulIt {
-  color: 	rgba(140, 140, 140, 0.529);	
+  color: rgba(140, 140, 140, 0.529);
   font-size: 36px;
-	font-weight: 700;
-	-webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);	
+  font-weight: 700;
+  -webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);
 }
-.buttonContainer{
-	display: flex;
-	flex-direction: row;
-	height:100%;
+
+.schedulIt:hover {
+  cursor: pointer;
 }
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+}
+
 .clickables {
-
-  color: 	rgba(140, 140, 140, 0.529);	;
-	font-size: 24px; 
-	-webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);	
-	cursor: pointer;
-	margin-left: 2em;
+  color: rgba(140, 140, 140, 0.529);
+  font-size: 26px;
+  -webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);
+  cursor: pointer;
+  margin-left: 2em;
 }
 
-.alignHorizontal{
-	border-radius: 2px;
-	
-}
-
-.myEvents {
-  white-space: nowrap;
-  padding-right: 50px;
-  color: 	rgba(140, 140, 140, 0.529);	; 
-	font-size: 24px; 
-	-webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);	
+.alignHorizontal {
+  border-radius: 2px;
 }

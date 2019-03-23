@@ -1,42 +1,40 @@
-
-.overAll{
-	padding-top:5em; 
-	width:100%
+.overAll {
+  padding-top: 5em;
+  width: 100%;
 }
 
-.inner{
-	width: 50%;
-	margin-left: 25%;
-	margin-right: 25%;
-	border-radius: 10px;
-	border-top: rgb(1, 0, 7);
-	border-left: rgb(1, 0, 7);
-	border-right: rgb(1, 0, 7);
-	border-width: 0px;
+.inner {
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  border-radius: 10px;
+  border-top: rgb(1, 0, 7);
+  border-left: rgb(1, 0, 7);
+  border-right: rgb(1, 0, 7);
+  border-width: 0px;
   border-style: solid;
 }
-.directions{
-
-
-	margin: 0.5em;
-	text-align: center;
-	
-
+.directions {
+  margin: 0.5em;
+  text-align: center;
 }
 
-.loginCenter{
-	display: flex;
-	justify-content: center;
+.loginCenter {
+  display: flex;
+  justify-content: center;
+}
 
-	}
+.button {
+  background-color: #006d23;
+  color: rgb(251, 223, 255);
+  padding: 10px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin: 10px;
+  font-size: 1em;
+}
 
-	.button {
-		background-color: #006d23;
-		color: rgb(251, 223, 255);
-		padding: 10px;
-		border-radius: 10px;
-		-moz-border-radius: 10px;
-		-webkit-border-radius: 10px;
-		margin:10px;
-		font-size: 1em;
+.button:hover {
+  cursor: pointer;
 }

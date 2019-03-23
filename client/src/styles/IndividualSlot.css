@@ -3,15 +3,17 @@
   height: 1em;
   background-color: chartreuse;
 }
+
 .unselectable {
   width: 5em;
   height: 1em;
   background-color: grey;
 }
+
 .selectable {
-	/* background-color: blue; */
-	border-width: 1px;
-	border-bottom: 0em;
+  /* background-color: blue; */
+  border-width: 1px;
+  border-bottom: 0em;
   border-style: solid;
   border-color: orange;
   width: 5em;

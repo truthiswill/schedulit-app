@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "../styles/navigation.css";
+import React from 'react';
+import styles from '../styles/navigation.css';
 
 const Navigation = ({ setEventView, setCreateView }) => {
   return (
@@ -10,10 +10,10 @@ const Navigation = ({ setEventView, setCreateView }) => {
       <div className={styles.alignHorizontal}>
         <div className={styles.buttonContainer}>
           <div onClick={() => setEventView()} className={styles.clickables}>
-            My Events
+            Show Events
           </div>
           <div onClick={() => setCreateView()} className={styles.clickables}>
-            Create an event!
+            Create Events
           </div>
         </div>
       </div>

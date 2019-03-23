@@ -11,8 +11,7 @@ const Events = ({ events }) => {
           margin: '40px',
           width: 'auto',
           justifyContent: 'space-evenly'
-        }}
-      >
+        }}>
         <div style={{ width: 'auto' }} />
         <div style={{ width: 'auto' }}>
           <h2>Events I am attending</h2>

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import styles from "../styles/login.css";
+import React, { Component } from 'react';
+import styles from '../styles/login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Login extends Component {
           <div className={`${styles.directions}`}>
             Please Login to use the app
           </div>
-					<div className={`${styles.loginCenter}`}>
+          <div className={`${styles.loginCenter}`}>
             <button
               className={`${styles.button}`}
               onClick={this.props.loginUser}
@@ -21,7 +21,6 @@ class Login extends Component {
               Login
             </button>
           </div>
-
         </div>
       </div>
     );
