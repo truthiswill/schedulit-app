@@ -21,6 +21,7 @@ class Create extends Component {
     this.nextMonth = this.nextMonth.bind(this);
     this.prevMonth = this.prevMonth.bind(this);
     this.addTimesToSet = this.addTimesToSet.bind(this);
+    this.instructionMessage = this.instructionMessage.bind(this);
   }
 
   addTimesToSet(times) {
@@ -80,6 +81,12 @@ class Create extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  instructionMessage() {
+    if (!this.state.title) return 'Create a New Event: Enter a Title'
+    if (this.state.title && !this.state.description) return 'You are on Your Way. Enter a Description for your Event'
+    if (this.state.description && this.state.description) return 'Great! Pick Dates and Times for Your Event'
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     let newEvent = {};
@@ -126,7 +133,7 @@ class Create extends Component {
       <div className={styles.createPage}>
         <hr className={styles.hr} />
         <div className={styles.eventInvitation}>
-          Get the Ball Rolling: Enter the Options.
+        {this.instructionMessage()}
         </div>
         <hr className={styles.hr} />
         <div className={styles.createContainer}>
