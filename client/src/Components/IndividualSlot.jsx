@@ -8,11 +8,10 @@ class IndividualSlot extends React.Component {
   }
   render() {
     return (
-
       <div
-        onMouseDown={() => this.props.startFromHere(this.props.slotStartTime)}
-        onMouseUp={() => this.props.goToHere(this.props.slotStartTime)}
-        onMouseEnter={() => this.props.includeHere(this.props.slotStartTime)}
+        onMouseDown={() => this.props.handleMouseDown(this.props.slotStartTime, this.props.selected)}
+        onMouseUp={this.props.handleMouseUp}
+        onMouseEnter={() => this.props.handleMouseEnter(this.props.slotStartTime, this.props.selected)}
         className={`${this.props.selected ? styles.selected : ''} ${this.props.selected === null ? styles.unselectable : styles.selectable}`} >
       </ div>
     )
