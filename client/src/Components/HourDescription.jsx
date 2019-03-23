@@ -104,22 +104,26 @@ class HourDescription extends React.Component {
           if (timeStamp.getMinutes() === 0 || index === 0) {
             return (
               <div className={styles.showHour}>
+								<div className={styles.internalPadding}>
                 {new Intl.DateTimeFormat('en-US', {
                   hour: '2-digit',
                   minute: '2-digit'
-                }).format(timeStamp)}
+								}).format(timeStamp) }
+								</div>
               </div>
             );
           } else if (Object.keys(this.state.slotStatus).length - 1 === index) {
             return (
               <div>
                 <div className={styles.hideHour} />
-                <div className={styles.showHour}>
+                <div className={styles.showLast}>
+									<div className={styles.internalPadding}>
                   {new Intl.DateTimeFormat('en-US', {
                     hour: '2-digit',
                     minute: '2-digit'
                   }).format(new Date(timeStamp.getTime() + 15 * 60000))}
                 </div>
+								</div>
               </div>
             );
           } else {
