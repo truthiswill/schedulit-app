@@ -12,7 +12,8 @@ class Create extends Component {
       setCounter: 1,
       currentMonth: currentDate.getMonth(),
       currentYear: currentDate.getFullYear(),
-      setTimes: {}
+      setTimes: {},
+      readyForSubmit: false,
     };
     this.state.setOfDay = this.createSetOfDay();
     this.handleChange = this.handleChange.bind(this);
@@ -22,6 +23,8 @@ class Create extends Component {
     this.prevMonth = this.prevMonth.bind(this);
     this.addTimesToSet = this.addTimesToSet.bind(this);
     this.instructionMessage = this.instructionMessage.bind(this);
+    this.isReadyForSubmit = this.isReadyForSubmit.bind(this);
+    this.showCalendar = this.showCalendar.bind(this);
   }
 
   addTimesToSet(times) {
@@ -82,9 +85,36 @@ class Create extends Component {
   }
 
   instructionMessage() {
-    if (!this.state.title) return 'Create a New Event: Enter a Title'
-    if (this.state.title && !this.state.description) return 'You are on Your Way. Enter a Description for your Event'
-    if (this.state.description && this.state.description) return 'Great! Pick Dates and Times for Your Event'
+    if (!this.state.title) return 'Creating a New Event is Easy: Enter a Title'
+    if (this.state.title && !this.state.description) return 'Step 2: Enter a Description for your Event'
+    if (this.state.title && this.state.description) return 'Step 3: Pick Dates & Times for Your Event'
+  }
+
+  isReadyForSubmit() {
+    console.log (this.state, 'thisState')
+    if (this.state.title && this.state.description && (Object.keys(this.state.setTimes) > 0)) {
+      return <input
+        type="submit"
+        value="Submit"
+        className={styles.submitButton}
+      /> 
+    }
+  }
+
+  showCalendar () {
+    if (this.state.title && this.state.description) {
+      return (
+      <DayPicker
+            currentYear={this.state.currentYear}
+            currentMonth={this.state.currentMonth}
+            addDayToSet={this.addDayToSet}
+            prevMonth={this.prevMonth}
+            nextMonth={this.nextMonth}
+            setOfDay={this.state.setOfDay}
+          />
+      )
+    }
+
   }
 
   handleSubmit(e) {
@@ -93,7 +123,6 @@ class Create extends Component {
     newEvent.title = this.state.title;
     newEvent.description = this.state.description;
     newEvent.participants = [];
-    // newEvent.allowedPreferences = this.state.allowedPreferences;
     newEvent.allowedPreferences = ['activity', 'food'];
     newEvent.availableSlots = [];
     for (let day in this.state.setOfDay) {
@@ -156,11 +185,7 @@ class Create extends Component {
                     className={styles.input}
                   />
                 </label>
-                <input
-                  type="submit"
-                  value="Submit"
-                  className={styles.submitButton}
-                />
+                {this.isReadyForSubmit()}
               </form>
             </div>
             <div className={styles.hoursContainer}>
@@ -172,14 +197,7 @@ class Create extends Component {
               />
             </div>
           </div>
-          <DayPicker
-            currentYear={this.state.currentYear}
-            currentMonth={this.state.currentMonth}
-            addDayToSet={this.addDayToSet}
-            prevMonth={this.prevMonth}
-            nextMonth={this.nextMonth}
-            setOfDay={this.state.setOfDay}
-          />
+          {this.showCalendar()}
         </div>
       </div>
     );
