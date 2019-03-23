@@ -112,7 +112,7 @@ class App extends Component {
     }
 
     return (
-      <div>
+      <div className={`${styles.masterContainer}`}>
         <Navigation setEventView={this.setEventView} setCreateView={this.setCreateView} />
         {display}
       </div>
