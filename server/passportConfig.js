@@ -1,7 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const { User } = require('../database/models');
-const passport = require('passport');
 
 module.exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -10,8 +9,9 @@ module.exports.ensureAuthenticated = (req, res, next) => {
   res.redirect('/auth/google');
 };
 
-module.exports.passport = passport;
-module.exports.configurePassport = (passport) => {
+module.exports.getPassport = () => {
+  const passport = require('passport');
+  console.log('created a new passport');
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
@@ -37,4 +37,5 @@ module.exports.configurePassport = (passport) => {
       }
     )
   );
+  return passport;
 };

@@ -8,6 +8,5 @@ module.exports.initializeSockets = (httpServer) => {
       console.log('participation received');
       socket.emit('participation');
     });
-
   });
 }
