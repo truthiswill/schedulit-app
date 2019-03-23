@@ -25,6 +25,7 @@ class Create extends Component {
     this.instructionMessage = this.instructionMessage.bind(this);
     this.isReadyForSubmit = this.isReadyForSubmit.bind(this);
     this.showCalendar = this.showCalendar.bind(this);
+    this.showHours = this.showHours.bind(this);
   }
 
   addTimesToSet(times) {
@@ -114,7 +115,19 @@ class Create extends Component {
           />
       )
     }
+  }
 
+  showHours () {
+    if (this.state.title && this.state.description) {
+      return (
+        <ChooseHours
+        setCounter={this.state.setCounter}
+        setOfDay={this.state.setOfDay}
+        finalizeSet={this.finalizeSet}
+        addTimesToSet={this.addTimesToSet}
+      />
+      )
+    }
   }
 
   handleSubmit(e) {
@@ -187,6 +200,9 @@ class Create extends Component {
                 </label>
                 {this.isReadyForSubmit()}
               </form>
+            </div>
+            <div className={styles.hoursContainer}>
+              {this.showHours()}
             </div>
           </div>
           {this.showCalendar()}
