@@ -96,7 +96,7 @@ class Create extends Component {
         let timeSlot = {
           startTime: new Date(
             startAndEndHours.startTime * 60 * 60 * 1000 +
-            new Date(day).getTime()
+              new Date(day).getTime()
           ),
           endTime: new Date(
             startAndEndHours.endTime * 60 * 60 * 1000 + new Date(day).getTime()
@@ -149,20 +149,20 @@ class Create extends Component {
                     className={styles.input}
                   />
                 </label>
-                <input
-                  type="submit"
-                  value="Submit"
-                  className={styles.submitButton}
-                />
+                <div className={styles.hoursContainer}>
+                  <ChooseHours
+                    setCounter={this.state.setCounter}
+                    setOfDay={this.state.setOfDay}
+                    finalizeSet={this.finalizeSet}
+                    addTimesToSet={this.addTimesToSet}
+                  />
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className={styles.submitButton}
+                  />
+                </div>
               </form>
-            </div>
-            <div className={styles.hoursContainer}>
-              <ChooseHours
-                setCounter={this.state.setCounter}
-                setOfDay={this.state.setOfDay}
-                finalizeSet={this.finalizeSet}
-                addTimesToSet={this.addTimesToSet}
-              />
             </div>
           </div>
           <DayPicker

@@ -1,7 +1,11 @@
 import React from 'react';
-import GroupPreview from './GroupPreview'
-import IndividualPreview from './IndividualPreview'
+import GroupPreview from './GroupPreview';
+import IndividualPreview from './IndividualPreview';
 import axios from 'axios';
+
+import styles from '../styles/day.css';
+
+import TimeSlot from './TimeSlot';
 
 class JoinEvent extends React.Component {
   constructor(props) {
@@ -70,14 +74,16 @@ class JoinEvent extends React.Component {
       })
   }
 
-  findEarliestMinutesInDay(slots) {
-    let earliestMinutesInDay = 24 * 60;
-    slots.forEach(slot => {
-      let start = slot.startTime.getHours() * 60 + slot.startTime.getMinutes();
-      if (start < earliestMinutesInDay) earliestMinutesInDay = start;
-
-    });
-    return earliestMinutesInDay;
+  handleSubmit(e) {
+    e.preventDefault();
+    let newParticipation = {};
+    newParticipation.timeAvailable = this.state.timeAvailable;
+    newParticipation.unavailable = this.state.unavailable;
+    axios
+      .put('/api/participation/' + this.props.eventData.id, newParticipation)
+      .then(({ data }) => {
+        console.log(data);
+      });
   }
 
   findLatestMinutesInDay(slots) {
