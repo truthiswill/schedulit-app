@@ -83,15 +83,7 @@ class ChooseHours extends React.Component {
                 </option>
               ))}
           </select>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-          <button
-=======
-=======
->>>>>>> d26a6a8db16a7c9f1dd29419ec05e20ca19e7c69
           <button 
->>>>>>> delete unnecessary code in ChooseHours
             className={styles.hoursButton}
             onClick={this.addTimesToSet}
             disabled={this.state.endTime === ''}
