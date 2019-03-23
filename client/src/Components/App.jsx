@@ -106,7 +106,6 @@ class App extends Component {
       if (this.state.view === 'createPage') {
 				display = <Create />;
       } else if (this.state.view === 'eventPage') {
-				console.log(this.state)
         display = <Events events={this.state.events} />;
       } else if (this.state.eventData !== undefined) {
 				display = <JoinEvent eventData={this.state.eventData} />;
@@ -115,26 +114,7 @@ class App extends Component {
       display = <Login loginUser={this.loginUser} />;
     }
 	
-
-    
-
-    // login = window.isUserLoggedIn;
-    // console.log('rerendering, login: ', login);
-    // if (this.state.loggedIn === false) {
-    //   view = 'login';
-    // } else {
-    //   view = 'eventView';
-    // }
-    // console.log('login', login);
-
-    // if (view === 'login') {
-    //   page = <Login loginUser={this.loginUser} />;
-    // } else if (view === 'eventView') {
-    //   page = <Events events={events} />;
-    // } else if (view === 'create') {
-    //   page = <Create />;
-    // }
-    console.log(window.isUserLoggedIn);
+		console.log(window.isUserLoggedIn);
     if (window.isUserLoggedIn) {
       this.fetchEvents();
       window.isUserLoggedIn = false; // sorry hacky but less line

@@ -9,8 +9,9 @@
   background-color: grey;
 }
 .selectable {
-  /* background-color: blue; */
-  border-width: 3px;
+	/* background-color: blue; */
+	border-width: 1px;
+	border-bottom: 0em;
   border-style: solid;
   border-color: orange;
   width: 5em;
