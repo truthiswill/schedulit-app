@@ -116,17 +116,14 @@
 
 .set1{
   background-color: #2f82a4;
-  border-radius: 100%;
 }
 
 .set2{
   background-color: rgb(182, 182, 9);
-  border-radius: 100%;
 }
 
 .set3{
   background-color: rgb(208, 55, 55);
-  border-radius: 100%;
 }
 
 .number {
@@ -134,8 +131,8 @@
   font-weight: 400;
   text-align: center;
   color: white;
-  /* border: 10px solid blue;
-  border-radius: 50%; */
+  /* border: 10px solid blue; */
+  border-radius: 25%;
 }
 
 .number:hover {
