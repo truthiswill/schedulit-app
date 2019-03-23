@@ -1,3 +1,9 @@
-body {
-    font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+.masterContainer {
+
+		font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+		background-image: linear-gradient(to top, #a3dcff 0%, #e2ebf0 100%) ;
+		background-repeat: no-repeat;
+		height: 100vh;	
+		padding: 10px;
+
 }
