@@ -15,25 +15,25 @@
 }
 
 .endTimeSelect {
-  background-color: slategray;
+  background-color: lightgray;
   border-radius: 20%;
   height: 45px;
   width: 150px;
   border: 2px solid #2f82a4;
   font-weight: 700;
-  color: white;
+  color: slategray ;
   margin: 1em;
   font-size: 120%;
 }
 
 .startTimeSelect {
-  background-color: slategray;
+  background-color: lightgray;
   border-radius: 20%;
   height: 45px;
   width: 150px;
   border: 2px solid #2f82a4;
   font-weight: 700;
-  color: white;
+  color: slategray;
   margin: 1em;
   font-size: 120%;
 }

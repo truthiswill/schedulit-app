@@ -83,8 +83,7 @@ class ChooseHours extends React.Component {
                 </option>
               ))}
           </select>
-
-          <button
+          <button 
             className={styles.hoursButton}
             onClick={this.addTimesToSet}
             disabled={this.state.endTime === ''}

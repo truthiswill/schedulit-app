@@ -12,7 +12,8 @@ class Create extends Component {
       setCounter: 1,
       currentMonth: currentDate.getMonth(),
       currentYear: currentDate.getFullYear(),
-      setTimes: {}
+      setTimes: {},
+      readyForSubmit: false,
     };
     this.state.setOfDay = this.createSetOfDay();
     this.handleChange = this.handleChange.bind(this);
@@ -21,6 +22,10 @@ class Create extends Component {
     this.nextMonth = this.nextMonth.bind(this);
     this.prevMonth = this.prevMonth.bind(this);
     this.addTimesToSet = this.addTimesToSet.bind(this);
+    this.instructionMessage = this.instructionMessage.bind(this);
+    this.isReadyForSubmit = this.isReadyForSubmit.bind(this);
+    this.showCalendar = this.showCalendar.bind(this);
+    this.showHours = this.showHours.bind(this);
   }
 
   addTimesToSet(times) {
@@ -80,13 +85,57 @@ class Create extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  instructionMessage() {
+    if (!this.state.title) return 'Creating a New Event is Easy: Enter a Title'
+    if (this.state.title && !this.state.description) return 'Step 2: Enter a Description for your Event'
+    if (this.state.title && this.state.description) return 'Step 3: Pick Dates & Times for Your Event'
+  }
+
+  isReadyForSubmit() {
+    console.log (this.state, 'thisState')
+    if (this.state.title && this.state.description && (Object.keys(this.state.setTimes) > 0)) {
+      return <input
+        type="submit"
+        value="Submit"
+        className={styles.submitButton}
+      /> 
+    }
+  }
+
+  showCalendar () {
+    if (this.state.title && this.state.description) {
+      return (
+      <DayPicker
+            currentYear={this.state.currentYear}
+            currentMonth={this.state.currentMonth}
+            addDayToSet={this.addDayToSet}
+            prevMonth={this.prevMonth}
+            nextMonth={this.nextMonth}
+            setOfDay={this.state.setOfDay}
+          />
+      )
+    }
+  }
+
+  showHours () {
+    if (this.state.title && this.state.description) {
+      return (
+        <ChooseHours
+        setCounter={this.state.setCounter}
+        setOfDay={this.state.setOfDay}
+        finalizeSet={this.finalizeSet}
+        addTimesToSet={this.addTimesToSet}
+      />
+      )
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     let newEvent = {};
     newEvent.title = this.state.title;
     newEvent.description = this.state.description;
     newEvent.participants = [];
-    // newEvent.allowedPreferences = this.state.allowedPreferences;
     newEvent.allowedPreferences = ['activity', 'food'];
     newEvent.availableSlots = [];
     for (let day in this.state.setOfDay) {
@@ -126,7 +175,7 @@ class Create extends Component {
       <div className={styles.createPage}>
         <hr className={styles.hr} />
         <div className={styles.eventInvitation}>
-          Get the Ball Rolling: Enter the Options.
+        {this.instructionMessage()}
         </div>
         <hr className={styles.hr} />
         <div className={styles.createContainer}>
@@ -149,30 +198,14 @@ class Create extends Component {
                     className={styles.input}
                   />
                 </label>
-                <div className={styles.hoursContainer}>
-                  <ChooseHours
-                    setCounter={this.state.setCounter}
-                    setOfDay={this.state.setOfDay}
-                    finalizeSet={this.finalizeSet}
-                    addTimesToSet={this.addTimesToSet}
-                  />
-                  <input
-                    type="submit"
-                    value="Submit"
-                    className={styles.submitButton}
-                  />
-                </div>
+                {this.isReadyForSubmit()}
               </form>
             </div>
+            <div className={styles.hoursContainer}>
+              {this.showHours()}
+            </div>
           </div>
-          <DayPicker
-            currentYear={this.state.currentYear}
-            currentMonth={this.state.currentMonth}
-            addDayToSet={this.addDayToSet}
-            prevMonth={this.prevMonth}
-            nextMonth={this.nextMonth}
-            setOfDay={this.state.setOfDay}
-          />
+          {this.showCalendar()}
         </div>
       </div>
     );
