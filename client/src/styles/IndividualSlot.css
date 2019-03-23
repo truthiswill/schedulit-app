@@ -1,14 +1,14 @@
-.selected{
+.selected {
   width: 5em;
   height: 1em;
   background-color: chartreuse;
 }
-.unselectable{
+.unselectable {
   width: 5em;
   height: 1em;
   background-color: grey;
 }
-.selectable{
+.selectable {
   /* background-color: blue; */
   border-width: 3px;
   border-style: solid;

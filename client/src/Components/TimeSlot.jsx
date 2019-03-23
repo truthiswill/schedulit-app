@@ -1,5 +1,5 @@
 import React from 'react';
-import IndividualSlot from './IndividualSlot'
+import IndividualSlot from './IndividualSlot';
 
 class TimeSlot extends React.Component {
   constructor(props) {
@@ -32,7 +32,6 @@ class TimeSlot extends React.Component {
   handleMouseUp(e) {
     this.setState({ mouseDown: false });
   }
-
 
   render() {
     return (
