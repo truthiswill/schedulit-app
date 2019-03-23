@@ -19,10 +19,10 @@ class App extends Component {
     let eventId = Cookies.get('eventId');
     this.joinEventIfExists(eventId);
 
-    this.homeView = this.homeView.bind(this);
-    this.createView = this.createView.bind(this);
+    this.setEventView = this.setEventView.bind(this);
+    this.setCreateView = this.setCreateView.bind(this);
     this.loginUser = this.loginUser.bind(this);
-    this.selectView = this.selectView.bind(this);
+    
     window.isUserLoggedIn = false;
     window.forceReactUpdate = this.forceUpdate.bind(this);
   }
@@ -87,41 +87,34 @@ class App extends Component {
     window.open('/auth/google', 'Login', 'width=700, height=700');
   }
 
-  homeView() {
+  setEventView() {
+		console.log('triggered')
     this.setState({ view: 'eventPage' });
   }
 
-  createView() {
+  setCreateView() {
     this.setState({ view: 'createPage' });
   }
 
-  selectView() {
-    if (this.state.loggedIn) {
-      if (this.state.view === 'createPage') {
-        return 'createPage';
-      } else {
-        return 'eventPage';
-      }
-    } else {
-      return 'loginPage';
-    }
-  }
-
   render() {
-    let page = this.selectView();
-    let display;
 
-    if (page === 'eventPage') {
-      display = <Events events={this.state.events} />;
-    } else if (page === 'loginPage') {
+		let display;
+
+		if (this.state.loggedIn) {
+      if (this.state.view === 'createPage') {
+				display = <Create />;
+      } else if (this.state.view === 'eventPage') {
+				console.log(this.state)
+        display = <Events events={this.state.events} />;
+      } else if (this.state.eventData !== undefined) {
+				display = <JoinEvent eventData={this.state.eventData} />;
+			}
+    } else {
       display = <Login loginUser={this.loginUser} />;
-    } else if (page === 'createPage') {
-      display = <Create />;
     }
+	
 
-    if (this.state.eventData !== undefined) {
-      display = <JoinEvent eventData={this.state.eventData} />;
-    }
+    
 
     // login = window.isUserLoggedIn;
     // console.log('rerendering, login: ', login);
@@ -148,7 +141,7 @@ class App extends Component {
 
     return (
       <div>
-        <Navigation homeView={this.homeView} createView={this.createView} />
+        <Navigation setEventView={this.setEventView} setCreateView={this.setCreateView} />
         {display}
       </div>
     );
