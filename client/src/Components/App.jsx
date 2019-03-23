@@ -12,7 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: this.hasLoginCookies(),
+      loggedIn: false,
       view: 'loginPage',
       events: []
     };
@@ -27,14 +27,6 @@ class App extends Component {
     window.forceReactUpdate = this.forceUpdate.bind(this);
   }
 
-  hasLoginCookies() {
-    let x = Cookies.get('session');
-    let y = Cookies.get('session.sig');
-    if (x && y) {
-      console.log('hello');
-      return true;
-    }
-  }
 
   joinEventIfExists(eventId) {
     if (eventId) {
