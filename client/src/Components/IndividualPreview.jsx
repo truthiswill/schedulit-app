@@ -11,7 +11,6 @@ class IndividualPreview extends React.Component {
       unavailable: false,
       allTimeSlotStatuses: this.initializeAllSlotStatuses() //keys are timestamps; val is true/false for selectable, null for unselectable
     };
-    this.addToTimeAvailable = this.addToTimeAvailable.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTimeSlotStatus = this.updateTimeSlotStatus.bind(this);
@@ -40,12 +39,11 @@ class IndividualPreview extends React.Component {
       }
     }
     axios.put('/api/join/' + this.props.eventData.id, newParticipation).then(({ data }) => {
-      console.log(data);
+      this.props.socket.emit('participation');
     });
   }
 
   updateTimeSlotStatus(timestamp, value) {
-    console.log('timestamp, value', timestamp, value);
     let allTimeSlotStatuses = this.state.allTimeSlotStatuses;
     allTimeSlotStatuses[timestamp] = value;
     this.setState({ allTimeSlotStatuses });

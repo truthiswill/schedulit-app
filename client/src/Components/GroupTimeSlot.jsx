@@ -4,20 +4,17 @@ import IndividualGroupSlot from './IndividualGroupSlot'
 class GroupTimeSlot extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      startTime: null,
-      mouseDown: false,
-      slotStatus: this.initializeSlotStatus()
-    }
+    this.getSlotStatus = this.getSlotStatus.bind(this);
   }
 
   timestampLiesInSlot(timestamp, timeSlot) {
-    return timestamp >= timeSlot.startTime && timestamp <= timeSlot.endTime;
+    timestamp = new Date(timestamp);
+    return timestamp.getTime() >= timeSlot.startTime.getTime() && timestamp.getTime() < timeSlot.endTime.getTime();
   }
 
-  initializeSlotStatus() {
-    let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
+  getSlotStatus() {
     let slotStatus = {}; //keys are timestamps; val is true/false for selectable, null for unselectable
+    let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
     let stub = new Date(this.props.timeSlot.startTime.getFullYear(), this.props.timeSlot.startTime.getMonth(), this.props.timeSlot.startTime.getDate()).getTime();
     for (let i = 0; i < numberOfSlots; i++) {
       let currentTimeStamp = new Date(stub + (this.props.earliestMinutesInDay + (i * 15)) * 60 * 1000);
@@ -28,16 +25,16 @@ class GroupTimeSlot extends React.Component {
       }
       slotStatus[currentTimeStamp] = userAvailabilities;
     }
-    console.log(slotStatus);
     return slotStatus;
   }
 
   render() {
+    let slotStatus = this.getSlotStatus();
     return (
       <div>
         {this.props.timeSlot.startTime.getDate()}
-        {Object.keys(this.state.slotStatus).map((timeStamp, index) => <IndividualGroupSlot
-          selected={this.state.slotStatus[timeStamp]}
+        {Object.keys(slotStatus).map((timeStamp, index) => <IndividualGroupSlot
+          selected={slotStatus[timeStamp]}
           slotStartTime={timeStamp}
           key={index}
         />)}

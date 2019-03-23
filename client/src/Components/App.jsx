@@ -11,12 +11,10 @@ import styles from '../styles/app.css';
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       view: 'login',
-      events: []
+      events: [],
     };
-
     let eventId = Cookies.get('eventId');
     this.joinEventIfExists(eventId);
 
@@ -84,9 +82,9 @@ class App extends Component {
     setInterval(() => {
       if (
         popWindow.location.href !=
-          'https://accounts.google.com/AddSession#identifier' ||
+        'https://accounts.google.com/AddSession#identifier' ||
         popWindow.location.href !=
-          'https://accounts.google.com/AddSession#password'
+        'https://accounts.google.com/AddSession#password'
       ) {
         popWindow.close();
         this.setState({ view: 'home' });

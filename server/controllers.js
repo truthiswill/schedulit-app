@@ -58,7 +58,6 @@ module.exports = {
     let userId = req.user.id;
     createParticipation(userId, eventId)
       .then(() => {
-        console.log('create Participation successful', eventId);
         res.cookie("eventId", eventId);
       })
       .finally(() => {
@@ -107,7 +106,6 @@ module.exports = {
     let eventId = req.params.eventId;
     let userId = req.user.id;
     let participation = req.body;
-    console.log('req.body', req.body);
     updateParticipation(userId, eventId, participation)
       .then(() => {
         res.status(201).send('participation successfully recorded');
