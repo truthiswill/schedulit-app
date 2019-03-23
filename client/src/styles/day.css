@@ -13,3 +13,27 @@
   margin: 10px;
   text-transform: uppercase;
 }
+
+.endTimeSelect {
+  background-color: slategray;
+  border-radius: 20%;
+  height: 45px;
+  width: 150px;
+  border: 2px solid #2f82a4;
+  font-weight: 700;
+  color: white;
+  margin: 1em;
+  font-size: 120%;
+}
+
+.startTimeSelect {
+  background-color: slategray;
+  border-radius: 20%;
+  height: 45px;
+  width: 150px;
+  border: 2px solid #2f82a4;
+  font-weight: 700;
+  color: white;
+  margin: 1em;
+  font-size: 120%;
+}

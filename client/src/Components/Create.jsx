@@ -148,9 +148,8 @@ class Create extends Component {
                     onChange={this.handleChange}
                     className={styles.input}
                   />
-                  {/* Event Allowed Preferences:
-              <input name="allowedPreferences" onChange={this.handleChange} /> */}
                 </label>
+                <input type="submit" value="Submit" className={styles.submitButton}/> 
               </form>
             </div>
             <div className={styles.hoursContainer}>
@@ -159,11 +158,6 @@ class Create extends Component {
                 setOfDay={this.state.setOfDay}
                 finalizeSet={this.finalizeSet}
                 addTimesToSet={this.addTimesToSet}
-              />
-              <input
-                type="submit"
-                value="Submit"
-                className={styles.submitButton}
               />
             </div>
           </div>

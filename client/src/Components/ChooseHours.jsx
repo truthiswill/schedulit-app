@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from '../styles/day.css';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 const INCREMENT = 0.25;
@@ -30,6 +32,7 @@ class ChooseHours extends React.Component {
     )} ${isBeforeNoon ? 'AM' : 'PM'}`;
   }
   handleChange(e) {
+    console.log (e.target.value)
     this.setState({ [e.target.id]: e.target.value });
   }
 
@@ -56,20 +59,27 @@ class ChooseHours extends React.Component {
     if (this.areDatesSelected()) {
       return (
         <div>
-          <select id="startTime" onChange={this.handleChange}>
+          <select
+            id="startTime"
+            className={styles.startTimeSelect} 
+            onChange={this.handleChange}
+            >
+            <option>Start Time</option>
             {times.map(time => (
-              <option value={time}>{this.hoursToString(time)} </option>
+              <option value={time} key={time}>{this.hoursToString(time)} </option>
             ))}
           </select>
           <select
             id="endTime"
+            className={styles.endTimeSelect}
             onChange={this.handleChange}
             disabled={this.state.startTime === ''}
           >
+            <option>End Time</option>
             {times
               .filter(time => time > this.state.startTime)
               .map(time => (
-                <option value={time}>{this.hoursToString(time)} </option>
+                <option value={time} key={time}>{this.hoursToString(time)} </option>
               ))}
           </select>
           <button 
