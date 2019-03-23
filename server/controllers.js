@@ -97,7 +97,7 @@ module.exports = {
   participationGet: (req, res) => {
     let id = req.params.id;
     fetchParticipation(id)
-      .then((participation) => {
+      .then(participation => {
         res.status(200).json(participation);
       })
       .catch(() => res.status(404).end());

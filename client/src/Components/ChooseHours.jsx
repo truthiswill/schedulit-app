@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../styles/day.css';
 
-
 const INCREMENT = 0.25;
 const HOURS_IN_DAY = 24;
 
@@ -30,7 +29,7 @@ class ChooseHours extends React.Component {
     )} ${isBeforeNoon ? 'AM' : 'PM'}`;
   }
   handleChange(e) {
-    console.log(e.target.value)
+    console.log(e.target.value);
     this.setState({ [e.target.id]: e.target.value });
   }
 
@@ -64,7 +63,9 @@ class ChooseHours extends React.Component {
           >
             <option>Start Time</option>
             {times.map(time => (
-              <option value={time} key={time}>{this.hoursToString(time)} </option>
+              <option value={time} key={time}>
+                {this.hoursToString(time)}{' '}
+              </option>
             ))}
           </select>
           <select
@@ -77,7 +78,9 @@ class ChooseHours extends React.Component {
             {times
               .filter(time => time > this.state.startTime)
               .map(time => (
-                <option value={time} key={time}>{this.hoursToString(time)} </option>
+                <option value={time} key={time}>
+                  {this.hoursToString(time)}{' '}
+                </option>
               ))}
           </select>
 
@@ -123,8 +126,8 @@ class ChooseHours extends React.Component {
 
 export default ChooseHours;
 
-
-{/* <div className={styles.dropdownContainer}>
+{
+  /* <div className={styles.dropdownContainer}>
   <div className={styles.sizeContainer}>
     <div className={styles.sizeHeader} onClick={() => this.toggleSizeList()}>
       <div className={styles.dropdownHeaderTitle}>{this.state.sizeTitle}</div>
@@ -136,4 +139,5 @@ export default ChooseHours;
       ))}
     </ul>}
   </div>
-</div> */}
+</div> */
+}
