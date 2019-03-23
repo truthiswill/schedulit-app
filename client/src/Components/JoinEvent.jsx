@@ -3,10 +3,6 @@ import GroupPreview from './GroupPreview';
 import IndividualPreview from './IndividualPreview';
 import axios from 'axios';
 
-import styles from '../styles/day.css';
-
-import TimeSlot from './TimeSlot';
-
 class JoinEvent extends React.Component {
   constructor(props) {
     super(props);
@@ -59,16 +55,13 @@ class JoinEvent extends React.Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    let newParticipation = {};
-    newParticipation.timeAvailable = this.state.timeAvailable;
-    newParticipation.unavailable = this.state.unavailable;
-    axios
-      .put('/api/participation/' + this.props.eventData.id, newParticipation)
-      .then(({ data }) => {
-        console.log(data);
-      });
+  findEarliestMinutesInDay(slots) {
+    let earliestMinutesInDay = 24 * 60;
+    slots.forEach(slot => {
+      let start = slot.startTime.getHours() * 60 + slot.startTime.getMinutes();
+      if (start < earliestMinutesInDay) earliestMinutesInDay = start;
+    });
+    return earliestMinutesInDay;
   }
 
   findLatestMinutesInDay(slots) {
@@ -83,35 +76,17 @@ class JoinEvent extends React.Component {
   render() {
     if (this.state.eventParticipationData === undefined) return <div />;
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div
-            style={
-              this.state.unavailable
-                ? { display: 'none' }
-                : { display: 'flex', justifyContent: 'space-between' }
-            }
-          >
-            {this.props.eventData.availableSlots.map(timeSlot => {
-              return (
-                <TimeSlot
-                  earliestMinutesInDay={earliestMinutesInDay}
-                  latestMinutesInDay={latestMinutesInDay}
-                  timeSlot={timeSlot}
-                  addToTimeAvailable={this.addToTimeAvailable}
-                />
-              );
-            })}
-          </div>
-          <input
-            type="checkbox"
-            name="unavailable"
-            checked={this.state.unavailable}
-            onChange={this.handleChange}
-          />
-          Click if unable to attend
-          <input type="submit" name="submit" />
-        </form>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <IndividualPreview
+          eventData={this.state.eventParticipationData}
+          earliestMinutesInDay={this.state.earliestMinutesInDay}
+          latestMinutesInDay={this.state.latestMinutesInDay}
+        />
+        <GroupPreview
+          eventData={this.state.eventParticipationData}
+          earliestMinutesInDay={this.state.earliestMinutesInDay}
+          latestMinutesInDay={this.state.latestMinutesInDay}
+        />
       </div>
     );
   }

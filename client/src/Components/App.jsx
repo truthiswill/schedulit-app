@@ -33,7 +33,6 @@ class App extends Component {
   hasLoginCookies() {
     let x = Cookies.get('session');
     let y = Cookies.get('session.sig');
-    console.log(x, y);
     if (x && y) {
       console.log('hello');
       return true;

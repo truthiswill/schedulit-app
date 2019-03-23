@@ -59,7 +59,7 @@ module.exports = {
     createParticipation(userId, eventId)
       .then(() => {
         console.log('create Participation successful', eventId);
-        res.cookie("eventId", eventId);
+        res.cookie('eventId', eventId);
       })
       .finally(() => {
         res.redirect('/');
@@ -98,7 +98,7 @@ module.exports = {
   participationGet: (req, res) => {
     let id = req.params.id;
     fetchParticipation(id)
-      .then((participation) => {
+      .then(participation => {
         res.status(200).json(participation);
       })
       .catch(() => res.status(404).end());
