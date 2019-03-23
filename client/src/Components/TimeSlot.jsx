@@ -52,12 +52,13 @@ class TimeSlot extends React.Component {
 
   goToHere(slotStartTime) {
     if (this.state.slotStatus[slotStartTime] !== null) {
-      let newTimeSlot = {};
-      newTimeSlot.startTime = new Date(this.state.startTime);
-      newTimeSlot.endTime = new Date(new Date(slotStartTime).getTime() + (15 * 60 * 1000));
-      newTimeSlot.preferenceLevel = 1;
-      console.log('newTimeSlot', newTimeSlot);
-      this.props.addToTimeAvailable(newTimeSlot);
+      // let newTimeSlot = {};
+      // newTimeSlot.startTime = new Date(this.state.startTime);
+      // newTimeSlot.endTime = new Date(new Date(slotStartTime).getTime() + (15 * 60 * 1000));
+      // newTimeSlot.preferenceLevel = 1;
+      // console.log('newTimeSlot', newTimeSlot);
+      // this.props.addToTimeAvailable(newTimeSlot);
+      this.props.updateTimeSlotStatus(this.props.id, this.state.slotStatus);
       this.setState({ mouseDown: false });
     }
   }
@@ -80,20 +81,17 @@ class TimeSlot extends React.Component {
 
 
   render() {
-    let individualSlots = [];
-    for (let timeStamp in this.state.slotStatus) {
-      individualSlots.push(<IndividualSlot
-        selected={this.state.slotStatus[timeStamp]}
-        slotStartTime={timeStamp}
-        startFromHere={this.startFromHere}
-        goToHere={this.goToHere}
-        includeHere={this.includeHere}
-      />)
-    }
     return (
       <div>
         {this.props.timeSlot.startTime.getDate()}
-        {individualSlots}
+        {Object.keys(this.state.slotStatus).map((timeStamp, index) => <IndividualSlot
+          selected={this.state.slotStatus[timeStamp]}
+          slotStartTime={timeStamp}
+          startFromHere={this.startFromHere}
+          goToHere={this.goToHere}
+          key={index}
+          includeHere={this.includeHere}
+        />)}
       </div >
     );
   }

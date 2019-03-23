@@ -33,18 +33,14 @@ class GroupTimeSlot extends React.Component {
   }
 
   render() {
-    let individualSlots = [];
-    for (let timeStamp in this.state.slotStatus) {
-      individualSlots.push(<IndividualGroupSlot
-        selected={this.state.slotStatus[timeStamp]}
-        slotStartTime={timeStamp}
-      />)
-    }
-
     return (
       <div>
         {this.props.timeSlot.startTime.getDate()}
-        {individualSlots}
+        {Object.keys(this.state.slotStatus).map((timeStamp, index) => <IndividualGroupSlot
+          selected={this.state.slotStatus[timeStamp]}
+          slotStartTime={timeStamp}
+          key={index}
+        />)}
       </div >
     );
   }
