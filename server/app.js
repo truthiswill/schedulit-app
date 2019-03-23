@@ -3,6 +3,7 @@ const path = require('path');
 const parser = require('body-parser');
 const morgan = require('morgan');
 const passport = require('passport');
+const cors = require('cors');
 const GoogleStrategy = require('passport-google-oauth20');
 
 const cookieParser = require('cookie-parser');
@@ -40,7 +41,7 @@ module.exports.initializeApp = async () => {
 
   app.use('/api', ensureAuthenticated, router);
 
-  app.get('/protected', ensureAuthenticated, function (req, res) {
+  app.get('/protected', ensureAuthenticated, function(req, res) {
     res.send('access granted. secure stuff happens here');
   });
 
@@ -59,7 +60,7 @@ module.exports.initializeApp = async () => {
     }),
     (req, res) => {
       req.session.token = req.user.token;
-      res.redirect('/');
+      res.redirect('/after-auth.html');
     }
   );
   app.get('/', (req, res) => {
