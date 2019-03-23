@@ -13,6 +13,9 @@ const { initializeDB } = require('../database/index');
 const { joinGet } = require('./controllers');
 const router = require('./routes');
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 
 module.exports.initializeApp = async () => {
   await initializeDB();
@@ -66,6 +69,15 @@ module.exports.initializeApp = async () => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
   app.use(express.static(path.resolve(__dirname, '../client/dist')));
+
+  io.on('connection', function (socket) {
+    socket.on('participation', function (participation) {
+      console.log('participation received');
+      socket.emit('participation');
+    });
+
+
+  });
 };
 
-module.exports.app = app;
+module.exports.http = http;
