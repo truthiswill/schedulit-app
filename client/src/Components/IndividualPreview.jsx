@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import TimeSlot from './TimeSlot';
+import HourDescription from './HourDescription';
 
 class IndividualPreview extends React.Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class IndividualPreview extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTimeSlotStatus = this.updateTimeSlotStatus.bind(this);
     this.initializeAllSlotStatuses = this.initializeAllSlotStatuses.bind(this);
-    this.initializeOneSlotStatus = this.initializeOneSlotStatus.bind(this);
+		this.initializeOneSlotStatus = this.initializeOneSlotStatus.bind(this);
+		this.generateLabel = this.generateLabel.bind(this)
   }
 
   handleChange(e) {
@@ -50,7 +52,6 @@ class IndividualPreview extends React.Component {
   }
 
 
-
   timestampLiesInSlot(timestamp, timeSlot) {
     timestamp = new Date(timestamp);
     return timestamp.getTime() >= timeSlot.startTime.getTime() && timestamp.getTime() < timeSlot.endTime.getTime();
@@ -80,7 +81,27 @@ class IndividualPreview extends React.Component {
       allTimeSlotStatuses = this.initializeOneSlotStatus(timeSlot, allTimeSlotStatuses);
     });
     return allTimeSlotStatuses;
-  }
+	}
+	
+	generateLabel(){
+		return this.props.eventData.availableSlots.map((timeSlot, index) => {
+			if (index === 0) {
+				return (
+					<HourDescription
+						earliestMinutesInDay={this.props.earliestMinutesInDay}
+						latestMinutesInDay={this.props.latestMinutesInDay}
+						timeSlot={timeSlot}
+						eventData={this.props.eventData}
+						id={index}
+						key={index}
+						slotStatus={this.state.allTimeSlotStatuses[index]}
+						// addToTimeAvailable={this.addToTimeAvailable}
+						updateTimeSlotStatus={this.updateTimeSlotStatus}
+					/>
+				);
+			}
+		})
+	}
 
   getSlotStatusForTimeSlot(timeSlot) {
     let slotStatus = {};
@@ -95,9 +116,15 @@ class IndividualPreview extends React.Component {
     if (this.props.eventData === undefined) return <div />;
     return (
       <form onSubmit={this.handleSubmit}>
-        <div style={this.state.unavailable ? { display: 'none' } : { display: 'flex', justifyContent: 'space-between' }}>
-          {this.props.eventData.availableSlots.map((timeSlot, index) => {
+        <div
+          style={
+            this.state.unavailable
+              ? { display: 'none' }
+              : { display: 'flex', justifyContent: 'center' }
+          }
+        >
 
+          {this.generateLabel().concat ( this.props.eventData.availableSlots.map((timeSlot, index) => {
             return (
               <TimeSlot
                 earliestMinutesInDay={this.props.earliestMinutesInDay}
@@ -109,7 +136,7 @@ class IndividualPreview extends React.Component {
                 updateTimeSlotStatus={this.updateTimeSlotStatus}
               />
             );
-          })}
+          }))}
         </div>
         <input
           type="checkbox"
@@ -118,15 +145,9 @@ class IndividualPreview extends React.Component {
           onChange={this.handleChange}
         />
         Click if unable to attend
-      <input type="submit" name="submit" />
+        <input type="submit" name="submit" />
       </form>
-    )
+    );
   }
 }
 export default IndividualPreview;
-
-
-
-
-
-

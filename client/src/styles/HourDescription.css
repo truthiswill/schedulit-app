@@ -1,0 +1,34 @@
+.selected {
+  width: 5em;
+  height: 1em;
+  background-color: chartreuse;
+}
+.hideHour {
+  width: 5em;
+  height: 1em;
+  color: white;
+}
+.showHour {
+	border-width: 0.5px;
+	border-bottom: 0em;
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+
+  color: blue;
+  width: 5em;
+  height: 1em;
+}
+.internalPadding {
+	text-align: right;
+	margin-top: -0.9em;
+	font-size: 10px;
+}
+
+.showLast {
+	border-width: 0.5px;
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  color: blue;
+  width: 5em;
+  height: 1em;
+}

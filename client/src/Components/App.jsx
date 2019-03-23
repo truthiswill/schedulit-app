@@ -12,15 +12,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'login',
-      events: [],
+      loggedIn: this.hasLoginCookies(),
+      view: 'loginPage',
+      events: []
     };
     let eventId = Cookies.get('eventId');
     this.joinEventIfExists(eventId);
 
-    this.homeView = this.homeView.bind(this);
-    this.createView = this.createView.bind(this);
+    this.setEventView = this.setEventView.bind(this);
+    this.setCreateView = this.setCreateView.bind(this);
     this.loginUser = this.loginUser.bind(this);
+    
+    window.isUserLoggedIn = false;
+    window.forceReactUpdate = this.forceUpdate.bind(this);
+  }
+
+  hasLoginCookies() {
+    let x = Cookies.get('session');
+    let y = Cookies.get('session.sig');
+    if (x && y) {
+      console.log('hello');
+      return true;
+    }
   }
 
   joinEventIfExists(eventId) {
@@ -37,7 +50,7 @@ class App extends Component {
             };
           });
           this.setState({ eventData: data }, () => {
-            this.fetchEvents;
+            this.fetchEvents();
           });
         })
         .catch(() => console.log('event does not exist'));
@@ -53,6 +66,12 @@ class App extends Component {
       .get('/api/user')
       .then(({ data }) => {
         let events = data.eventsCreated;
+
+        //Checks if user is logged in
+        if (data.id !== undefined) {
+          this.setState({ loggedIn: true });
+        }
+
         Promise.all(
           events.map(event => {
             return axios.get('/api/event/' + event).then(({ data }) => data);
@@ -64,56 +83,46 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
-  homeView() {
-    this.setState({ view: 'home' });
-  }
-
-  createView() {
-    this.setState({ view: 'create' });
-  }
-
   loginUser() {
-    let popWindow = window.open(
-      '/auth/google',
-      'Login',
-      'width=700, height=700'
-    );
+    window.open('/auth/google', 'Login', 'width=700, height=700');
+  }
 
-    setInterval(() => {
-      if (
-        popWindow.location.href !=
-        'https://accounts.google.com/AddSession#identifier' ||
-        popWindow.location.href !=
-        'https://accounts.google.com/AddSession#password'
-      ) {
-        popWindow.close();
-        this.setState({ view: 'home' });
-      }
-    }, 1000);
+  setEventView() {
+		console.log('triggered')
+    this.setState({ view: 'eventPage' });
+  }
+
+  setCreateView() {
+    this.setState({ view: 'createPage' });
   }
 
   render() {
-    let { events, view, eventData } = this.state;
-    let page;
 
-    if (eventData !== undefined) {
-      return <JoinEvent eventData={eventData} />;
-    }
+		let display;
 
-    if (view === 'login') {
-      page = <Login loginUser={this.loginUser} />;
-    } else if (view === 'home') {
-      page = <Events events={events} />;
-    } else if (view === 'create') {
-      page = <Create />;
+		if (this.state.loggedIn) {
+      if (this.state.view === 'createPage') {
+				display = <Create />;
+      } else if (this.state.view === 'eventPage') {
+        display = <Events events={this.state.events} />;
+      } else if (this.state.eventData !== undefined) {
+				display = <JoinEvent eventData={this.state.eventData} />;
+			}
     } else {
-      // page = full details of event
+      display = <Login loginUser={this.loginUser} />;
+    }
+	
+		console.log(window.isUserLoggedIn);
+    if (window.isUserLoggedIn) {
+      this.fetchEvents();
+      window.isUserLoggedIn = false; // sorry hacky but less line
+      display = <Events events={this.state.events} />;
     }
 
     return (
       <div>
-        <Navigation homeView={this.homeView} createView={this.createView} />
-        {page}
+        <Navigation setEventView={this.setEventView} setCreateView={this.setCreateView} />
+        {display}
       </div>
     );
   }

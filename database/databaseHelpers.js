@@ -1,23 +1,24 @@
 const { User, Event, Participation, ObjectId } = require('./models');
 
 module.exports = {
-  fetchUser: (id) => {
+  fetchUser: id => {
     return User.findOne({ id });
   },
-  fetchEvent: (id) => {
+  fetchEvent: id => {
     return Event.findOne({ id });
   },
-  createEvent: (event) => {
+  createEvent: event => {
     const newEvent = new Event(event);
-    return newEvent.save()
-      .then((newEvent) => {
-        return User.findOneAndUpdate({ id: newEvent.creatorId }, { $push: { eventsCreated: newEvent.id } })
-          .then(() => {
-            return newEvent;
-          });
+    return newEvent.save().then(newEvent => {
+      return User.findOneAndUpdate(
+        { id: newEvent.creatorId },
+        { $push: { eventsCreated: newEvent.id } }
+      ).then(() => {
+        return newEvent;
       });
+    });
   },
-  fetchParticipation: (id) => {
+  fetchParticipation: id => {
     id = new ObjectId(id);
     return Participation.findOne({ id });
   },

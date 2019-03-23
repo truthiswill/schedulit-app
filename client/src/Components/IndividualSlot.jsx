@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../styles/IndividualSlot.css';
 
-
 class IndividualSlot extends React.Component {
   constructor(props) {
     super(props);

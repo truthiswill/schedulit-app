@@ -1,6 +1,6 @@
 import React from 'react';
-import GroupPreview from './GroupPreview'
-import IndividualPreview from './IndividualPreview'
+import GroupPreview from './GroupPreview';
+import IndividualPreview from './IndividualPreview';
 import axios from 'axios';
 
 class JoinEvent extends React.Component {
@@ -75,7 +75,6 @@ class JoinEvent extends React.Component {
     slots.forEach(slot => {
       let start = slot.startTime.getHours() * 60 + slot.startTime.getMinutes();
       if (start < earliestMinutesInDay) earliestMinutesInDay = start;
-
     });
     return earliestMinutesInDay;
   }
@@ -93,18 +92,30 @@ class JoinEvent extends React.Component {
     if (this.state.eventParticipationData === undefined) return <div />;
     console.log(this.state.eventParticipationData);
     return (
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <IndividualPreview
-          eventData={this.state.eventParticipationData}
-          earliestMinutesInDay={this.state.earliestMinutesInDay}
-          latestMinutesInDay={this.state.latestMinutesInDay}
-          socket={this.state.socket}
-        />
-        <GroupPreview
-          eventData={this.state.eventParticipationData}
-          earliestMinutesInDay={this.state.earliestMinutesInDay}
-          latestMinutesInDay={this.state.latestMinutesInDay}
-        />
+      <div>
+        <hr />
+        <div>Directions</div>
+        <hr />
+        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <div>
+            <div>My trippple </div>
+            <IndividualPreview
+         			socket={this.state.socket}
+              eventData={this.state.eventParticipationData}
+              earliestMinutesInDay={this.state.earliestMinutesInDay}
+              latestMinutesInDay={this.state.latestMinutesInDay}
+            />
+          </div>
+
+          <div>
+            <div>Everyone's Availability </div>
+            <GroupPreview
+              eventData={this.state.eventParticipationData}
+              earliestMinutesInDay={this.state.earliestMinutesInDay}
+              latestMinutesInDay={this.state.latestMinutesInDay}
+            />
+          </div>
+        </div>
       </div>
     );
   }
