@@ -1,3 +1,4 @@
+const path = require('path');
 const {
   createEvent,
   fetchEvent,
@@ -24,6 +25,9 @@ const isValidEvent = event => {
 };
 
 module.exports = {
+  sendIndex: (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+  },
   myUserGet: (req, res) => {
     let userId = req.user.id;
     fetchUser(userId).then(user => {

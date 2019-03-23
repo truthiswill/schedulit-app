@@ -1,14 +1,10 @@
-const router = require('express').Router();
-const {
-  joinPut,
-  eventPost,
-  eventGet,
-  userGet,
-  participationGet,
-  myUserGet
-} = require('./controllers.js');
+const express = require('express');
+const { ensureAuthenticated } = require('./passportConfig');
+const { joinPut, eventPost, eventGet, userGet, participationGet, myUserGet, joinGet, sendIndex } = require('./controllers.js');
+const { authenticateUser, authenticateUser2, giveUserSessionToken } = require('./passportControllers');
 
-router
+const apiRouter = express.Router();
+apiRouter
   .get('/user', myUserGet)
   .get('/user/:id', userGet)
   .get('/event/:id', eventGet)
@@ -16,4 +12,14 @@ router
   .get('/participation/:id', participationGet)
   .put('/join/:eventId', joinPut);
 
-module.exports = router;
+const mainRouter = express.Router();
+mainRouter.use('/api', ensureAuthenticated, apiRouter);
+mainRouter
+  .get('/join/:eventId', ensureAuthenticated, joinGet)
+  .get('/protected', ensureAuthenticated, (req, res) => res.send('access granted. secure stuff happens here'))
+  .get('/auth/google', authenticateUser)
+  .get('/auth/google/callback', authenticateUser2, giveUserSessionToken)
+  .get('/', sendIndex);
+
+
+module.exports = mainRouter;
