@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 module.exports.initializeDB = async () => {
-  await mongoose.connect('mongodb://localhost/schedulit');
+  await mongoose.connect(process.env.DB_URI);
   console.log('connected to mongo');
 
 };
