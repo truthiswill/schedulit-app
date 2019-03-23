@@ -116,14 +116,17 @@
 
 .set1{
   background-color: #2f82a4;
+  border: 2px solid white; 
 }
 
 .set2{
   background-color: rgb(182, 182, 9);
+  border: 2px solid white;
 }
 
 .set3{
   background-color: rgb(208, 55, 55);
+  border: 2px solid white;
 }
 
 .number {
