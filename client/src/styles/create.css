@@ -3,9 +3,10 @@
 }
 
 .eventInvitation {
-  color:slategray;
-  font-weight: 400;
-  font-size: 20px;
+  color:#008080;
+  font-weight: 800;
+  font-size: 24px;
+  text-transform: uppercase;
 }
 
 .createContainer {
