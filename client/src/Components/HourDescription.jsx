@@ -1,7 +1,9 @@
 import React from 'react';
 import IndividualSlot from './IndividualSlot';
+import { interfaceDeclaration } from '@babel/types';
+import styles from '../styles/HourDescription.css';
 
-class TimeSlot extends React.Component {
+class HourDescription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -93,25 +95,40 @@ class TimeSlot extends React.Component {
   }
 
   render() {
+    console.log('type', this.props.timeSlot.startTime);
     return (
       <div>
-        {new Intl.DateTimeFormat('en-US', {
-          month: 'short',
-          day: '2-digit'
-        }).format(this.props.timeSlot.startTime)}
-        {Object.keys(this.state.slotStatus).map((timeStamp, index) => (
-          <IndividualSlot
-            selected={this.state.slotStatus[timeStamp]}
-            slotStartTime={timeStamp}
-            startFromHere={this.startFromHere}
-            goToHere={this.goToHere}
-            key={index}
-            includeHere={this.includeHere}
-          />
-        ))}
+        TIME
+        {Object.keys(this.state.slotStatus).map((timeStamp, index) => {
+          timeStamp = new Date(timeStamp);
+          if (timeStamp.getMinutes() === 0 || index === 0) {
+            return (
+              <div className={styles.showHour}>
+                {new Intl.DateTimeFormat('en-US', {
+                  hour: '2-digit',
+                  minute: '2-digit'
+                }).format(timeStamp)}
+              </div>
+            );
+          } else if (Object.keys(this.state.slotStatus).length - 1 === index) {
+            return (
+              <div>
+                <div className={styles.hideHour} />
+                <div className={styles.showHour}>
+                  {new Intl.DateTimeFormat('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  }).format(new Date(timeStamp.getTime() + 15 * 60000))}
+                </div>
+              </div>
+            );
+          } else {
+            return <div className={styles.hideHour} />;
+          }
+        })}
       </div>
     );
   }
 }
 
-export default TimeSlot;
+export default HourDescription;

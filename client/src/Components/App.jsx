@@ -25,9 +25,8 @@ class App extends Component {
     this.createView = this.createView.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.selectView = this.selectView.bind(this);
-
-    window.forceReactUpdate = this.forceUpdate.bind(this);
     window.isUserLoggedIn = false;
+    window.forceReactUpdate = this.forceUpdate.bind(this);
   }
 
   hasLoginCookies() {
@@ -142,6 +141,12 @@ class App extends Component {
     // } else if (view === 'create') {
     //   page = <Create />;
     // }
+    console.log(window.isUserLoggedIn);
+    if (window.isUserLoggedIn) {
+      this.fetchEvents();
+      window.isUserLoggedIn = false; // sorry hacky but less line
+      display = <Events events={this.state.events} />;
+    }
 
     return (
       <div>

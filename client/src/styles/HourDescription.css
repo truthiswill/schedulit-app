@@ -1,0 +1,15 @@
+.selected {
+  width: 5em;
+  height: 1em;
+  background-color: chartreuse;
+}
+.hideHour {
+  width: 5em;
+  height: 1em;
+  color: white;
+}
+.showHour {
+  color: blue;
+  width: 5em;
+  height: 1em;
+}

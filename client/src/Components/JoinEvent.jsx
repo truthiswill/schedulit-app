@@ -76,17 +76,29 @@ class JoinEvent extends React.Component {
   render() {
     if (this.state.eventParticipationData === undefined) return <div />;
     return (
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <IndividualPreview
-          eventData={this.state.eventParticipationData}
-          earliestMinutesInDay={this.state.earliestMinutesInDay}
-          latestMinutesInDay={this.state.latestMinutesInDay}
-        />
-        <GroupPreview
-          eventData={this.state.eventParticipationData}
-          earliestMinutesInDay={this.state.earliestMinutesInDay}
-          latestMinutesInDay={this.state.latestMinutesInDay}
-        />
+      <div>
+        <hr />
+        <div>Directions</div>
+        <hr />
+        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+          <div>
+            <div>My trippple </div>
+            <IndividualPreview
+              eventData={this.state.eventParticipationData}
+              earliestMinutesInDay={this.state.earliestMinutesInDay}
+              latestMinutesInDay={this.state.latestMinutesInDay}
+            />
+          </div>
+
+          <div>
+            <div>Everyone's Availability </div>
+            <GroupPreview
+              eventData={this.state.eventParticipationData}
+              earliestMinutesInDay={this.state.earliestMinutesInDay}
+              latestMinutesInDay={this.state.latestMinutesInDay}
+            />
+          </div>
+        </div>
       </div>
     );
   }
