@@ -148,23 +148,21 @@ class Create extends Component {
                     onChange={this.handleChange}
                     className={styles.input}
                   />
-                  {/* Event Allowed Preferences:
-              <input name="allowedPreferences" onChange={this.handleChange} /> */}
                 </label>
+                <div className={styles.hoursContainer}>
+                  <ChooseHours
+                    setCounter={this.state.setCounter}
+                    setOfDay={this.state.setOfDay}
+                    finalizeSet={this.finalizeSet}
+                    addTimesToSet={this.addTimesToSet}
+                  />
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className={styles.submitButton}
+                  />
+                </div>
               </form>
-            </div>
-            <div className={styles.hoursContainer}>
-              <ChooseHours
-                setCounter={this.state.setCounter}
-                setOfDay={this.state.setOfDay}
-                finalizeSet={this.finalizeSet}
-                addTimesToSet={this.addTimesToSet}
-              />
-              <input
-                type="submit"
-                value="Submit"
-                className={styles.submitButton}
-              />
             </div>
           </div>
           <DayPicker

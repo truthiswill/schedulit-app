@@ -13,7 +13,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      view: 'login',
+      loggedIn: this.hasLoginCookies(),
+      view: 'loginPage',
       events: []
     };
 
@@ -23,6 +24,20 @@ class App extends Component {
     this.homeView = this.homeView.bind(this);
     this.createView = this.createView.bind(this);
     this.loginUser = this.loginUser.bind(this);
+    this.selectView = this.selectView.bind(this);
+
+    window.forceReactUpdate = this.forceUpdate.bind(this);
+    window.isUserLoggedIn = false;
+  }
+
+  hasLoginCookies() {
+    let x = Cookies.get('session');
+    let y = Cookies.get('session.sig');
+    console.log(x, y);
+    if (x && y) {
+      console.log('hello');
+      return true;
+    }
   }
 
   joinEventIfExists(eventId) {
@@ -39,7 +54,7 @@ class App extends Component {
             };
           });
           this.setState({ eventData: data }, () => {
-            this.fetchEvents;
+            this.fetchEvents();
           });
         })
         .catch(() => console.log('event does not exist'));
@@ -55,6 +70,12 @@ class App extends Component {
       .get('/api/user')
       .then(({ data }) => {
         let events = data.eventsCreated;
+
+        //Checks if user is logged in
+        if (data.id !== undefined) {
+          this.setState({ loggedIn: true });
+        }
+
         Promise.all(
           events.map(event => {
             return axios.get('/api/event/' + event).then(({ data }) => data);
@@ -66,56 +87,67 @@ class App extends Component {
       .catch(error => console.error(error));
   }
 
+  loginUser() {
+    window.open('/auth/google', 'Login', 'width=700, height=700');
+  }
+
   homeView() {
-    this.setState({ view: 'home' });
+    this.setState({ view: 'eventPage' });
   }
 
   createView() {
-    this.setState({ view: 'create' });
+    this.setState({ view: 'createPage' });
   }
 
-  loginUser() {
-    let popWindow = window.open(
-      '/auth/google',
-      'Login',
-      'width=700, height=700'
-    );
-
-    setInterval(() => {
-      if (
-        popWindow.location.href !=
-          'https://accounts.google.com/AddSession#identifier' ||
-        popWindow.location.href !=
-          'https://accounts.google.com/AddSession#password'
-      ) {
-        popWindow.close();
-        this.setState({ view: 'home' });
+  selectView() {
+    if (this.state.loggedIn) {
+      if (this.state.view === 'createPage') {
+        return 'createPage';
+      } else {
+        return 'eventPage';
       }
-    }, 1000);
+    } else {
+      return 'loginPage';
+    }
   }
 
   render() {
-    let { events, view, eventData } = this.state;
-    let page;
+    let page = this.selectView();
+    let display;
 
-    if (eventData !== undefined) {
-      return <JoinEvent eventData={eventData} />;
+    if (page === 'eventPage') {
+      display = <Events events={this.state.events} />;
+    } else if (page === 'loginPage') {
+      display = <Login loginUser={this.loginUser} />;
+    } else if (page === 'createPage') {
+      display = <Create />;
     }
 
-    if (view === 'login') {
-      page = <Login loginUser={this.loginUser} />;
-    } else if (view === 'home') {
-      page = <Events events={events} />;
-    } else if (view === 'create') {
-      page = <Create />;
-    } else {
-      // page = full details of event
+    if (this.state.eventData !== undefined) {
+      display = <JoinEvent eventData={this.state.eventData} />;
     }
+
+    // login = window.isUserLoggedIn;
+    // console.log('rerendering, login: ', login);
+    // if (this.state.loggedIn === false) {
+    //   view = 'login';
+    // } else {
+    //   view = 'eventView';
+    // }
+    // console.log('login', login);
+
+    // if (view === 'login') {
+    //   page = <Login loginUser={this.loginUser} />;
+    // } else if (view === 'eventView') {
+    //   page = <Events events={events} />;
+    // } else if (view === 'create') {
+    //   page = <Create />;
+    // }
 
     return (
       <div>
         <Navigation homeView={this.homeView} createView={this.createView} />
-        {page}
+        {display}
       </div>
     );
   }

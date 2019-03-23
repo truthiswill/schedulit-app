@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import styles from '../styles/day.css';
 
-
-
 import TimeSlot from './TimeSlot';
 
 class JoinEvent extends React.Component {
@@ -28,9 +26,11 @@ class JoinEvent extends React.Component {
     let newParticipation = {};
     newParticipation.timeAvailable = this.state.timeAvailable;
     newParticipation.unavailable = this.state.unavailable;
-    axios.put('/api/participation/' + this.props.eventData.id, newParticipation).then(({ data }) => {
-      console.log(data);
-    });
+    axios
+      .put('/api/participation/' + this.props.eventData.id, newParticipation)
+      .then(({ data }) => {
+        console.log(data);
+      });
   }
 
   addToTimeAvailable(timeSlot) {
@@ -53,7 +53,13 @@ class JoinEvent extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <div style={this.state.unavailable ? { display: 'none' } : { display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={
+              this.state.unavailable
+                ? { display: 'none' }
+                : { display: 'flex', justifyContent: 'space-between' }
+            }
+          >
             {this.props.eventData.availableSlots.map(timeSlot => {
               return (
                 <TimeSlot
