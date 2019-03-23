@@ -28,12 +28,6 @@ module.exports = {
   },
   createParticipation: (userId, eventId) => {
     eventId = new ObjectId(eventId);
-    let newParticipation = {
-      id: new ObjectId(),
-      userId,
-      eventId,
-      unavailable: false
-    };
     return Participation.findOne({ userId, eventId })
       .then((participation) => {
         if (participation) {

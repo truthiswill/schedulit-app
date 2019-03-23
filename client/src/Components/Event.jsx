@@ -8,17 +8,18 @@ import styles from '../styles/event.css';
 //   document.execCommand('copy');
 // }
 
-const Event = ({ event }) => {
-  console.log(event.id);
+const Event = (props) => {
+  
   return (
     <div className={styles.indEventContainer}>
       <hr />
-      <div className={styles.title}>
-        <a href={'/join/' + event.id}>{event.title}</a>
+      <div className={styles.title} onClick={()=>props.joinEventIfExists(props.event.id)}>
+				{/* <a href={'/join/' + props.event.id}>{props.event.title}</a> */}
+				{props.event.title}
       </div>
       {/* <button onClick={() => myFunction()}>Get link</button> */}
-      <div>{event.description}</div>
-      <Participants participants={event.participants} />
+      <div>{props.event.description}</div>
+      <Participants participants={props.event.participants} />
     </div>
   );
 };

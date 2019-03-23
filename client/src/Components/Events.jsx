@@ -2,7 +2,7 @@ import React from 'react';
 import Event from './Event.jsx';
 import styles from '../styles/events.css';
 
-const Events = ({ events }) => {
+const Events = (props) => {
   return (
     <div className={styles.eventPage}>
       <div
@@ -17,8 +17,8 @@ const Events = ({ events }) => {
           <h2>Events I am attending</h2>
           <div className={styles.eventListContainer}>
             <div className={styles.eventList}>
-              {events.map((event, index) => {
-                return <Event event={event} key={index} />;
+              {props.events.map((event, index) => {
+                return <Event event={event} key={index} joinEventIfExists={props.joinEventIfExists} />;
               })}
             </div>
           </div>

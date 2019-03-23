@@ -2,83 +2,35 @@ const express = require('express');
 const path = require('path');
 const parser = require('body-parser');
 const morgan = require('morgan');
-const passport = require('passport');
-const cors = require('cors');
-const GoogleStrategy = require('passport-google-oauth20');
+const http = require('http');
 
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
-const passportConfig = require('./passportConfig');
 
 const { initializeDB } = require('../database/index');
-const { joinGet } = require('./controllers');
-const router = require('./routes');
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const { initializeSockets } = require('./sockets');
+const { mainRouter, passport } = require('./routes');
 
+const app = express();
+const httpServer = http.Server(app);
 
 module.exports.initializeApp = async () => {
   await initializeDB();
-  app.use(
-    cookieSession({
-      name: 'session',
-      keys: ['thiccmilcc']
-    })
+  app.use(cookieSession({
+    name: 'session',
+    keys: ['thiccmilcc']
+  })
   );
   app.use(cookieParser());
   app.use(morgan('dev'));
   app.use(parser.json());
   app.use(parser.urlencoded({ extended: true }));
-
-  passportConfig(passport);
   app.use(passport.initialize());
   app.use(passport.session());
-
-  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect('/auth/google');
-  }
-
-  app.use('/api', ensureAuthenticated, router);
-
-  app.get('/protected', ensureAuthenticated, function(req, res) {
-    res.send('access granted. secure stuff happens here');
-  });
-
-  app.get('/join/:eventId', ensureAuthenticated, joinGet);
-
-  app.get(
-    '/auth/google',
-    passport.authenticate('google', {
-      scope: ['https://www.googleapis.com/auth/userinfo.profile']
-    })
-  );
-  app.get(
-    '/auth/google/callback',
-    passport.authenticate('google', {
-      failureRedirect: '/'
-    }),
-    (req, res) => {
-      req.session.token = req.user.token;
-      res.redirect('/after-auth.html');
-    }
-  );
-  app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-  });
+  app.use(mainRouter);
   app.use(express.static(path.resolve(__dirname, '../client/dist')));
+  initializeSockets(httpServer);
 
-  io.on('connection', function (socket) {
-    socket.on('participation', function (participation) {
-      console.log('participation received');
-      socket.emit('participation');
-    });
-
-
-  });
 };
 
-module.exports.http = http;
+module.exports.httpServer = httpServer;
