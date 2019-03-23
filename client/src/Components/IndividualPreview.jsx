@@ -113,6 +113,7 @@ class IndividualPreview extends React.Component {
   }
 
   render() {
+    if (this.props.eventData === undefined) return <div />;
     return (
       <form onSubmit={this.handleSubmit}>
         <div style={this.state.unavailable ? { display: 'none' } : { display: 'flex', justifyContent: 'space-between' }}>
