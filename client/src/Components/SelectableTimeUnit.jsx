@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/IndividualSlot.css';
 
-class IndividualSlot extends React.Component {
+class SelectableTimeUnit extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,4 +16,4 @@ class IndividualSlot extends React.Component {
     )
   }
 }
-export default IndividualSlot;
+export default SelectableTimeUnit;

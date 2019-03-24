@@ -1,7 +1,7 @@
 import React from 'react';
-import IndividualSlot from './IndividualSlot';
-
-class TimeSlot extends React.Component {
+import SelectableTimeUnit from './SelectableTimeUnit';
+import styles from '../styles/timeSlot.css'
+class SelectableTimeSlot extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,12 +35,12 @@ class TimeSlot extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         {new Intl.DateTimeFormat('en-US', {
           month: 'short',
           day: '2-digit'
         }).format(this.props.timeSlot.startTime)}
-        {Object.keys(this.props.slotStatus).map((timeStamp, index) => <IndividualSlot
+        {Object.keys(this.props.slotStatus).map((timeStamp, index) => <SelectableTimeUnit
           selected={this.props.slotStatus[timeStamp]}
           handleMouseDown={this.handleMouseDown}
           handleMouseEnter={this.handleMouseEnter}
@@ -56,4 +56,4 @@ class TimeSlot extends React.Component {
   }
 }
 
-export default TimeSlot;
+export default SelectableTimeSlot;

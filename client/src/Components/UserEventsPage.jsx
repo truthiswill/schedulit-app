@@ -1,25 +1,24 @@
 import React from 'react';
-import Event from './Event.jsx';
+import EventCard from './EventCard.jsx';
 import styles from '../styles/events.css';
 
-const Events = (props) => {
+const UserEventsPage = (props) => {
   return (
     <div className={styles.eventPage}>
       <div
         style={{
           display: 'flex',
-          margin: '40px',
-          width: 'auto',
-          justifyContent: 'space-evenly'
+					width: 'auto',
+					padding: '1em 23em'
+					
         }}
       >
-        <div style={{ width: 'auto' }} />
         <div style={{ width: 'auto' }}>
-          <h2>Events I am attending</h2>
+          <h2>My Events</h2>
           <div className={styles.eventListContainer}>
             <div className={styles.eventList}>
               {props.events.map((event, index) => {
-                return <Event event={event} key={index} joinEventIfExists={props.joinEventIfExists} />;
+                return <EventCard event={event} key={index} joinEventIfExists={props.joinEventIfExists} />;
               })}
             </div>
           </div>
@@ -29,4 +28,4 @@ const Events = (props) => {
   );
 };
 
-export default Events;
+export default UserEventsPage;

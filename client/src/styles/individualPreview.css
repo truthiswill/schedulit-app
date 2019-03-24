@@ -1,0 +1,17 @@
+.container {
+	background : #fff;
+	border-radius: 0.5em;
+	padding: 1em;
+}
+
+.title{
+	padding: 1em;
+	font-weight: 500;
+	font-size: 150%;
+	text-align: center;
+}
+
+.timeSlotsContainer{
+	display: flex;
+	justify-content: space-between;
+}
