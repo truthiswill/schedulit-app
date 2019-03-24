@@ -3,3 +3,4 @@ import ReactDOM from 'react-dom';
 import App from '../src/Components/App.jsx'
 
 ReactDOM.render(<App />, document.getElementById('app'));
+console.log(document.cookie);
