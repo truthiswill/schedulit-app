@@ -47,14 +47,15 @@
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
     "react": "^16.8.4",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.4",
     "react-popout": "^1.0.2",
     "react-router-dom": "^5.0.0",
     "socket.io": "^2.2.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
-    "webpack-cli": "^3.3.0",
     "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
     "webpack-combine-loaders": "^2.0.4"
   },
   "devDependencies": {
