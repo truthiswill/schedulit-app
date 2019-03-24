@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import styles from "../styles/login.css";
 
 class Login extends Component {
   constructor(props) {
@@ -7,9 +8,23 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.props.openLoginPopup}>Login</button>
+      <div className={`${styles.overAll}`}>
+        <div className={`${styles.inner}`}>
+          <div className={`${styles.directions}`}>
+            Please Login to use the app
+          </div>
+					<div className={`${styles.loginCenter}`}>
+            <button
+              className={`${styles.button}`}
+              onClick={this.props.openLoginPopup}
+            >
+              Login
+            </button>
+          </div>
+
+        </div>
       </div>
+
     );
   }
 }

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import TimeSlot from './TimeSlot';
 import HourDescription from './HourDescription';
+import styles from '../styles/individualPreview.css';
 
 class IndividualPreview extends React.Component {
   constructor(props) {
@@ -123,7 +124,7 @@ class IndividualPreview extends React.Component {
               : { display: 'flex', justifyContent: 'center' }
           }
         >
-
+					{/* <div className = {styles.outerbox}></div> */}
           {this.generateLabel().concat ( this.props.eventData.availableSlots.map((timeSlot, index) => {
             return (
               <TimeSlot
@@ -135,7 +136,9 @@ class IndividualPreview extends React.Component {
                 slotStatus={this.getSlotStatusForTimeSlot(timeSlot)}
                 updateTimeSlotStatus={this.updateTimeSlotStatus}
               />
-            );
+						);
+						// </div>
+						
           }))}
         </div>
         <input

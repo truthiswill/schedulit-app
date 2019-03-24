@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-
+import styles from '../styles/app.css'
 import Login from './Login.jsx';
 import MainDisplay from './MainDisplay.jsx';
 
@@ -30,11 +30,15 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.loggedIn) {
-      return <MainDisplay view={this.state.view} loggedIn={this.state.loggedIn} />;
-    } else {
-      return <Login openLoginPopup={this.openLoginPopup} />;
-    }
+		return (
+			<div className={styles.masterContainer}> 
+
+				{this.state.loggedIn ? <MainDisplay view={this.state.view} loggedIn={this.state.loggedIn} /> : <Login openLoginPopup={this.openLoginPopup} />}
+			</div>
+
+		)
+
+
   }
 }
 
