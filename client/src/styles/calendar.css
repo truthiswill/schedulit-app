@@ -129,15 +129,42 @@
   border: 2px solid white;
 }
 
-.number {
+.lastNumber {
   font-size: 120%;
   font-weight: 400;
   text-align: center;
-  color: white;
-  /* border: 10px solid blue; */
+  color: lightgrey;
   border-radius: 25%;
 }
 
-.number:hover {
+.thisNumber {
+  font-size: 120%;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  border-radius: 25%;
+}
+
+.nextNumber {
+  font-size: 120%;
+  font-weight: 400;
+  text-align: center;
+  color: lightgrey;
+  border-radius: 25%;
+}
+
+.past{
+  color: darkgray;
+}
+
+.thisNumber:hover {
+  cursor: pointer;
+}
+
+.nextNumber:hover {
+  cursor: pointer;
+}
+
+.lastNumber:hover {
   cursor: pointer;
 }

@@ -36,7 +36,7 @@ class TimeSlot extends React.Component {
   render() {
     return (
       <div>
-         {new Intl.DateTimeFormat('en-US', {
+        {new Intl.DateTimeFormat('en-US', {
           month: 'short',
           day: '2-digit'
         }).format(this.props.timeSlot.startTime)}
