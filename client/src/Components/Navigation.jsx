@@ -7,16 +7,20 @@ const Navigation = ({ changeView }) => {
       <div className={styles.schedulIt} onClick={() => changeView('eventPage')} >
         Schedulit
       </div>
-      <div className={styles.alignHorizontal}>
-        <div className={styles.buttonContainer}>
-          <div onClick={() =>  changeView('eventPage')} className={styles.clickables}>
-            My Events
-          </div>
-          <div onClick={() => changeView('createPage')} className={styles.clickables}>
-            Create an event!
-          </div>
-        </div>
-      </div>
+
+			<div className={styles.tabs}>
+
+			<div onClick={() =>  changeView('eventPage')} className={styles.clickables}>
+				My Events
+			</div>
+
+
+
+			<div onClick={() => changeView('createPage')} className={styles.clickables}>
+				Create an event!
+			</div>
+
+			</div>
     </div>
   );
 };

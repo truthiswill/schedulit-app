@@ -1,10 +1,10 @@
 .masterContainer {
 
 		font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-		background-image: linear-gradient(to top, #a3dcff 0%, #e2ebf0 100%) ;
+		background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 		background-repeat: no-repeat;
 		height: 100vh;	
-		padding: 10px  20px 20px 20px;
+		/* padding: 10px  20px 20px 20px; */
 		color: darkslategrey;
 
 }
