@@ -4,8 +4,7 @@ const passport = getPassport();
 
 module.exports = {
   authenticateUser: passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/userinfo.profile'],
-    failureRedirect: '/'
+    scope: ['https://www.googleapis.com/auth/userinfo.profile']
   })
   ,
   authenticateUser2: passport.authenticate('google', {
@@ -14,7 +13,12 @@ module.exports = {
   ,
   giveUserSessionToken: (req, res) => {
     req.session.token = req.user.token;
-    res.redirect('/after-auth.html');
+    if (req.cookies.sendToHome) {
+      console.log('found send to home');
+      res.redirect('/');
+    } else {
+      res.redirect('/after-auth.html');
+    }
   },
   passport: passport
 }

@@ -15,10 +15,10 @@ apiRouter
 const mainRouter = express.Router();
 mainRouter.use('/api', ensureAuthenticated, apiRouter);
 mainRouter
-  .get('/join/:eventId', ensureAuthenticated, joinGet)
+  .get('/join/:eventId', joinGet)
   .get('/protected', ensureAuthenticated, (req, res) => res.send('access granted. secure stuff happens here'))
   .get('/auth/google', authenticateUser)
-  .get('/auth/google/callback', authenticateUser, giveUserSessionToken)
+  .get('/auth/google/callback', authenticateUser2, giveUserSessionToken)
   .get('/', sendIndex);
 
 

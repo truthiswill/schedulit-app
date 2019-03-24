@@ -17,12 +17,13 @@ class App extends Component {
       events: []
     };
     let eventId = Cookies.get('eventId');
+    Cookies.remove('sendToHome');
     this.joinEventIfExists(eventId);
 
     this.setEventView = this.setEventView.bind(this);
     this.setCreateView = this.setCreateView.bind(this);
     this.loginUser = this.loginUser.bind(this);
-    
+
     window.isUserLoggedIn = false;
     window.forceReactUpdate = this.forceUpdate.bind(this);
   }
@@ -80,7 +81,7 @@ class App extends Component {
   }
 
   setEventView() {
-		console.log('triggered')
+    console.log('triggered')
     this.setState({ view: 'eventPage' });
   }
 
@@ -90,21 +91,21 @@ class App extends Component {
 
   render() {
 
-		let display;
+    let display;
 
-		if (this.state.loggedIn) {
+    if (this.state.loggedIn) {
       if (this.state.view === 'createPage') {
-				display = <Create />;
+        display = <Create />;
       } else if (this.state.view === 'eventPage') {
         display = <Events events={this.state.events} />;
       } else if (this.state.eventData !== undefined) {
-				display = <JoinEvent eventData={this.state.eventData} />;
-			}
+        display = <JoinEvent eventData={this.state.eventData} />;
+      }
     } else {
       display = <Login loginUser={this.loginUser} />;
     }
-	
-		console.log(window.isUserLoggedIn);
+
+    console.log(window.isUserLoggedIn);
     if (window.isUserLoggedIn) {
       this.fetchEvents();
       window.isUserLoggedIn = false; // sorry hacky but less line
