@@ -16,17 +16,18 @@ class DayPicker extends React.Component {
     let { currentYear, currentMonth } = this.props;
     let daysInLastMonth = (new Date(currentYear, currentMonth, 0)).getDate();
     let daysInCurrentMonth = (new Date(currentYear, currentMonth + 1, 0)).getDate();
-    let findDay = new Date(currentYear, currentMonth, 1).getDay() - 1
-    let findLastDay = new Date(currentYear, currentMonth + 1, 0).getDay()
+    let dayOfFirstOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    let dayOfLastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDay()
 
-    for (let o = daysInLastMonth - findDay; o <= daysInLastMonth; o++) {
-      let date = new Date(currentYear, currentMonth - 1, o)
+    for (let i = daysInLastMonth - dayOfFirstOfMonth; i < daysInLastMonth; i++) {
+      let date = new Date(currentYear, currentMonth - 1, i)
       dayComponents.push(
         <Day
-          key={date}
+          key={`last ${i}`}
           date={date}
           addDayToSet={this.props.addDayToSet}
           set={this.props.setOfDay[date]}
+          currentMonth={this.props.currentMonth}
         />
       );
     }
@@ -35,20 +36,21 @@ class DayPicker extends React.Component {
       let date = new Date(currentYear, currentMonth, i);
       dayComponents.push(
         <Day
-          key={date}
+          key={`this ${i}`}
           date={date}
           addDayToSet={this.props.addDayToSet}
           set={this.props.setOfDay[date]}
+          currentMonth={this.props.currentMonth}
         />
       );
     }
 
-    if (findLastDay < 6) {
-      for (let n = 1; n <= (6 - findLastDay); n++) {
+    if (dayOfLastDayOfMonth < 6) {
+      for (let n = 1; n <= (6 - dayOfLastDayOfMonth); n++) {
         let date = new Date(currentYear, currentMonth + 1, n);
         dayComponents.push(
           <Day
-            key={date}
+            key={`next ${n}`}
             date={date}
             addDayToSet={this.props.addDayToSet}
             set={this.props.setOfDay[date]}
@@ -56,7 +58,6 @@ class DayPicker extends React.Component {
         );
       }
     }
-
     return dayComponents;
   }
 

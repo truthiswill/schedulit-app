@@ -76,9 +76,15 @@ class Create extends Component {
   }
 
   addDayToSet(date) {
-    let newSetOfDay = this.state.setOfDay;
-    newSetOfDay[date] = this.state.setCounter;
-    this.setState({ setOfDay: newSetOfDay });
+    if(date.getTime() + (24*60*60*1000) > new Date()){
+      let newSetOfDay = this.state.setOfDay;
+      if (this.state.setOfDay[date] === 0) {
+        newSetOfDay[date] = this.state.setCounter;
+      } else {
+        newSetOfDay[date] = 0;
+      }
+      this.setState({ setOfDay: newSetOfDay }); 
+    }
   }
 
   handleChange(e) {
@@ -88,7 +94,12 @@ class Create extends Component {
   instructionMessage() {
     if (!this.state.title) return 'Creating a New Event is Easy: Enter a Title'
     if (this.state.title && !this.state.description) return 'Step 2: Enter a Description for your Event'
-    if (this.state.title && this.state.description) return 'Step 3: Pick Dates & Times for Your Event'
+    if (this.state.title && this.state.description && !(Object.keys(this.state.setTimes) > 0)) {
+      return 'Step 3: Pick Dates & Times for Your Event'
+    } 
+    if (this.state.title && this.state.description && (Object.keys(this.state.setTimes) > 0)) {
+      return 'Step 4: Submit Event if Ready or Choose Additional Dates'
+    }
   }
 
   isReadyForSubmit() {
