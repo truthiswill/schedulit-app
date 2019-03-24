@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import TimeSlot from './TimeSlot';
-import HourDescription from './HourDescription';
+import SelectableTimeSlot from './SelectableTimeSlot';
+import HourLabel from './HourLabel';
 import styles from '../styles/individualPreview.css';
 
 class IndividualPreview extends React.Component {
@@ -88,7 +88,7 @@ class IndividualPreview extends React.Component {
 		return this.props.eventData.availableSlots.map((timeSlot, index) => {
 			if (index === 0) {
 				return (
-					<HourDescription
+					<HourLabel
 						earliestMinutesInDay={this.props.earliestMinutesInDay}
 						latestMinutesInDay={this.props.latestMinutesInDay}
 						timeSlot={timeSlot}
@@ -96,7 +96,6 @@ class IndividualPreview extends React.Component {
 						id={index}
 						key={index}
 						slotStatus={this.state.allTimeSlotStatuses[index]}
-						// addToTimeAvailable={this.addToTimeAvailable}
 						updateTimeSlotStatus={this.updateTimeSlotStatus}
 					/>
 				);
@@ -116,18 +115,20 @@ class IndividualPreview extends React.Component {
   render() {
     if (this.props.eventData === undefined) return <div />;
     return (
+			<div className = {styles.container}>
+			<div className={styles.title}>My Availability</div>
       <form onSubmit={this.handleSubmit}>
         <div
+				className={styles.timeSlotsContainer}
           style={
             this.state.unavailable
               ? { display: 'none' }
-              : { display: 'flex', justifyContent: 'center' }
+              : { }
           }
         >
-					{/* <div className = {styles.outerbox}></div> */}
           {this.generateLabel().concat ( this.props.eventData.availableSlots.map((timeSlot, index) => {
             return (
-              <TimeSlot
+              <SelectableTimeSlot
                 earliestMinutesInDay={this.props.earliestMinutesInDay}
                 latestMinutesInDay={this.props.latestMinutesInDay}
                 timeSlot={timeSlot}
@@ -137,8 +138,6 @@ class IndividualPreview extends React.Component {
                 updateTimeSlotStatus={this.updateTimeSlotStatus}
               />
 						);
-						// </div>
-						
           }))}
         </div>
         <input
@@ -150,6 +149,7 @@ class IndividualPreview extends React.Component {
         Click if unable to attend
         <input type="submit" name="submit" />
       </form>
+			</div>
     );
   }
 }

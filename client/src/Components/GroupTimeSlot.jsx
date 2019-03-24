@@ -1,5 +1,5 @@
 import React from 'react';
-import IndividualGroupSlot from './IndividualGroupSlot'
+import GroupTimeUnit from './GroupTimeUnit'
 
 class GroupTimeSlot extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class GroupTimeSlot extends React.Component {
     return (
       <div>
         {this.props.timeSlot.startTime.getDate()}
-        {Object.keys(slotStatus).map((timeStamp, index) => <IndividualGroupSlot
+        {Object.keys(slotStatus).map((timeStamp, index) => <GroupTimeUnit
           selected={slotStatus[timeStamp]}
           slotStartTime={timeStamp}
           key={index}

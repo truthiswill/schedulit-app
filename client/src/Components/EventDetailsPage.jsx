@@ -3,7 +3,7 @@ import GroupPreview from './GroupPreview';
 import IndividualPreview from './IndividualPreview';
 import axios from 'axios';
 
-class JoinEvent extends React.Component {
+class EventDetailsPage extends React.Component {
   constructor(props) {
     const socket = io();
     super(props);
@@ -15,7 +15,6 @@ class JoinEvent extends React.Component {
     this.getEventParticipationData = this.getEventParticipationData.bind(this);
     this.getEventParticipationData();
     socket.on('participation', () => {
-      console.log('updating data socket');
       this.getEventParticipationData();
     });
   }
@@ -32,7 +31,6 @@ class JoinEvent extends React.Component {
   getEventParticipationData() {
     this.getEventData(this.props.eventData.id)
       .then((eventData) => {
-        console.log(eventData);
         axios.get('/api/user').then(({ data }) => {
           let userData = data;
           this.setState({ userData });
@@ -63,7 +61,6 @@ class JoinEvent extends React.Component {
                   // not including preference level as not meaningful
                 };
               });
-              console.log('eventParticipationData', eventParticipationData);
               this.setState({ eventParticipationData });
             })
         })
@@ -90,35 +87,25 @@ class JoinEvent extends React.Component {
 
   render() {
     if (this.state.eventParticipationData === undefined) return <div />;
-    console.log(this.state.eventParticipationData);
     return (
       <div>
-        <hr />
-        <div>Directions</div>
-        <hr />
+        <h1>{this.props.eventData.title}</h1>
         <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-          <div>
-            <div>My trippple </div>
             <IndividualPreview
          			socket={this.state.socket}
               eventData={this.state.eventParticipationData}
               earliestMinutesInDay={this.state.earliestMinutesInDay}
               latestMinutesInDay={this.state.latestMinutesInDay}
             />
-          </div>
-
-          <div>
-            <div>Everyone's Availability </div>
             <GroupPreview
               eventData={this.state.eventParticipationData}
               earliestMinutesInDay={this.state.earliestMinutesInDay}
               latestMinutesInDay={this.state.latestMinutesInDay}
             />
-          </div>
         </div>
       </div>
     );
   }
 }
 
-export default JoinEvent;
+export default EventDetailsPage;

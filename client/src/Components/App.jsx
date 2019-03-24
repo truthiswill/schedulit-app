@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import styles from '../styles/app.css'
-import Login from './Login.jsx';
+import LoginPage from './LoginPage.jsx';
 import MainDisplay from './MainDisplay.jsx';
 
 class App extends Component {
@@ -26,14 +26,13 @@ class App extends Component {
   }
 
   openLoginPopup() {
-    window.open('/auth/google', 'Login', 'width=700, height=700');
+    window.open('/auth/google', 'Login Page', 'width=700, height=700');
   }
 
   render() {
 		return (
 			<div className={styles.masterContainer}> 
-
-				{this.state.loggedIn ? <MainDisplay view={this.state.view} loggedIn={this.state.loggedIn} /> : <Login openLoginPopup={this.openLoginPopup} />}
+				{this.state.loggedIn ? <MainDisplay view={this.state.view} loggedIn={this.state.loggedIn} /> : <LoginPage openLoginPopup={this.openLoginPopup} />}
 			</div>
 
 		)

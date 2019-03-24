@@ -8,6 +8,8 @@ class GroupPreview extends React.Component {
   }
   render() {
     return (
+			<>
+				<div>Everyone's Availability </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {
           this.props.eventData.availableSlots.map((timeSlot, index) => {
@@ -23,6 +25,7 @@ class GroupPreview extends React.Component {
           })
         }
       </div >
+			</>
     )
   }
 }

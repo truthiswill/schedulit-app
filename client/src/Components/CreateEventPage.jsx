@@ -4,7 +4,7 @@ import ChooseHours from './ChooseHours';
 import axios from 'axios';
 import styles from '../styles/create.css';
 
-class Create extends Component {
+class CreateEventPage extends Component {
   constructor(props) {
     super(props);
     let currentDate = new Date();
@@ -103,7 +103,6 @@ class Create extends Component {
   }
 
   isReadyForSubmit() {
-    console.log (this.state, 'thisState')
     if (this.state.title && this.state.description && (Object.keys(this.state.setTimes) > 0)) {
       return <input
         type="submit"
@@ -166,7 +165,6 @@ class Create extends Component {
       }
     }
     axios.post('/api/event', newEvent).then(({ data }) => {
-      console.log('data:', data);
       this.setState({ eventId: data.id });
     });
   }
@@ -223,4 +221,4 @@ class Create extends Component {
   }
 }
 
-export default Create;
+export default CreateEventPage;
