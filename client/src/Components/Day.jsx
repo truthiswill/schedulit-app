@@ -16,7 +16,6 @@ class Day extends React.Component {
     } else {
       classNames.push(styles.nextNumber);
     }
-    classNames.push(styles['set'+this.props.set]);
     if(this.props.date < new Date()){
       classNames.push(styles.past);
     }
@@ -25,12 +24,15 @@ class Day extends React.Component {
   render() {
     return (
       <div>
-        <div 
-          onClick={() => this.props.addDayToSet(this.props.date)}
-          className={this.getClassNames()}
-          > 
-            {this.props.date.getDate()}
+        <div className={styles['set'+this.props.set]}>
+          <div 
+            onClick={() => this.props.addDayToSet(this.props.date)}
+            className={this.getClassNames()}
+            ><div>
+              {this.props.date.getDate()}
+            </div>
           </div>
+        </div>
       </div>
     )
   }
