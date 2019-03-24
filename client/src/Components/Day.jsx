@@ -16,7 +16,6 @@ class Day extends React.Component {
     } else {
       classNames.push(styles.nextNumber);
     }
-    // classNames.push(styles['set'+this.props.set]);
     if(this.props.date < new Date()){
       classNames.push(styles.past);
     }
