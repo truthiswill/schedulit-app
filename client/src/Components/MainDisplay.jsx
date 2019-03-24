@@ -13,7 +13,8 @@ class MainDisplay extends React.Component {
     this.state = {
       view: 'eventPage',
       events: []
-    }
+		}
+		this.joinEventIfExists = this.joinEventIfExists.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +66,7 @@ class MainDisplay extends React.Component {
     if (this.state.view === 'createPage') {
       return <Create />;
     } else if (this.state.view === 'eventPage') {
-      return <Events events={this.state.events} />;
+      return <Events events={this.state.events} joinEventIfExists = {this.joinEventIfExists} />;
     } else if (this.state.view === 'joinPage') {
       return <JoinEvent eventData={this.state.eventData} />;
     }
