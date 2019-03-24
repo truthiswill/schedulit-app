@@ -6,12 +6,11 @@ module.exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/auth/google');
+  res.redirect('/');
 };
 
 module.exports.getPassport = () => {
   const passport = require('passport');
-  console.log('created a new passport');
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });

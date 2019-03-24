@@ -44,14 +44,15 @@ module.exports = {
   },
   joinGet: (req, res) => {
     let eventId = req.params.eventId;
-    let userId = req.user.id;
-    createParticipation(userId, eventId)
-      .then(() => {
-        res.cookie("eventId", eventId);
-      })
-      .finally(() => {
-        res.redirect('/');
-      });
+    res.cookie("eventId", eventId);
+    if (req.isAuthenticated()) {
+      let userId = req.user.id;
+      createParticipation(userId, eventId);
+      res.redirect('/');
+    } else {
+      res.cookie("sendToHome", eventId);
+      res.redirect('/auth/google');
+    }
   },
   eventGet: (req, res) => {
     let eventId = req.params.id;
