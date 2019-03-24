@@ -19,7 +19,7 @@ class DayPicker extends React.Component {
     let dayOfFirstOfMonth = new Date(currentYear, currentMonth, 1).getDay();
     let dayOfLastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDay()
 
-    for (let i = daysInLastMonth - dayOfFirstOfMonth; i < daysInLastMonth; i++) {
+    for (let i = daysInLastMonth - dayOfFirstOfMonth + 1; i <= daysInLastMonth; i++) {
       let date = new Date(currentYear, currentMonth - 1, i)
       dayComponents.push(
         <Day
