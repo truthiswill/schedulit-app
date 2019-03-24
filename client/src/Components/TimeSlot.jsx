@@ -6,8 +6,8 @@ class TimeSlot extends React.Component {
     super(props);
     this.state = {
       startTime: null,
-      mouseDown: false,
-    }
+      mouseDown: false
+    };
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
@@ -36,22 +36,26 @@ class TimeSlot extends React.Component {
   render() {
     return (
       <div>
-         {new Intl.DateTimeFormat('en-US', {
-          month: 'short',
-          day: '2-digit'
-        }).format(this.props.timeSlot.startTime)}
-        {Object.keys(this.props.slotStatus).map((timeStamp, index) => <IndividualSlot
-          selected={this.props.slotStatus[timeStamp]}
-          handleMouseDown={this.handleMouseDown}
-          handleMouseEnter={this.handleMouseEnter}
-          handleMouseUp={this.handleMouseUp}
-          slotStartTime={timeStamp}
-          startFromHere={this.startFromHere}
-          goToHere={this.goToHere}
-          key={index}
-          includeHere={this.includeHere}
-        />)}
-      </div >
+        <div style={{ textAlign: 'center' }}>
+          {new Intl.DateTimeFormat('en-US', {
+            month: 'short',
+            day: '2-digit'
+          }).format(this.props.timeSlot.startTime)}
+        </div>
+        {Object.keys(this.props.slotStatus).map((timeStamp, index) => (
+          <IndividualSlot
+            selected={this.props.slotStatus[timeStamp]}
+            handleMouseDown={this.handleMouseDown}
+            handleMouseEnter={this.handleMouseEnter}
+            handleMouseUp={this.handleMouseUp}
+            slotStartTime={timeStamp}
+            startFromHere={this.startFromHere}
+            goToHere={this.goToHere}
+            key={index}
+            includeHere={this.includeHere}
+          />
+        ))}
+      </div>
     );
   }
 }

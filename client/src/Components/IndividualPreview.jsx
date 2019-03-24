@@ -16,8 +16,8 @@ class IndividualPreview extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTimeSlotStatus = this.updateTimeSlotStatus.bind(this);
     this.initializeAllSlotStatuses = this.initializeAllSlotStatuses.bind(this);
-		this.initializeOneSlotStatus = this.initializeOneSlotStatus.bind(this);
-		this.generateLabel = this.generateLabel.bind(this)
+    this.initializeOneSlotStatus = this.initializeOneSlotStatus.bind(this);
+    this.generateLabel = this.generateLabel.bind(this);
   }
 
   handleChange(e) {
@@ -35,14 +35,18 @@ class IndividualPreview extends React.Component {
           let timestampObject = new Date(timestamp);
           let currTimeSlot = {};
           currTimeSlot.startTime = timestampObject;
-          currTimeSlot.endTime = new Date(timestampObject.getTime() + 15 * 60 * 1000);
+          currTimeSlot.endTime = new Date(
+            timestampObject.getTime() + 15 * 60 * 1000
+          );
           newParticipation.timeAvailable.push(currTimeSlot);
         }
       }
     }
-    axios.put('/api/join/' + this.props.eventData.id, newParticipation).then(({ data }) => {
-      this.props.socket.emit('participation');
-    });
+    axios
+      .put('/api/join/' + this.props.eventData.id, newParticipation)
+      .then(({ data }) => {
+        this.props.socket.emit('participation');
+      });
   }
 
   updateTimeSlotStatus(timestamp, value) {
@@ -51,23 +55,35 @@ class IndividualPreview extends React.Component {
     this.setState({ allTimeSlotStatuses });
   }
 
-
   timestampLiesInSlot(timestamp, timeSlot) {
     timestamp = new Date(timestamp);
-    return timestamp.getTime() >= timeSlot.startTime.getTime() && timestamp.getTime() < timeSlot.endTime.getTime();
+    return (
+      timestamp.getTime() >= timeSlot.startTime.getTime() &&
+      timestamp.getTime() < timeSlot.endTime.getTime()
+    );
   }
 
-
   initializeOneSlotStatus(timeSlot, allTimeSlotStatuses) {
-    let numberOfSlots = (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / (15);
-    let stub = new Date(timeSlot.startTime.getFullYear(), timeSlot.startTime.getMonth(), timeSlot.startTime.getDate()).getTime();
+    let numberOfSlots =
+      (this.props.latestMinutesInDay - this.props.earliestMinutesInDay) / 15;
+    let stub = new Date(
+      timeSlot.startTime.getFullYear(),
+      timeSlot.startTime.getMonth(),
+      timeSlot.startTime.getDate()
+    ).getTime();
     for (let i = 0; i < numberOfSlots; i++) {
-      let currentTimeStamp = new Date(stub + (this.props.earliestMinutesInDay + (i * 15)) * 60 * 1000);
-      if (currentTimeStamp >= timeSlot.startTime && currentTimeStamp < timeSlot.endTime) {
-        allTimeSlotStatuses[currentTimeStamp] =
-          this.props.eventData.participations[0]
-            .timeAvailable
-            .some(timeSlot => this.timestampLiesInSlot(currentTimeStamp, timeSlot));
+      let currentTimeStamp = new Date(
+        stub + (this.props.earliestMinutesInDay + i * 15) * 60 * 1000
+      );
+      if (
+        currentTimeStamp >= timeSlot.startTime &&
+        currentTimeStamp < timeSlot.endTime
+      ) {
+        allTimeSlotStatuses[
+          currentTimeStamp
+        ] = this.props.eventData.participations[0].timeAvailable.some(
+          timeSlot => this.timestampLiesInSlot(currentTimeStamp, timeSlot)
+        );
       } else {
         allTimeSlotStatuses[currentTimeStamp] = null;
       }
@@ -78,37 +94,42 @@ class IndividualPreview extends React.Component {
   initializeAllSlotStatuses() {
     let allTimeSlotStatuses = {};
     this.props.eventData.availableSlots.map((timeSlot, index) => {
-      allTimeSlotStatuses = this.initializeOneSlotStatus(timeSlot, allTimeSlotStatuses);
+      allTimeSlotStatuses = this.initializeOneSlotStatus(
+        timeSlot,
+        allTimeSlotStatuses
+      );
     });
     return allTimeSlotStatuses;
-	}
-	
-	generateLabel(){
-		return this.props.eventData.availableSlots.map((timeSlot, index) => {
-			if (index === 0) {
-				return (
-					<HourDescription
-						earliestMinutesInDay={this.props.earliestMinutesInDay}
-						latestMinutesInDay={this.props.latestMinutesInDay}
-						timeSlot={timeSlot}
-						eventData={this.props.eventData}
-						id={index}
-						key={index}
-						slotStatus={this.state.allTimeSlotStatuses[index]}
-						// addToTimeAvailable={this.addToTimeAvailable}
-						updateTimeSlotStatus={this.updateTimeSlotStatus}
-					/>
-				);
-			}
-		})
-	}
+  }
+
+  generateLabel() {
+    return this.props.eventData.availableSlots.map((timeSlot, index) => {
+      if (index === 0) {
+        return (
+          <HourDescription
+            earliestMinutesInDay={this.props.earliestMinutesInDay}
+            latestMinutesInDay={this.props.latestMinutesInDay}
+            timeSlot={timeSlot}
+            eventData={this.props.eventData}
+            id={index}
+            key={index}
+            slotStatus={this.state.allTimeSlotStatuses[index]}
+            // addToTimeAvailable={this.addToTimeAvailable}
+            updateTimeSlotStatus={this.updateTimeSlotStatus}
+          />
+        );
+      }
+    });
+  }
 
   getSlotStatusForTimeSlot(timeSlot) {
     let slotStatus = {};
-    Object
-      .keys(this.state.allTimeSlotStatuses)
+    Object.keys(this.state.allTimeSlotStatuses)
       .filter(timestamp => this.timestampLiesInSlot(timestamp, timeSlot))
-      .map(timestamp => slotStatus[timestamp] = this.state.allTimeSlotStatuses[timestamp]);
+      .map(
+        timestamp =>
+          (slotStatus[timestamp] = this.state.allTimeSlotStatuses[timestamp])
+      );
     return slotStatus;
   }
 
@@ -121,22 +142,22 @@ class IndividualPreview extends React.Component {
             this.state.unavailable
               ? { display: 'none' }
               : { display: 'flex', justifyContent: 'center' }
-          }
-        >
-
-          {this.generateLabel().concat ( this.props.eventData.availableSlots.map((timeSlot, index) => {
-            return (
-              <TimeSlot
-                earliestMinutesInDay={this.props.earliestMinutesInDay}
-                latestMinutesInDay={this.props.latestMinutesInDay}
-                timeSlot={timeSlot}
-                eventData={this.props.eventData}
-                key={index}
-                slotStatus={this.getSlotStatusForTimeSlot(timeSlot)}
-                updateTimeSlotStatus={this.updateTimeSlotStatus}
-              />
-            );
-          }))}
+          }>
+          {this.generateLabel().concat(
+            this.props.eventData.availableSlots.map((timeSlot, index) => {
+              return (
+                <TimeSlot
+                  earliestMinutesInDay={this.props.earliestMinutesInDay}
+                  latestMinutesInDay={this.props.latestMinutesInDay}
+                  timeSlot={timeSlot}
+                  eventData={this.props.eventData}
+                  key={index}
+                  slotStatus={this.getSlotStatusForTimeSlot(timeSlot)}
+                  updateTimeSlotStatus={this.updateTimeSlotStatus}
+                />
+              );
+            })
+          )}
         </div>
         <input
           type="checkbox"

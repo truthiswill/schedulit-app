@@ -9,9 +9,13 @@ class JoinEvent extends React.Component {
     super(props);
     this.state = {
       socket,
-      earliestMinutesInDay: this.findEarliestMinutesInDay(this.props.eventData.availableSlots),
-      latestMinutesInDay: this.findLatestMinutesInDay(this.props.eventData.availableSlots),
-    }
+      earliestMinutesInDay: this.findEarliestMinutesInDay(
+        this.props.eventData.availableSlots
+      ),
+      latestMinutesInDay: this.findLatestMinutesInDay(
+        this.props.eventData.availableSlots
+      )
+    };
     this.getEventParticipationData = this.getEventParticipationData.bind(this);
     this.getEventParticipationData();
     socket.on('participation', () => {
@@ -21,53 +25,58 @@ class JoinEvent extends React.Component {
   }
 
   getEventData(eventId) {
-    return axios
-      .get('/api/event/' + eventId)
-      .then(({ data }) => {
-        return data;
-      })
+    return axios.get('/api/event/' + eventId).then(({ data }) => {
+      return data;
+    });
   }
 
-
   getEventParticipationData() {
-    this.getEventData(this.props.eventData.id)
-      .then((eventData) => {
-        console.log(eventData);
-        axios.get('/api/user').then(({ data }) => {
-          let userData = data;
-          this.setState({ userData });
-          Promise.all(eventData.participations.map(participationId => {
-            return axios.get('/api/participation/' + participationId).then(({ data }) => data);
-          }))
-            .then((participations) => {
-              let eventParticipationData = eventData;
-              // place user participation first in array
-              eventParticipationData.participations = participations
-                .filter((participation) => participation.userId === userData.id)
-                .concat(participations
-                  .filter((participation) => participation.userId !== userData.id));
-              // convert utc store in db to user timezone
-              eventParticipationData.participations =
-                eventParticipationData.participations.map((participation => {
-                  participation.timeAvailable = participation.timeAvailable.map(timeSlot => {
-                    timeSlot.startTime = new Date(timeSlot.startTime);
-                    timeSlot.endTime = new Date(timeSlot.endTime);
-                    return timeSlot;
-                  });
-                  return participation;
-                }));
-              eventParticipationData.availableSlots = eventParticipationData.availableSlots.map(timeSlot => {
-                return {
-                  startTime: new Date(timeSlot.startTime),
-                  endTime: new Date(timeSlot.endTime)
-                  // not including preference level as not meaningful
-                };
-              });
-              console.log('eventParticipationData', eventParticipationData);
-              this.setState({ eventParticipationData });
-            })
-        })
-      })
+    this.getEventData(this.props.eventData.id).then(eventData => {
+      axios.get('/api/user').then(({ data }) => {
+        let userData = data;
+        this.setState({ userData });
+        Promise.all(
+          eventData.participations.map(participationId => {
+            return axios
+              .get('/api/participation/' + participationId)
+              .then(({ data }) => data);
+          })
+        ).then(participations => {
+          let eventParticipationData = eventData;
+          // place user participation first in array
+          eventParticipationData.participations = participations
+            .filter(participation => participation.userId === userData.id)
+            .concat(
+              participations.filter(
+                participation => participation.userId !== userData.id
+              )
+            );
+          // convert utc store in db to user timezone
+          eventParticipationData.participations = eventParticipationData.participations.map(
+            participation => {
+              participation.timeAvailable = participation.timeAvailable.map(
+                timeSlot => {
+                  timeSlot.startTime = new Date(timeSlot.startTime);
+                  timeSlot.endTime = new Date(timeSlot.endTime);
+                  return timeSlot;
+                }
+              );
+              return participation;
+            }
+          );
+          eventParticipationData.availableSlots = eventParticipationData.availableSlots.map(
+            timeSlot => {
+              return {
+                startTime: new Date(timeSlot.startTime),
+                endTime: new Date(timeSlot.endTime)
+                // not including preference level as not meaningful
+              };
+            }
+          );
+          this.setState({ eventParticipationData });
+        });
+      });
+    });
   }
 
   findEarliestMinutesInDay(slots) {
@@ -90,17 +99,17 @@ class JoinEvent extends React.Component {
 
   render() {
     if (this.state.eventParticipationData === undefined) return <div />;
-    console.log(this.state.eventParticipationData);
     return (
       <div>
         <hr />
-        <div>Directions</div>
+        <div>Choose your available events and see other availabilities</div>
         <hr />
         <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <div>
-            <div>My trippple </div>
+            <div style={{ textAlign: 'center' }}>My Availability</div>
+            <div style={{ visibility: 'hidden' }}>FUCK</div>
             <IndividualPreview
-         			socket={this.state.socket}
+              socket={this.state.socket}
               eventData={this.state.eventParticipationData}
               earliestMinutesInDay={this.state.earliestMinutesInDay}
               latestMinutesInDay={this.state.latestMinutesInDay}
@@ -109,6 +118,7 @@ class JoinEvent extends React.Component {
 
           <div>
             <div>Everyone's Availability </div>
+            <div style={{ visibility: 'hidden' }}>ME</div>
             <GroupPreview
               eventData={this.state.eventParticipationData}
               earliestMinutesInDay={this.state.earliestMinutesInDay}

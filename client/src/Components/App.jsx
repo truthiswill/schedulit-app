@@ -16,17 +16,16 @@ class App extends Component {
       view: 'loginPage',
       events: []
     };
-    
-		this.fetchEvents = this.fetchEvents.bind(this);
-		this.fetchEvents();
+
+    this.fetchEvents = this.fetchEvents.bind(this);
+    this.fetchEvents();
     this.setEventView = this.setEventView.bind(this);
     this.setCreateView = this.setCreateView.bind(this);
     this.loginUser = this.loginUser.bind(this);
-    this.joinEventIfExists = this.joinEventIfExists.bind(this)
+    this.joinEventIfExists = this.joinEventIfExists.bind(this);
     window.isUserLoggedIn = false;
     window.forceReactUpdate = this.forceUpdate.bind(this);
   }
-
 
   joinEventIfExists(eventId) {
     if (eventId) {
@@ -48,28 +47,27 @@ class App extends Component {
   }
 
   componentDidMount() {
-		let eventId = Cookies.get('eventId');
+    let eventId = Cookies.get('eventId');
     this.joinEventIfExists(eventId);
   }
 
-   fetchEvents() {
-     axios
+  fetchEvents() {
+    axios
       .get('/api/user')
       .then(({ data }) => {
         let events = data.eventsCreated;
 
         //Checks if user is logged in
         if (data.id !== undefined) {
-					this.setState({ loggedIn: true, view: "eventPage"});
-        } 
+          this.setState({ loggedIn: true, view: 'eventPage' });
+        }
 
         Promise.all(
           events.map(event => {
             return axios.get('/api/event/' + event).then(({ data }) => data);
           })
         ).then(eventsArr => {
-					this.setState({ events: eventsArr});
-					
+          this.setState({ events: eventsArr });
         });
       })
       .catch(error => console.error(error));
@@ -80,7 +78,6 @@ class App extends Component {
   }
 
   setEventView() {
-		console.log('triggered')
     this.setState({ view: 'eventPage' });
   }
 
@@ -89,35 +86,41 @@ class App extends Component {
   }
 
   render() {
-
-		let display;
-		console.log('this.state.loggedin', this.state.loggedIn)
-		console.log('this.state.view', this.state.view)
-		if (this.state.loggedIn) {
+    let display;
+    if (this.state.loggedIn) {
       if (this.state.view === 'createPage') {
-				display = <Create />;
+        display = <Create />;
       } else if (this.state.view === 'eventPage') {
-				display = <Events events={this.state.events} joinEventIfExists = {this.joinEventIfExists}/>;
-				console.log(this.state. eventData)
-      } else if (this.state.eventData !== undefined || this.state.view ==='joinPage') {
-				display = <JoinEvent eventData={this.state.eventData} />;
-			}
+        display = (
+          <Events
+            events={this.state.events}
+            joinEventIfExists={this.joinEventIfExists}
+          />
+        );
+        console.log(this.state.eventData);
+      } else if (
+        this.state.eventData !== undefined ||
+        this.state.view === 'joinPage'
+      ) {
+        display = <JoinEvent eventData={this.state.eventData} />;
+      }
     } else {
       display = <Login loginUser={this.loginUser} />;
     }
-	
 
     if (window.isUserLoggedIn) {
-			console.log('triggered forceupdate from popup')
-			this.fetchEvents();
-			this.setState({loggedIn: true, view:'eventPage'})
+      this.fetchEvents();
+      this.setState({ loggedIn: true, view: 'eventPage' });
       window.isUserLoggedIn = false; // sorry hacky but less line
       display = <Events events={this.state.events} />;
     }
 
     return (
       <div className={`${styles.masterContainer}`}>
-        <Navigation setEventView={this.setEventView} setCreateView={this.setCreateView} />
+        <Navigation
+          setEventView={this.setEventView}
+          setCreateView={this.setCreateView}
+        />
         {display}
       </div>
     );

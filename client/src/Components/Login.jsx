@@ -16,8 +16,7 @@ class Login extends Component {
           <div className={`${styles.loginCenter}`}>
             <button
               className={`${styles.button}`}
-              onClick={this.props.loginUser}
-            >
+              onClick={this.props.loginUser}>
               Login
             </button>
           </div>

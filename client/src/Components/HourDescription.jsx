@@ -54,7 +54,6 @@ class HourDescription extends React.Component {
   startFromHere(slotStartTime) {
     if (this.state.slotStatus[slotStartTime] !== null) {
       this.state.slotStatus[slotStartTime] = true;
-      console.log('slotStartTime', slotStartTime);
       this.setState({
         startTime: slotStartTime,
         mouseDown: true,
@@ -95,10 +94,9 @@ class HourDescription extends React.Component {
   }
 
   render() {
-    console.log('type', this.props.timeSlot.startTime);
     return (
       <div>
-        TIME
+        <div style={{ textAlign: 'center' }}>TIME</div>
         {Object.keys(this.state.slotStatus).map((timeStamp, index) => {
           timeStamp = new Date(timeStamp);
           if (timeStamp.getMinutes() === 0 || index === 0) {

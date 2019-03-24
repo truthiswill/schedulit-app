@@ -1,27 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Participants from './Participants.jsx';
 import styles from '../styles/event.css';
 
-// function myFunction() {
-//   var copyText = document.getElementById('myInput');
-//   copyText.select();
-//   document.execCommand('copy');
-// }
+/* <a href={'/join/' + props.event.id}>{props.event.title}</a> */
 
-const Event = (props) => {
-  
-  return (
-    <div className={styles.indEventContainer}>
-      <hr />
-      <div className={styles.title} onClick={()=>props.joinEventIfExists(props.event.id)}>
-				{/* <a href={'/join/' + props.event.id}>{props.event.title}</a> */}
-				{props.event.title}
+class Event extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className={styles.indEventContainer}>
+        <hr />
+        <div
+          className={styles.title}
+          onClick={() => this.props.joinEventIfExists(this.props.event.id)}>
+          {this.props.event.title}
+        </div>
+        <div>{this.props.event.description}</div>
+        <Participants participants={this.props.event.participants} />
       </div>
-      {/* <button onClick={() => myFunction()}>Get link</button> */}
-      <div>{props.event.description}</div>
-      <Participants participants={props.event.participants} />
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Event;
