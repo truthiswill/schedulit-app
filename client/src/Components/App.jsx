@@ -1,123 +1,40 @@
 import React, { Component } from 'react';
-import Events from './Events.jsx';
-import Create from './Create.jsx';
-import Navigation from './Navigation.jsx';
-import Login from './Login.jsx';
-import JoinEvent from './JoinEvent';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import styles from '../styles/app.css';
+
+import Login from './Login.jsx';
+import MainDisplay from './MainDisplay.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
-      view: 'loginPage',
-      events: []
+      loggedIn: false
     };
-    let eventId = Cookies.get('eventId');
+    this.isUserInSession();
     Cookies.remove('sendToHome');
-    this.joinEventIfExists(eventId);
-
-    this.setEventView = this.setEventView.bind(this);
-    this.setCreateView = this.setCreateView.bind(this);
-    this.loginUser = this.loginUser.bind(this);
-
-    window.isUserLoggedIn = false;
-    window.forceReactUpdate = this.forceUpdate.bind(this);
+    window.logUserIn = this.logUserIn.bind(this);
+    this.openLoginPopup = this.openLoginPopup.bind(this);
   }
 
-
-  joinEventIfExists(eventId) {
-    if (eventId) {
-      axios
-        .get('/api/event/' + eventId)
-        .then(({ data }) => {
-          Cookies.remove('eventId');
-          data.availableSlots = data.availableSlots.map(timeSlot => {
-            return {
-              startTime: new Date(timeSlot.startTime),
-              endTime: new Date(timeSlot.endTime)
-              // not including preference level as not meaningful
-            };
-          });
-          this.setState({ eventData: data }, () => {
-            this.fetchEvents();
-          });
-        })
-        .catch(() => console.log('event does not exist'));
-    }
+  isUserInSession() {
+    return axios.get('/api/user').then(({ data }) => this.setState({ loggedIn: data.id }));
   }
 
-  componentDidMount() {
-    this.fetchEvents();
+  logUserIn() {
+    this.setState({ loggedIn: true })
   }
 
-  fetchEvents() {
-    axios
-      .get('/api/user')
-      .then(({ data }) => {
-        let events = data.eventsCreated;
-
-        //Checks if user is logged in
-        if (data.id !== undefined) {
-          this.setState({ loggedIn: true });
-        }
-
-        Promise.all(
-          events.map(event => {
-            return axios.get('/api/event/' + event).then(({ data }) => data);
-          })
-        ).then(eventsArr => {
-          this.setState({ events: eventsArr });
-        });
-      })
-      .catch(error => console.error(error));
-  }
-
-  loginUser() {
+  openLoginPopup() {
     window.open('/auth/google', 'Login', 'width=700, height=700');
   }
 
-  setEventView() {
-    console.log('triggered')
-    this.setState({ view: 'eventPage' });
-  }
-
-  setCreateView() {
-    this.setState({ view: 'createPage' });
-  }
-
   render() {
-
-    let display;
-
     if (this.state.loggedIn) {
-      if (this.state.view === 'createPage') {
-        display = <Create />;
-      } else if (this.state.view === 'eventPage') {
-        display = <Events events={this.state.events} />;
-      } else if (this.state.eventData !== undefined) {
-        display = <JoinEvent eventData={this.state.eventData} />;
-      }
+      return <MainDisplay view={this.state.view} loggedIn={this.state.loggedIn} />;
     } else {
-      display = <Login loginUser={this.loginUser} />;
+      return <Login openLoginPopup={this.openLoginPopup} />;
     }
-
-    console.log(window.isUserLoggedIn);
-    if (window.isUserLoggedIn) {
-      this.fetchEvents();
-      window.isUserLoggedIn = false; // sorry hacky but less line
-      display = <Events events={this.state.events} />;
-    }
-
-    return (
-      <div>
-        <Navigation setEventView={this.setEventView} setCreateView={this.setCreateView} />
-        {display}
-      </div>
-    );
   }
 }
 

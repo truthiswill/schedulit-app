@@ -8,7 +8,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.loginUser}>Login</button>
+        <button onClick={this.props.openLoginPopup}>Login</button>
       </div>
     );
   }
