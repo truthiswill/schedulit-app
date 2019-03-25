@@ -3,6 +3,7 @@ import DayPicker from "./DayPicker.jsx";
 import ChooseHours from "./ChooseHours";
 import axios from "axios";
 import styles from "../styles/CreateEventPage.css";
+import { whileStatement } from "@babel/types";
 
 class CreateEventPage extends Component {
   constructor(props) {
@@ -81,7 +82,7 @@ class CreateEventPage extends Component {
   addDayToSet(date) {
     if (date.getTime() + 24 * 60 * 60 * 1000 > new Date()) {
       let newSetOfDay = this.state.setOfDate;
-      if (this.state.setOfDate[date] === 0) {
+      if (this.state.setOfDate[date] === 0 || this.state.setOfDate[date] === undefined) {
         newSetOfDay[date] = this.state.setCounter;
       } else {
         newSetOfDay[date] = 0;
@@ -185,13 +186,24 @@ class CreateEventPage extends Component {
   render() {
     if (this.state.eventId) {
       return (
-        <div style={{ display: 'flex', padding: '5em 23em' }}>
-          <div style={{ padding: '0em 0.5em' }}>
-            {`This is your link: `}
+        <div style={{ display: 'flex', padding: '5em 23em', justifyContent: 'center' }}>
+          <div style={{
+            padding: '1em 1em 2em 1em',
+            fontSize: '150%',
+            color: '#27ae54',
+            fontWeight: '600',
+            borderRadius: '2em',
+          }}>
+
+            <div style={{ padding: '1em' }}>
+              {`Share the following link: `}
+            </div>
+            <a style={{ padding: '1em' }} href={"/join/" + this.state.eventId}>
+              {`${document.URL}join/${this.state.eventId} `}
+            </a>
+
+
           </div>
-          <a href={"/join/" + this.state.eventId}>
-            {`${document.URL}join/${this.state.eventId} `}
-          </a>
         </div>
       );
     }

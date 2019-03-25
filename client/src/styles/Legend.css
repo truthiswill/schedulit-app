@@ -16,48 +16,49 @@
 }
 
 .selected0{
-  border-color: chartreuse;
+  border-color: #30cfd0;
 	width: 100%;
 	border-top-width: 0.5em;
 }
 
 .selected1{
-  border-color: antiquewhite;
-  width: 100%;
+  border-color: #009efd;
 	border-top-width: 0.5em;
+  width: 100%;
 
 }
 
 .selected2{
-  border-color: cadetblue;
-  width: 100%;
+  border-color: #96fbc4;
 	border-top-width: 0.5em;
+  width: 100%;
 
 }
 
 .selected3{
   border-color: chocolate;
+	border-top-width: 0.5em;
   width: 100%;
 
 }
 
 .selected4{
   border-color: darkgreen;
-  width: 100%;
 	border-top-width: 0.5em;
+  width: 100%;
 
 }
 
 .selected5{
   border-color: blanchedalmond;
-  width: 100%;
 	border-top-width: 0.5em;
+  width: 100%;
 
 }
 
 .selected6{
   border-color: darkolivegreen;
-  width: 100%;
 	border-top-width: 0.5em;
+  width: 100%;
 
 }
