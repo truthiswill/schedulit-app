@@ -15,7 +15,7 @@ class CreateEventPage extends Component {
       setTimes: {},
       readyForSubmit: false
     };
-    this.state.setOfDay = this.createSetOfDay();
+    this.state.setOfDate = this.createSetOfDay();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addDayToSet = this.addDayToSet.bind(this);
@@ -61,29 +61,32 @@ class CreateEventPage extends Component {
   }
 
   createSetOfDay() {
-    let setOfDay = {};
+    let setOfDate = {};
     let { currentYear, currentMonth } = this.state;
-    let daysInCurrentMonth = new Date(
-      currentYear,
-      currentMonth + 1,
-      0
-    ).getDate();
-    for (let i = 1; i <= daysInCurrentMonth; i++) {
-      let date = new Date(currentYear, currentMonth, i);
-      setOfDay[date] = 0;
+
+    let daysInLastMonth = (new Date(currentYear, currentMonth, 0)).getDate();
+    let daysInCurrentMonth = (new Date(currentYear, currentMonth + 1, 0)).getDate();
+    let dayOfFirstOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+    let dayOfLastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDay()
+
+    let startDate = daysInLastMonth - dayOfFirstOfMonth + 1;
+    let endDate = daysInLastMonth + daysInCurrentMonth + 6 - dayOfLastDayOfMonth;
+    for (let i = startDate; i <= endDate; i++) {
+      let date = new Date(currentYear, currentMonth - 1, i);
+      setOfDate[date] = 0;
     }
-    return setOfDay;
+    return setOfDate;
   }
 
   addDayToSet(date) {
     if (date.getTime() + 24 * 60 * 60 * 1000 > new Date()) {
-      let newSetOfDay = this.state.setOfDay;
-      if (this.state.setOfDay[date] === 0) {
+      let newSetOfDay = this.state.setOfDate;
+      if (this.state.setOfDate[date] === 0) {
         newSetOfDay[date] = this.state.setCounter;
       } else {
         newSetOfDay[date] = 0;
       }
-      this.setState({ setOfDay: newSetOfDay });
+      this.setState({ setOfDate: newSetOfDay });
     }
   }
 
@@ -132,7 +135,7 @@ class CreateEventPage extends Component {
           addDayToSet={this.addDayToSet}
           prevMonth={this.prevMonth}
           nextMonth={this.nextMonth}
-          setOfDay={this.state.setOfDay}
+          setOfDate={this.state.setOfDate}
         />
       );
     }
@@ -143,7 +146,7 @@ class CreateEventPage extends Component {
       return (
         <ChooseHours
           setCounter={this.state.setCounter}
-          setOfDay={this.state.setOfDay}
+          setOfDate={this.state.setOfDate}
           finalizeSet={this.finalizeSet}
           addTimesToSet={this.addTimesToSet}
         />
@@ -159,8 +162,8 @@ class CreateEventPage extends Component {
     newEvent.participants = [];
     newEvent.allowedPreferences = ["activity", "food"];
     newEvent.availableSlots = [];
-    for (let day in this.state.setOfDay) {
-      let set = this.state.setOfDay[day];
+    for (let day in this.state.setOfDate) {
+      let set = this.state.setOfDate[day];
       if (set) {
         let startAndEndHours = this.state.setTimes[set];
         let timeSlot = {

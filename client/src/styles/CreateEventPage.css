@@ -5,11 +5,11 @@
 }
 
 .createPage{
-	padding: 1em 0em 0em 20em;
+	padding: 1em 0em 0em 15em;
 }
 
 .eventInvitation {
-  color:#008080;
+  color:#27ae54;
   font-weight: 800;
   font-size: 24px;
   text-transform: uppercase;
@@ -47,14 +47,14 @@ input[type=text] {
 }
 
 .submitButton {
-  text-transform: uppercase;
-  font-weight: 400;
-  background-color: slategray;
-  text-align: center;
-  border: 2px solid #008080;
-  font-size: 16px; 
-  color: white;
-  padding: 12px 24px;
-  border-radius: 10px;
-  margin: 1em;
+	text-transform: uppercase;
+		font-weight: 400;
+		font-size: 120%;
+    background-color: #27ae54;
+    text-align: center;
+    color: white;
+    padding: 0.5em  1em;
+    border-radius: 0.5em;
+		margin: 2em 1em 0.5em 1em;
+		cursor: pointer;
 }

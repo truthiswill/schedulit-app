@@ -1,6 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard.jsx';
-import styles from '../styles/events.css';
+import styles from '../styles/Events.css';
 
 const UserEventsPage = (props) => {
   return (
@@ -8,9 +8,8 @@ const UserEventsPage = (props) => {
       <div
         style={{
           display: 'flex',
-					width: 'auto',
-					padding: '1em 23em'
-					
+          width: 'auto',
+          padding: '1em 23em'
         }}
       >
         <div style={{ width: 'auto' }}>

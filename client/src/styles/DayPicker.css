@@ -1,0 +1,31 @@
+.week{
+  display: flex;
+}
+
+.calendarContainer {
+  display: flex;
+  flex-direction: column;
+  background-color:#66a6ff;
+  border-radius: 1em;
+  justify-content: flex-start;
+}
+
+
+.weeksContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1em;
+  justify-content: center;
+}
+
+.dayContainer {
+  width: 4em;
+  height: 4em;
+  padding: 1em;
+  font-size: 120%;
+  font-weight: 400;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
