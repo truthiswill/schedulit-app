@@ -50,9 +50,9 @@
 
 .prevMonth {
   font-size: 120%;
-  font-weight: 600;
+  font-weight: 400;
   text-align: center;
-  color: white;
+  color: darkgray;
   cursor: pointer;
 
 }
@@ -67,9 +67,9 @@
 
 .nextMonth {
   font-size: 120%;
-  font-weight: 600;
+  font-weight: 400;
   text-align: center;
-  color: white;
+  color: darkgray;
   cursor: pointer;
 }
 
