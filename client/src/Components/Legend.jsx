@@ -5,20 +5,21 @@ import styles from "../styles/Legend.css";
 
 class Legend extends React.Component {
   constructor(props) {
-		super(props);
-		this.state = {
+    super(props);
+    this.state = {
       names: []
     };
-	}
-
-	componentDidMount() {
-		console.log(this.props.participants);
-    this.fetchParticipants(this.props.participants);
   }
 
-  fetchParticipants(ids) {
+  componentDidMount() {
+    console.log(this.props.participants);
+    this.fetchParticipants(this.props.participations);
+  }
+
+  fetchParticipants(participations) {
     Promise.all(
-      ids.map(id => {
+      participations.map(participation => {
+        let id = participation.userId;
         return axios
           .get('/api/user/' + id)
           .then(({ data }) => data.googleProfile.name);
@@ -31,13 +32,13 @@ class Legend extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-			{this.state.names.map((name, index)=>(
-				<div className={styles.legendItem}>
-					<div className={styles['selected' + index ]}> </div>
-					<div className={styles.username}>{name}</div>
-				</div>
-			))}
-       
+        {this.state.names.map((name, index) => (
+          <div className={styles.legendItem}>
+            <div className={styles['selected' + index]}> </div>
+            <div className={styles.username}>{name}</div>
+          </div>
+        ))}
+
       </div>
     );
   }

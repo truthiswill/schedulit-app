@@ -31,7 +31,7 @@ class GroupPreview extends React.Component {
             );
           })}
         </div>
-				<Legend participants={this.props.eventData.participants} />
+        <Legend participations={this.props.eventData.participations} />
       </div>
     );
   }
