@@ -80,3 +80,10 @@
 .calendar .monthHeader .icon:last-of-type {
   margin-right: 1em;
 }
+
+.icon:hover {
+  transform: scale(2.00);
+  transition: .25s ease-out;
+  cursor: pointer;
+  transition: .15s ease-out;
+}
