@@ -166,7 +166,7 @@ class CreateEventPage extends Component {
         let timeSlot = {
           startTime: new Date(
             startAndEndHours.startTime * 60 * 60 * 1000 +
-              new Date(day).getTime()
+            new Date(day).getTime()
           ),
           endTime: new Date(
             startAndEndHours.endTime * 60 * 60 * 1000 + new Date(day).getTime()
@@ -182,13 +182,12 @@ class CreateEventPage extends Component {
   render() {
     if (this.state.eventId) {
       return (
-        <div style={{display: 'flex', padding: '5em 23em'}}>
-				<div style={{padding: '0em 0.5em'}}>
-					{`This is your link: `}
-
-				</div>
+        <div style={{ display: 'flex', padding: '5em 23em' }}>
+          <div style={{ padding: '0em 0.5em' }}>
+            {`This is your link: `}
+          </div>
           <a href={"/join/" + this.state.eventId}>
-            http://localhost:3000/join/{this.state.eventId}{" "}
+            {`${document.URL}join/${this.state.eventId} `}
           </a>
         </div>
       );
@@ -223,7 +222,7 @@ class CreateEventPage extends Component {
                 {this.isReadyForSubmit()}
               </form>
             </div>
-          {this.showCalendar()}
+            {this.showCalendar()}
           </div>
         </div>
       </div>

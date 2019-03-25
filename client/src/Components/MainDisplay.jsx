@@ -13,11 +13,11 @@ class MainDisplay extends React.Component {
     this.state = {
       view: 'eventPage',
       events: []
-		}
-		this.joinEventIfExists = this.joinEventIfExists.bind(this);
-		this.changeView = this.changeView.bind(this);
-		this.fetchEvents = this.fetchEvents.bind(this);
-		this.getDisplay = this.getDisplay.bind(this);
+    }
+    this.joinEventIfExists = this.joinEventIfExists.bind(this);
+    this.changeView = this.changeView.bind(this);
+    this.fetchEvents = this.fetchEvents.bind(this);
+    this.getDisplay = this.getDisplay.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +49,7 @@ class MainDisplay extends React.Component {
     axios
       .get('/api/user')
       .then(({ data }) => {
-        let events = data.eventsCreated;
+        let events = data.eventsCreated.concat(data.eventsJoined.filter((eventId) => !data.eventsCreated.includes(eventId)));
         //Checks if user is logged in
         if (data.id !== undefined) {
           this.setState({ loggedIn: true });
@@ -69,7 +69,7 @@ class MainDisplay extends React.Component {
     if (this.state.view === 'createPage') {
       return <CreateEventPage />;
     } else if (this.state.view === 'eventPage') {
-      return <UserEventsPage events={this.state.events} joinEventIfExists = {this.joinEventIfExists} />;
+      return <UserEventsPage events={this.state.events} joinEventIfExists={this.joinEventIfExists} />;
     } else if (this.state.view === 'joinPage') {
       return <EventDetailsPage eventData={this.state.eventData} />;
     }

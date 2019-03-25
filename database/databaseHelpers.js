@@ -39,6 +39,9 @@ module.exports = {
               return Event.findOneAndUpdate({ id: eventId }, { $addToSet: { participations: participation.id, participants: userId } })
             });
         }
+      })
+      .then(() => {
+        return User.findOneAndUpdate({ id: userId }, { $addToSet: { eventsJoined: eventId } })
       });
   }
 };
