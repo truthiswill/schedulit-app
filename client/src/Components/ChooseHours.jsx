@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/day.css';
+import styles from '../styles/ChooseHours.css';
 
 const INCREMENT = 0.25;
 const HOURS_IN_DAY = 24;
@@ -29,7 +29,6 @@ class ChooseHours extends React.Component {
     )} ${isBeforeNoon ? 'AM' : 'PM'}`;
   }
   handleChange(e) {
-    console.log(e.target.value);
     this.setState({ [e.target.id]: e.target.value });
   }
 
@@ -45,7 +44,7 @@ class ChooseHours extends React.Component {
   }
 
   areDatesSelected() {
-    return Object.values(this.props.setOfDay).includes(this.props.setCounter);
+    return Object.values(this.props.setOfDate).includes(this.props.setCounter);
   }
 
   render() {
@@ -83,7 +82,7 @@ class ChooseHours extends React.Component {
                 </option>
               ))}
           </select>
-          <button 
+          <button
             className={styles.hoursButton}
             onClick={this.addTimesToSet}
             disabled={this.state.endTime === ''}

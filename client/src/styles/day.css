@@ -1,39 +1,79 @@
-.timePickerFont {
+.date{
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dayContainer {
+  width: 4em;
+  height: 4em;
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.set0{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.set1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #30cfd0;
+  border-radius: 100%;
+  padding: 0.5em;
+}
+
+.set2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #009efd;
+  padding: 0.5em;
+  border-radius: 100%;
+}
+
+.set3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #96fbc4;
+  padding: 0.5em;
+  border-radius: 100%;
+}
+
+.prevMonth {
   font-size: 120%;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+
+}
+
+.currMonth {
+  font-size: 120%;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+.nextMonth {
+  font-size: 120%;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+.past{
+  color: #ddd;
   font-weight: 400;
-  color: slategray;
-  margin: 10px;
-  text-transform: uppercase;
-}
-
-.hoursButton {
-  font-size: 120%;
-  font-weight: 400;
-  color: slategray;
-  margin: 10px;
-  text-transform: uppercase;
-}
-
-.endTimeSelect {
-  background-color: lightgray;
-  border-radius: 20%;
-  height: 45px;
-  width: 150px;
-  border: 2px solid #2f82a4;
-  font-weight: 700;
-  color: slategray ;
-  margin: 1em;
-  font-size: 120%;
-}
-
-.startTimeSelect {
-  background-color: lightgray;
-  border-radius: 20%;
-  height: 45px;
-  width: 150px;
-  border: 2px solid #2f82a4;
-  font-weight: 700;
-  color: slategray;
-  margin: 1em;
-  font-size: 120%;
 }
