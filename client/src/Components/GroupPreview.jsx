@@ -2,14 +2,16 @@ import React from 'react';
 
 import GroupTimeSlot from './GroupTimeSlot';
 
+
+import styles from '../styles/GroupPreview.css'
 class GroupPreview extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
-			<>
-				<div>Everyone's Availability </div>
+			<div className = {styles.container}>
+			<div className={styles.title}>Everyone's Availability </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         {
           this.props.eventData.availableSlots.map((timeSlot, index) => {
@@ -25,7 +27,7 @@ class GroupPreview extends React.Component {
           })
         }
       </div >
-			</>
+			</div>
     )
   }
 }

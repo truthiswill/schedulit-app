@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import DayPicker from './DayPicker.jsx';
-import ChooseHours from './ChooseHours';
-import axios from 'axios';
-import styles from '../styles/create.css';
+import React, { Component } from "react";
+import DayPicker from "./DayPicker.jsx";
+import ChooseHours from "./ChooseHours";
+import axios from "axios";
+import styles from "../styles/CreateEventPage.css";
 
 class CreateEventPage extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class CreateEventPage extends Component {
       currentMonth: currentDate.getMonth(),
       currentYear: currentDate.getFullYear(),
       setTimes: {},
-      readyForSubmit: false,
+      readyForSubmit: false
     };
     this.state.setOfDay = this.createSetOfDay();
     this.handleChange = this.handleChange.bind(this);
@@ -76,14 +76,14 @@ class CreateEventPage extends Component {
   }
 
   addDayToSet(date) {
-    if(date.getTime() + (24*60*60*1000) > new Date()){
+    if (date.getTime() + 24 * 60 * 60 * 1000 > new Date()) {
       let newSetOfDay = this.state.setOfDay;
       if (this.state.setOfDay[date] === 0) {
         newSetOfDay[date] = this.state.setCounter;
       } else {
         newSetOfDay[date] = 0;
       }
-      this.setState({ setOfDay: newSetOfDay }); 
+      this.setState({ setOfDay: newSetOfDay });
     }
   }
 
@@ -92,51 +92,62 @@ class CreateEventPage extends Component {
   }
 
   instructionMessage() {
-    if (!this.state.title) return 'Creating a New Event is Easy: Enter a Title'
-    if (this.state.title && !this.state.description) return 'Step 2: Enter a Description for your Event'
-    if (this.state.title && this.state.description && !(Object.keys(this.state.setTimes) > 0)) {
-      return 'Step 3: Pick Dates & Times for Your Event'
-    } 
-    if (this.state.title && this.state.description && (Object.keys(this.state.setTimes) > 0)) {
-      return 'Step 4: Submit Event if Ready or Choose Additional Dates'
+    if (!this.state.title) return "Step 1: Enter a Title";
+    if (this.state.title && !this.state.description)
+      return "Step 2: Enter a Description for your Event";
+    if (
+      this.state.title &&
+      this.state.description &&
+      !(Object.keys(this.state.setTimes) > 0)
+    ) {
+      return "Step 3: Pick Dates & Times for Your Event";
+    }
+    if (
+      this.state.title &&
+      this.state.description &&
+      Object.keys(this.state.setTimes) > 0
+    ) {
+      return "Step 4: Submit Event if Ready or Choose Additional Dates";
     }
   }
 
   isReadyForSubmit() {
-    if (this.state.title && this.state.description && (Object.keys(this.state.setTimes) > 0)) {
-      return <input
-        type="submit"
-        value="Submit"
-        className={styles.submitButton}
-      /> 
+    if (
+      this.state.title &&
+      this.state.description &&
+      Object.keys(this.state.setTimes).length > 0
+    ) {
+      return (
+        <input type="submit" value="Submit" className={styles.submitButton} />
+      );
     }
   }
 
-  showCalendar () {
+  showCalendar() {
     if (this.state.title && this.state.description) {
       return (
-      <DayPicker
-            currentYear={this.state.currentYear}
-            currentMonth={this.state.currentMonth}
-            addDayToSet={this.addDayToSet}
-            prevMonth={this.prevMonth}
-            nextMonth={this.nextMonth}
-            setOfDay={this.state.setOfDay}
-          />
-      )
+        <DayPicker
+          currentYear={this.state.currentYear}
+          currentMonth={this.state.currentMonth}
+          addDayToSet={this.addDayToSet}
+          prevMonth={this.prevMonth}
+          nextMonth={this.nextMonth}
+          setOfDay={this.state.setOfDay}
+        />
+      );
     }
   }
 
-  showHours () {
+  showHours() {
     if (this.state.title && this.state.description) {
       return (
         <ChooseHours
-        setCounter={this.state.setCounter}
-        setOfDay={this.state.setOfDay}
-        finalizeSet={this.finalizeSet}
-        addTimesToSet={this.addTimesToSet}
-      />
-      )
+          setCounter={this.state.setCounter}
+          setOfDay={this.state.setOfDay}
+          finalizeSet={this.finalizeSet}
+          addTimesToSet={this.addTimesToSet}
+        />
+      );
     }
   }
 
@@ -146,7 +157,7 @@ class CreateEventPage extends Component {
     newEvent.title = this.state.title;
     newEvent.description = this.state.description;
     newEvent.participants = [];
-    newEvent.allowedPreferences = ['activity', 'food'];
+    newEvent.allowedPreferences = ["activity", "food"];
     newEvent.availableSlots = [];
     for (let day in this.state.setOfDay) {
       let set = this.state.setOfDay[day];
@@ -164,17 +175,20 @@ class CreateEventPage extends Component {
         newEvent.availableSlots.push(timeSlot);
       }
     }
-    axios.post('/api/event', newEvent).then(({ data }) => {
+    axios.post("/api/event", newEvent).then(({ data }) => {
       this.setState({ eventId: data.id });
     });
   }
   render() {
     if (this.state.eventId) {
       return (
-        <div>
-          This is your link:{' '}
-          <a href={'/join/' + this.state.eventId}>
-            http://localhost:3000/join/{this.state.eventId}{' '}
+        <div style={{display: 'flex', padding: '5em 23em'}}>
+				<div style={{padding: '0em 0.5em'}}>
+					{`This is your link: `}
+
+				</div>
+          <a href={"/join/" + this.state.eventId}>
+            http://localhost:3000/join/{this.state.eventId}{" "}
           </a>
         </div>
       );
@@ -182,11 +196,9 @@ class CreateEventPage extends Component {
 
     return (
       <div className={styles.createPage}>
-        <hr className={styles.hr} />
         <div className={styles.eventInvitation}>
-        {this.instructionMessage()}
+          {this.instructionMessage()}
         </div>
-        <hr className={styles.hr} />
         <div className={styles.createContainer}>
           <div className={styles.detailsContainer}>
             <div className={styles.inputFormContainer}>
@@ -207,14 +219,12 @@ class CreateEventPage extends Component {
                     className={styles.input}
                   />
                 </label>
+                <div className={styles.hoursContainer}>{this.showHours()}</div>
                 {this.isReadyForSubmit()}
               </form>
             </div>
-            <div className={styles.hoursContainer}>
-              {this.showHours()}
-            </div>
-          </div>
           {this.showCalendar()}
+          </div>
         </div>
       </div>
     );
