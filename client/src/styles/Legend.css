@@ -1,0 +1,63 @@
+.container{
+	padding: 1em;
+	display: flex;
+	justify-content: center;
+}
+
+.legendItem{
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	padding: 1em;
+}
+
+.username{
+	font-size: 100%;
+}
+
+.selected0{
+  border-color: chartreuse;
+	width: 100%;
+	border-top-width: 0.5em;
+}
+
+.selected1{
+  border-color: antiquewhite;
+  width: 100%;
+	border-top-width: 0.5em;
+
+}
+
+.selected2{
+  border-color: cadetblue;
+  width: 100%;
+	border-top-width: 0.5em;
+
+}
+
+.selected3{
+  border-color: chocolate;
+  width: 100%;
+
+}
+
+.selected4{
+  border-color: darkgreen;
+  width: 100%;
+	border-top-width: 0.5em;
+
+}
+
+.selected5{
+  border-color: blanchedalmond;
+  width: 100%;
+	border-top-width: 0.5em;
+
+}
+
+.selected6{
+  border-color: darkolivegreen;
+  width: 100%;
+	border-top-width: 0.5em;
+
+}

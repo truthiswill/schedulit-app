@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import styles from "../styles/login.css";
 
-class Login extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div className={`${styles.overAll}`}>
-        <div className={`${styles.inner}`}>
-          <div className={`${styles.directions}`}>
+      <div className={styles.overAll}>
+        <div className={styles.inner}>
+          <div className={styles.directions}>
             Please Login to use the app
           </div>
-					<div className={`${styles.loginCenter}`}>
+					<div className={styles.loginCenter}>
             <button
-              className={`${styles.button}`}
+              className={styles.button}
               onClick={this.props.openLoginPopup}
             >
               Login
@@ -29,4 +29,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default LoginPage;

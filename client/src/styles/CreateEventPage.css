@@ -1,5 +1,11 @@
 .eventForm {
-  color: slategray;
+	color: slategray;
+	display: flex;
+	flex-direction: column;
+}
+
+.createPage{
+	padding: 1em 0em 0em 20em;
 }
 
 .eventInvitation {
@@ -16,14 +22,15 @@
 }
 
 .detailsContainer {
-  width: 50%;
-  align-content: center;
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
 }
 
 .inputFormContainer {
-  padding-bottom: 20px;
-  padding-top: 10px;
-  width: 100%; 
+padding: 1em;
+	max-width: 40%; 
+	flex: 1;
 }
 
 .hoursContainer {
@@ -31,14 +38,12 @@
 }
 
 input[type=text] {
-  width: 95%;
-  padding: 20px 20px;
-  margin: 30px 2.5%;
-  display: inline-block;
+  padding: 1em;
+  margin: 1em;
   border: 2px solid slategray;
   border-radius: 15px;
-  box-sizing: border-box;
-  font-size: 100%;
+	box-sizing: border-box;
+	font-size: 100%;
 }
 
 .submitButton {

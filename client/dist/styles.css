@@ -1,4 +1,10 @@
-body {
+html, body {
 	margin: 0;
-	border: 0;
+	height: 100%;
+}
+
+*{
+	border-style: solid;
+	border-width: 0px;
+	box-sizing: border-box;
 }

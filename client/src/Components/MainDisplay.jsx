@@ -1,7 +1,7 @@
 import React from 'react';
-import JoinEvent from './JoinEvent';
-import Events from './Events.jsx';
-import Create from './Create.jsx';
+import EventDetailsPage from './EventDetailsPage';
+import UserEventsPage from './UserEventsPage.jsx';
+import CreateEventPage from './CreateEventPage.jsx';
 import Navigation from './Navigation.jsx';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -15,6 +15,9 @@ class MainDisplay extends React.Component {
       events: []
 		}
 		this.joinEventIfExists = this.joinEventIfExists.bind(this);
+		this.changeView = this.changeView.bind(this);
+		this.fetchEvents = this.fetchEvents.bind(this);
+		this.getDisplay = this.getDisplay.bind(this);
   }
 
   componentDidMount() {
@@ -64,11 +67,11 @@ class MainDisplay extends React.Component {
 
   getDisplay() {
     if (this.state.view === 'createPage') {
-      return <Create />;
+      return <CreateEventPage />;
     } else if (this.state.view === 'eventPage') {
-      return <Events events={this.state.events} joinEventIfExists = {this.joinEventIfExists} />;
+      return <UserEventsPage events={this.state.events} joinEventIfExists = {this.joinEventIfExists} />;
     } else if (this.state.view === 'joinPage') {
-      return <JoinEvent eventData={this.state.eventData} />;
+      return <EventDetailsPage eventData={this.state.eventData} />;
     }
   }
 
@@ -78,10 +81,10 @@ class MainDisplay extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <Navigation changeView={this.changeView} />
         {this.getDisplay()}
-      </div>
+      </>
     );
   }
 }

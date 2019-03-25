@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from '../styles/IndividualGroupSlot.css';
+import styles from '../styles/GroupTimeUnit.css';
 
 
-class IndividualGroupSlot extends React.Component {
+class GroupTimeUnit extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,4 +16,4 @@ class IndividualGroupSlot extends React.Component {
 
   }
 }
-export default IndividualGroupSlot;
+export default GroupTimeUnit;

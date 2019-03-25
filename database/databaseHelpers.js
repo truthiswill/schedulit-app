@@ -36,7 +36,7 @@ module.exports = {
           let newParticipation = new Participation({ userId, eventId });
           newParticipation.save()
             .then((participation) => {
-              return Event.findOneAndUpdate({ id: eventId }, { $addToSet: { participations: participation.id } })
+              return Event.findOneAndUpdate({ id: eventId }, { $addToSet: { participations: participation.id, participants: userId } })
             });
         }
       });

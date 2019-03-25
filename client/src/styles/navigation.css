@@ -1,39 +1,35 @@
 .navigation {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+	justify-content: space-between;
+	background-image: linear-gradient(to bottom, #43e97b 0%, #43e97bb8 100%);
+	padding: 0.7em 20em 0.7em 20em;
+	align-items: center;
 }
 
 .schedulIt {
-  color: 	rgba(140, 140, 140, 0.529);	
-  font-size: 36px;
+  color: #fff;
+  font-size: 200%;
 	font-weight: 700;
-	-webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);	
-}
-.buttonContainer{
+	height: 100%;
 	display: flex;
-	flex-direction: row;
-	height:100%;
+	align-items: center;
 }
+
+.tabs{
+	display: flex;
+
+}
+
 .clickables {
-
-  color: 	rgba(140, 140, 140, 0.529);	;
-	font-size: 24px; 
-	-webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);	
+  color: #fff;
+	font-size: 125%; 
 	cursor: pointer;
-	margin-left: 2em;
-
+	height: 100%;
+	width: 300px;
+	padding: 0em 2em;
+	text-align: center;
 }
 
-.alignHorizontal{
-	border-radius: 2px;
-	
-}
-
-.myEvents {
-  white-space: nowrap;
-  padding-right: 50px;
-  color: 	rgba(140, 140, 140, 0.529);	; 
-	font-size: 24px; 
-	-webkit-text-stroke: 2px rgba(100, 100, 100, 0.529);	
+.clickables:hover {
+	font-weight: 700;
 }

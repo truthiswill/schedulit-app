@@ -29,10 +29,8 @@ class Participants extends Component {
     let { names } = this.state;
     return (
       <div>
-        <div>
-          {names.length} Currently attending: {names.join(',')}
+      { `Attending: ${names.join(', ')} (${names.length}) `}
         </div>
-      </div>
     );
   }
 }
