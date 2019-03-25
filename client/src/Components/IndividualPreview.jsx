@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import SelectableTimeSlot from './SelectableTimeSlot';
 import HourLabel from './HourLabel';
-import styles from '../styles/individualPreview.css';
+import styles from '../styles/IndividualPreview.css';
+import TimeAxis from './TimeAxis';
 
 class IndividualPreview extends React.Component {
   constructor(props) {
@@ -104,10 +105,15 @@ class IndividualPreview extends React.Component {
 	}
 
   getSlotStatusForTimeSlot(timeSlot) {
-    let slotStatus = {};
+		let slotStatus = {};
+		let entireDayTimeSlot = {};
+		let currentDayStart = new Date(timeSlot.startTime.getFullYear(), timeSlot.startTime.getMonth(), timeSlot.startTime.getDate());
+		let currentDayEnd = new Date(currentDayStart.getTime()+24*60*60*1000);
+		entireDayTimeSlot.startTime = currentDayStart;
+		entireDayTimeSlot.endTime = currentDayEnd;
     Object
       .keys(this.state.allTimeSlotStatuses)
-      .filter(timestamp => this.timestampLiesInSlot(timestamp, timeSlot))
+      .filter(timestamp => this.timestampLiesInSlot(timestamp, entireDayTimeSlot))
       .map(timestamp => slotStatus[timestamp] = this.state.allTimeSlotStatuses[timestamp]);
     return slotStatus;
   }
@@ -120,25 +126,27 @@ class IndividualPreview extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div
 				className={styles.timeSlotsContainer}
-          style={
-            this.state.unavailable
-              ? { display: 'none' }
-              : { }
-          }
+          style={ this.state.unavailable  ? { display: 'none' } : { } }
         >
-          {this.generateLabel().concat ( this.props.eventData.availableSlots.map((timeSlot, index) => {
+				<TimeAxis 
+				earliestMinutesInDay={this.props.earliestMinutesInDay}
+				latestMinutesInDay={this.props.latestMinutesInDay}
+				numberOfSlots={this.props.eventData.availableSlots.length}
+				/>
+          {this.props.eventData.availableSlots.map((timeSlot, index) => {
             return (
               <SelectableTimeSlot
                 earliestMinutesInDay={this.props.earliestMinutesInDay}
                 latestMinutesInDay={this.props.latestMinutesInDay}
                 timeSlot={timeSlot}
                 eventData={this.props.eventData}
-                key={index}
+								key={index}
+								slotIndex={index}
                 slotStatus={this.getSlotStatusForTimeSlot(timeSlot)}
                 updateTimeSlotStatus={this.updateTimeSlotStatus}
               />
 						);
-          }))}
+          })}
         </div>
         <input
           type="checkbox"

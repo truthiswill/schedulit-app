@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/IndividualSlot.css';
+import styles from '../styles/SelectableTimeUnit.css';
 
 class SelectableTimeUnit extends React.Component {
   constructor(props) {

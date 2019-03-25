@@ -26,10 +26,8 @@ class HourLabel extends React.Component {
       let currentTimeStamp = new Date(
         stub + (this.props.earliestMinutesInDay + i * 15) * 60 * 1000
       );
-      if (
-        currentTimeStamp >= this.props.timeSlot.startTime &&
-        currentTimeStamp < this.props.timeSlot.endTime
-      ) {
+			if (currentTimeStamp >= this.props.timeSlot.startTime 
+				&& currentTimeStamp < this.props.timeSlot.endTime) {
         slotStatus[
           currentTimeStamp
         ] = this.props.eventData.participations[0].timeAvailable.some(
@@ -45,7 +43,6 @@ class HourLabel extends React.Component {
 	render() {
     return (
       <div>
-        TIME
         {Object.keys(this.state.slotStatus).map((timeStamp, index) => {
           timeStamp = new Date(timeStamp);
           if (timeStamp.getMinutes() === 0 || index === 0) {
