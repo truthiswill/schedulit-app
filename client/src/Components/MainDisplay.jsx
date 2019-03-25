@@ -76,7 +76,8 @@ class MainDisplay extends React.Component {
   }
 
   changeView(view) {
-    this.setState({ view })
+    this.setState({ view });
+    this.componentDidMount();
   }
 
   render() {
