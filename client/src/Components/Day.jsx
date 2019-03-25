@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/calendar.css';
+import styles from '../styles/Day.css';
 import classnames from 'classnames';
 
 class Day extends React.Component {
@@ -7,30 +7,31 @@ class Day extends React.Component {
     super(props);
   }
 
-  getClassNames(){
-    let classNames = [styles.calBox];
-    if(this.props.currentMonth === this.props.date.getMonth()){
-      classNames.push(styles.thisNumber);
-    } else if (this.props.date.getMonth() < this.props.currentMonth){
-      classNames.push(styles.lastNumber);
+  getClassNames() {
+    let classNames = [styles.dayContainer];
+    if (this.props.currentMonth === this.props.date.getMonth()) {
+      classNames.push(styles.currMonth);
+    } else if (this.props.date.getMonth() < this.props.currentMonth) {
+      classNames.push(styles.prevMonth);
     } else {
-      classNames.push(styles.nextNumber);
+      classNames.push(styles.nextMonth);
     }
-    classNames.push(styles['set'+this.props.set]);
-    if(this.props.date < new Date()){
+    if (this.props.date < new Date()) {
       classNames.push(styles.past);
     }
     return classnames(...classNames);
   }
   render() {
     return (
-      <div>
-        <div 
-          onClick={() => this.props.addDayToSet(this.props.date)}
-          className={this.getClassNames()}
-          > 
+      <div
+        onClick={() => this.props.addDayToSet(this.props.date)}
+        className={this.getClassNames()}
+      >
+        <div className={styles['set' + this.props.set]}>
+          <div className={styles.date}>
             {this.props.date.getDate()}
           </div>
+        </div>
       </div>
     )
   }

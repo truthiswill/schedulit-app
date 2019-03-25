@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/calendar.css';
+import styles from '../styles/DayPicker.css';
 import classnames from 'classnames';
 import Day from './Day.jsx';
 
@@ -8,60 +8,45 @@ import YearMonthHeader from './YearMonthHeader';
 class DayPicker extends React.Component {
   constructor(props) {
     super(props);
-    this.renderDays = this.renderDays.bind(this);
+    this.renderMonth = this.renderMonth.bind(this);
   }
 
-  renderDays() {
-    let dayComponents = [];
+  renderMonth() {
+    let weekComponents = [];
     let { currentYear, currentMonth } = this.props;
     let daysInLastMonth = (new Date(currentYear, currentMonth, 0)).getDate();
     let daysInCurrentMonth = (new Date(currentYear, currentMonth + 1, 0)).getDate();
     let dayOfFirstOfMonth = new Date(currentYear, currentMonth, 1).getDay();
     let dayOfLastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDay()
 
-    for (let i = daysInLastMonth - dayOfFirstOfMonth; i < daysInLastMonth; i++) {
-      let date = new Date(currentYear, currentMonth - 1, i)
-      dayComponents.push(
+    let startDate = daysInLastMonth - dayOfFirstOfMonth + 1;
+    let endDate = daysInLastMonth + daysInCurrentMonth + 6 - dayOfLastDayOfMonth;
+    let currentWeek = [];
+    for (let i = startDate; i <= endDate; i++) {
+      let date = new Date(currentYear, currentMonth - 1, i);
+      currentWeek.push(
         <Day
-          key={`last ${i}`}
+          key={i}
           date={date}
           addDayToSet={this.props.addDayToSet}
-          set={this.props.setOfDay[date]}
+          set={this.props.setOfDate[date]}
           currentMonth={this.props.currentMonth}
         />
       );
-    }
-
-    for (let i = 1; i <= daysInCurrentMonth; i++) {
-      let date = new Date(currentYear, currentMonth, i);
-      dayComponents.push(
-        <Day
-          key={`this ${i}`}
-          date={date}
-          addDayToSet={this.props.addDayToSet}
-          set={this.props.setOfDay[date]}
-          currentMonth={this.props.currentMonth}
-        />
-      );
-    }
-
-    if (dayOfLastDayOfMonth < 6) {
-      for (let n = 1; n <= (6 - dayOfLastDayOfMonth); n++) {
-        let date = new Date(currentYear, currentMonth + 1, n);
-        dayComponents.push(
-          <Day
-            key={`next ${n}`}
-            date={date}
-            addDayToSet={this.props.addDayToSet}
-            set={this.props.setOfDay[date]}
-          />
-        );
+      if (date.getDay() === 6) {
+        weekComponents.push(
+          <div className={styles.week}>
+            {currentWeek}
+          </div>
+        )
+        currentWeek = [];
       }
     }
-    return dayComponents;
+    return weekComponents;
   }
 
   render() {
+    const DAYSOFWEEK = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
     return (
       <div className={styles.calendarContainer}>
         <div className={styles.calendar}>
@@ -71,8 +56,15 @@ class DayPicker extends React.Component {
             nextMonth={this.props.nextMonth}
             prevMonth={this.props.prevMonth}
           />
-          <div className={styles.calendarGridContainer} >
-            {this.renderDays()}
+          <div className={styles.weeksContainer} >
+            <div className={styles.week}>
+              {DAYSOFWEEK.map(day => (
+                <div className={styles.dayContainer}>
+                  {day}
+                </div>
+              ))}
+            </div>
+            {this.renderMonth()}
           </div>
         </div>
       </div>

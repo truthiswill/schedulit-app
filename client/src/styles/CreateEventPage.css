@@ -1,0 +1,60 @@
+.eventForm {
+	color: slategray;
+	display: flex;
+	flex-direction: column;
+}
+
+.createPage{
+	padding: 1em 0em 0em 15em;
+}
+
+.eventInvitation {
+  color:#27ae54;
+  font-weight: 800;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.createContainer {
+  display: flex;
+  flex-wrap: wrap; 
+  margin: 1.5em;
+}
+
+.detailsContainer {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.inputFormContainer {
+padding: 1em;
+	max-width: 40%; 
+	flex: 1;
+}
+
+.hoursContainer {
+  width: 100%;
+}
+
+input[type=text] {
+  padding: 1em;
+  margin: 1em;
+  border: 2px solid slategray;
+  border-radius: 15px;
+	box-sizing: border-box;
+	font-size: 100%;
+}
+
+.submitButton {
+	text-transform: uppercase;
+		font-weight: 400;
+		font-size: 120%;
+    background-color: #27ae54;
+    text-align: center;
+    color: white;
+    padding: 0.5em  1em;
+    border-radius: 0.5em;
+		margin: 2em 1em 0.5em 1em;
+		cursor: pointer;
+}

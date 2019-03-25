@@ -1,7 +1,7 @@
 import React from 'react';
-import JoinEvent from './JoinEvent';
-import Events from './Events.jsx';
-import Create from './Create.jsx';
+import EventDetailsPage from './EventDetailsPage';
+import UserEventsPage from './UserEventsPage.jsx';
+import CreateEventPage from './CreateEventPage.jsx';
 import Navigation from './Navigation.jsx';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -13,8 +13,11 @@ class MainDisplay extends React.Component {
     this.state = {
       view: 'eventPage',
       events: []
-		}
-		this.joinEventIfExists = this.joinEventIfExists.bind(this);
+    }
+    this.joinEventIfExists = this.joinEventIfExists.bind(this);
+    this.changeView = this.changeView.bind(this);
+    this.fetchEvents = this.fetchEvents.bind(this);
+    this.getDisplay = this.getDisplay.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +49,7 @@ class MainDisplay extends React.Component {
     axios
       .get('/api/user')
       .then(({ data }) => {
-        let events = data.eventsCreated;
+        let events = data.eventsCreated.concat(data.eventsJoined.filter((eventId) => !data.eventsCreated.includes(eventId)));
         //Checks if user is logged in
         if (data.id !== undefined) {
           this.setState({ loggedIn: true });
@@ -64,24 +67,25 @@ class MainDisplay extends React.Component {
 
   getDisplay() {
     if (this.state.view === 'createPage') {
-      return <Create />;
+      return <CreateEventPage />;
     } else if (this.state.view === 'eventPage') {
-      return <Events events={this.state.events} joinEventIfExists = {this.joinEventIfExists} />;
+      return <UserEventsPage events={this.state.events} joinEventIfExists={this.joinEventIfExists} />;
     } else if (this.state.view === 'joinPage') {
-      return <JoinEvent eventData={this.state.eventData} />;
+      return <EventDetailsPage eventData={this.state.eventData} />;
     }
   }
 
   changeView(view) {
-    this.setState({ view })
+    this.setState({ view });
+    this.componentDidMount();
   }
 
   render() {
     return (
-      <div>
+      <>
         <Navigation changeView={this.changeView} />
         {this.getDisplay()}
-      </div>
+      </>
     );
   }
 }

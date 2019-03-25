@@ -1,0 +1,11 @@
+.container{
+	margin: 0em 1em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.date{
+	height: 1em;
+	margin-bottom: 0.5em;
+}

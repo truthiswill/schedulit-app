@@ -1,0 +1,50 @@
+.startTimeSelect {
+  background-color: #43e97b;
+  border-radius: 20%;
+  height: 45px;
+  width: 150px;
+  font-weight: 700;
+  color: #fff;
+  margin: 1em;
+  font-size: 120%;
+  max-height:200px;
+   overflow:auto;
+}
+
+.endTimeSelect {
+  background-color: #43e97b;
+  border-radius: 20%;
+  height: 45px;
+  width: 150px;
+  font-weight: 700;
+  color: #fff;
+  margin: 1em;
+  font-size: 120%;
+  max-height:200px;
+   overflow:auto;
+
+}
+
+.timePickerFont {
+  font-size: 120%;
+  font-weight: 400;
+  color: slategray;
+  margin: 10px;
+  text-transform: uppercase;
+}
+
+.hoursButton {
+	text-transform: uppercase;
+		font-weight: 400;
+		font-size: 100%;
+    background-color: #27ae54;
+    text-align: center;
+    color: white;
+    padding: 0.5em  1em;
+    border-radius: 0.5em;
+		margin: 2em 1em 0.5em 1em;
+		cursor: pointer;
+}
+
+
+

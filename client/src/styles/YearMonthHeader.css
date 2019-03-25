@@ -1,7 +1,7 @@
-/* FONT IMPORTS */
-
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+
 
 .icon {
   font-family: 'Material Icons', serif;
@@ -20,14 +20,6 @@
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'liga';
 }
-
-/* GENERAL */
-
-* {
-  box-sizing: border-box;
-}
-
-/* YearMonthHeader */
 
 .row {
   margin: 0;
@@ -61,8 +53,8 @@
 
 .calendarContainer {
   background-color: #008080;
-  border-radius: 25px;
-  width: 50%;
+	border-radius: 25px;
+	flex: 1;
 }
 
 .calendar .monthHeader .icon:hover {
@@ -87,84 +79,4 @@
 
 .calendar .monthHeader .icon:last-of-type {
   margin-right: 1em;
-}
-
-/* DayPicker */
-
-.calendarGridContainer {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto;
-  background-color:#778899;
-  border-radius: 0px 0px 25px 25px;
-}
-
-.calendar .days {
-  text-transform: uppercase;
-  font-weight: 600;
-  color: whitesmoke;
-  font-size: 95%;
-  padding: .75em 0;
-  border-bottom: 1px solid #eee;
-}
-
-/* Day */
-
-.calBox {
-  /* border: .5px solid lightgray; */
-  padding: 30px; 
-}
-
-.set1{
-  background-color: #2f82a4;
-  border: 2px solid white; 
-}
-
-.set2{
-  background-color: rgb(182, 182, 9);
-  border: 2px solid white;
-}
-
-.set3{
-  background-color: rgb(208, 55, 55);
-  border: 2px solid white;
-}
-
-.lastNumber {
-  font-size: 120%;
-  font-weight: 400;
-  text-align: center;
-  color: lightgrey;
-  border-radius: 25%;
-}
-
-.thisNumber {
-  font-size: 120%;
-  font-weight: 600;
-  text-align: center;
-  color: white;
-  border-radius: 25%;
-}
-
-.nextNumber {
-  font-size: 120%;
-  font-weight: 400;
-  text-align: center;
-  color: lightgrey;
-  border-radius: 25%;
-}
-
-.past{
-  color: darkgray;
-}
-
-.thisNumber:hover {
-  cursor: pointer;
-}
-
-.nextNumber:hover {
-  cursor: pointer;
-}
-
-.lastNumber:hover {
-  cursor: pointer;
 }
