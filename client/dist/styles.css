@@ -1,7 +1,6 @@
-body {
+html, body {
 	margin: 0;
-	border: 0;
-
+	height: 100%;
 }
 
 *{

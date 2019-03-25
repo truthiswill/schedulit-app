@@ -1,20 +1,25 @@
-import React from 'react';
+import React from "react";
+import Legend from './Legend'
+import GroupTimeSlot from "./GroupTimeSlot";
+import TimeAxis from "./TimeAxis";
 
-import GroupTimeSlot from './GroupTimeSlot';
 
-
-import styles from '../styles/GroupPreview.css'
+import styles from "../styles/GroupPreview.css";
 class GroupPreview extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
-			<div className = {styles.container}>
-			<div className={styles.title}>Everyone's Availability </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {
-          this.props.eventData.availableSlots.map((timeSlot, index) => {
+      <div className={styles.container}>
+        <div className={styles.title}>Everyone's Availability </div>
+        <div className={styles.timeSlotContainer}>
+          <TimeAxis
+            earliestMinutesInDay={this.props.earliestMinutesInDay}
+            latestMinutesInDay={this.props.latestMinutesInDay}
+            numberOfSlots={this.props.eventData.availableSlots.length}
+          />
+          {this.props.eventData.availableSlots.map((timeSlot, index) => {
             return (
               <GroupTimeSlot
                 earliestMinutesInDay={this.props.earliestMinutesInDay}
@@ -24,11 +29,11 @@ class GroupPreview extends React.Component {
                 key={index}
               />
             );
-          })
-        }
-      </div >
-			</div>
-    )
+          })}
+        </div>
+				<Legend participants={this.props.eventData.participants} />
+      </div>
+    );
   }
 }
 export default GroupPreview;
