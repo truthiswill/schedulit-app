@@ -9,3 +9,4 @@ Schedulit is a single page Javascript web application built with React/Express/M
 - Draggable time selection
 - Clear visualization of shared availabilities
 - Real-time updates
+### Demo:
