@@ -8,20 +8,20 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className={styles.overAll}>
+      <div className={styles.container}>
         <div className={styles.inner}>
-          <div className={styles.directions}>
-            Please Login to use the app
+          <div className={styles.schedulIt} >
+            <img src="greenLogo.png" style={{ width: '1.5em', height: '1.5em', padding: '0.3em' }}></img>
+            <div>Schedulit</div>
           </div>
-					<div className={styles.loginCenter}>
+          <div className={styles.loginCenter}>
             <button
               className={styles.button}
               onClick={this.props.openLoginPopup}
             >
-              Login
+              <img src ="GoogleButton.png" width="240" height="50"></img>
             </button>
           </div>
-
         </div>
       </div>
 
