@@ -10,3 +10,4 @@ Schedulit is a single page Javascript web application built with React/Express/M
 - Clear visualization of shared availabilities
 - Real-time updates
 ### Demo:
+![](schedulit-demo.gif)
